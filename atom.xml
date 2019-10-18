@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2019-10-18T14:47:40.827Z</updated>
+    <updated>2019-10-18T14:56:46.320Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
@@ -107,8 +107,20 @@
 </li>
 </ul>
 <h1 id="summary">Summary</h1>
-<p>What works: audio, graphics card, shutdown / restart / sleep, WiFi, bluetooth, airdrop, handoff</p>
-<p>What does not work: unlock with Apple Watch (This feature is limited to support of hardware. Please choose a native-support network card.)</p>
+<p>What works:</p>
+<ul>
+<li>audio</li>
+<li>graphics card</li>
+<li>shutdown / restart / sleep</li>
+<li>WiFi</li>
+<li>bluetooth</li>
+<li>airdrop</li>
+<li>handoff</li>
+</ul>
+<p>What does not work:</p>
+<ul>
+<li>unlock with Apple Watch (This feature is limited to support of hardware. Please choose a native-support network card.)</li>
+</ul>
 <p>That's all. Thanks for everyone who helped me build my first Hackintosh at Tonymacx86, especially for @CaseySJ's generous and patient help.</p>
 ]]></content>
     </entry>
