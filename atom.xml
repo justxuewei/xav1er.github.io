@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://localhost:4000</id>
+    <title>xav1er</title>
+    <updated>2019-10-18T13:54:28.589Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="http://localhost:4000"/>
+    <link rel="self" href="http://localhost:4000/atom.xml"/>
+    <subtitle>About code, about life, about everything.</subtitle>
+    <logo>http://localhost:4000/images/avatar.png</logo>
+    <icon>http://localhost:4000/favicon.ico</icon>
+    <rights>All rights reserved 2019, xav1er</rights>
+    <entry>
+        <title type="html"><![CDATA[[Success] Hackintosh on Gigabyte Z370N WiFi with i5-8500]]></title>
+        <id>http://localhost:4000/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500</id>
+        <link href="http://localhost:4000/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500">
+        </link>
+        <updated>2019-10-19T13:20:14.000Z</updated>
+        <summary type="html"><![CDATA[<p>I'm new to Hackintosh. When installed it on my pc, I almost got stuck at anywhere except post-installation.</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>I'm new to Hackintosh. When installed it on my pc, I almost got stuck at anywhere except post-installation.</p>
+<!--MORE-->
+<p>Firstly, if you hang on &quot;Installing Bootloader&quot; with Unibeast 9.0.0, please try to reinstall your macOS, which you use Unibeast, after backup with Time Machine. Besides, I suggest when you want to build yourself at very first time <strong>DO NOT</strong> buy XFX video card, which I took about 1 week to handle an error &quot;attempting system restart&quot;, although it appears at Tony's buyer guide.</p>
+<p>Update Log:</p>
+<ul>
+<li>Oct 15, 2019: support macOS Catalina</li>
+<li>Oct 16, 2019: update stuffs related to bluetooth for macOS Catalina</li>
+<li>Oct 17, 2019: fix system panic after sleeping after updated to 10.15(19A602)</li>
+</ul>
+<h1 id="hardware-summary">Hardware  Summary</h1>
+<ul>
+<li>MoBo: Gigabyte Z370N WiFi (M-ITX)</li>
+<li>CPU: Intel Core i5-8500</li>
+<li>Memory: Corsair Vengerance LPX DDR4 16G 3000MHz x2</li>
+<li>Graphics Card: Sapphire RX 580 Pulse 8GB</li>
+<li>Drives: Samsung EVO850 500G</li>
+<li>Wireless Network Card: BCM94352Z (M.2)</li>
+<li>PSUs: CoolerMaster MWE GOLD 650W</li>
+<li>CPU Cooler: CoolMaster T400i</li>
+<li>Case: Antec Cube - Designed By Razer</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-12-29-IMG_1249.jpg" alt=""></figure>
+<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2018-12-29-085816.png" alt=""></figure>
+<h2 id="bios-options">BIOS Options</h2>
+<p>As for BIOS options, I fellow with @CaseySJ's guide at <a href="https://www.tonymacx86.com/threads/success-ongoing-status-of-designare-z390-with-i7-9700k.266065/page-29#post-1880116">here</a>. There are huge differences (at least in the name of options) between the motherboards, you should refer to other tutorials if your motherboard not from Gigabyte.</p>
+<ul>
+<li>M.I.T &gt; Extreme Memory Profile (X.M.P.) &gt; Profile 1 <s>(The problem of usb devices unexpected disconnection after sleeping may take place if opt-in Profile 1, in turn you can have higher memory frequency that  could pass over 2133MHz.)</s></li>
+<li>BIOS &gt; Windows 8/10 Features &gt; Windows 8/10 (cuz there is not the option of &quot;Other OS&quot;)</li>
+<li>BIOS &gt; CSM Support &gt; Disabled</li>
+<li>BIOS &gt; Secure Boot &gt; Disabled</li>
+<li>Peripherals &gt; Intel Platform Trust Technology (PTT)  &gt; Disabled</li>
+<li>Peripherals &gt; USB Configuration &gt; Legacy USB Support &gt; Enabled</li>
+<li>Peripherals &gt; USB Configuration &gt; XHCI Hand-off &gt; Enabled</li>
+<li>Peripherals &gt; Network Stack Configuration &gt; Network Stack &gt; Disabled</li>
+<li>Chipset &gt; Vt-d &gt; Disabled</li>
+<li>Chipset &gt; Internal Graphics &gt; Enabled</li>
+<li>Chipset &gt; DVMT Pre-Alloc &gt; 64M</li>
+<li>Chipset &gt; DVMT Total Gfx Mem &gt; 256M</li>
+<li>Chipset &gt; Above 4G Decoding &gt; Enabled</li>
+</ul>
+<h1 id="post-installation">Post-Installation</h1>
+<p>The method of kext installation and rebuilding kext cache: Copy the kexts you want to install into the folder (like /Library/Extensions, aka /L/E, or other locations). Then, download the <strong>Kext Utility</strong> that help you rebuild the kext cache and others from <a href="http://cvad-mac.narod.ru/index/0-4">here</a>.</p>
+<p>I did following thing at the stage of post-installation:</p>
+<ul>
+<li>
+<p>Multibeast: Install clover on the SSD of Hackintosh.</p>
+</li>
+<li>
+<p>Config.plist: I applied this <a href="http://res.niuxuewei.com/config.plist">config</a> provided by @CaseySJ and works fine on my hackintosh.</p>
+</li>
+<li>
+<p>USB 3.0: Download <a href="http://res.niuxuewei.com/SSDT-UIAC-GA-Z370N-WIFI.aml">SSDT</a> and copy it into <code>/EFI/ACPI/patched/</code></p>
+</li>
+<li>
+<p>WiFI &amp; Bluetooth: I have changed to BCM94352Z from the built-in intel wireless network card, so the airdrop and handoff features are available. I recommend you read <a href="https://www.tonymacx86.com/threads/broadcom-wifi-bluetooth-guide.242423/">this post</a> firstly.</p>
+<ul>
+<li>WiFi: Download <a href="https://github.com/acidanthera/AirportBrcmFixup/releases">AirportBrcmFixup</a> and <a href="https://github.com/acidanthera/Lilu/releases">Lilu</a>, and then install <code>AirportBrcmFixup.kext</code> and <code>Lilu.kext</code> into <code>/L/E</code></li>
+<li>BT: Install <a href="https://github.com/xavier-niu/pub/blob/master/hackintosh/BrcmPatchRAM3-V2.3.0d3.zip">OS-X-BrcmPatchRAM</a>, and then install <code>BrcmFirmwareRepo.kext</code>, <code>BrcmPatchRAM3.kext</code> and <code>BrcmBluetoothInjector.kext</code> into <code>/L/E</code> <em>(EDIT@Oct 16, 2019: After updated to macOS Catalina, bluetooth may be not available with kexts built by RehabMan, please install latest version kexts in the link above as substitute.)</em></li>
+</ul>
+</li>
+<li>
+<p>Kexts installed on my Hackintosh:</p>
+<ul>
+<li>AirportBrcmFixup.kext (Wi-Fi)</li>
+<li>AppleALC.kext (Audio)</li>
+<li>BrcmFirmwareRepo.kext (BT)</li>
+<li>BrcmPatchRAM3.kext (BT)</li>
+<li>BrcmBluetoothInjector.kext(BT)</li>
+<li>FakeSMC.kext</li>
+<li>FakeSMC_ACPISensors.kext</li>
+<li>FakeSMC_CPUSensors.kext</li>
+<li>FakeSMC_GPUSensors.kext</li>
+<li>FakeSMC_LPCSensors.kext</li>
+<li>FakeSMC_SMMSensors.kext</li>
+<li>Lilu.kext</li>
+<li>USBInjectAll.kext (USB)</li>
+<li>XHCI-unsupported.kext (USB)</li>
+<li>WhateverGreen.kext (AMD Graphics Card)</li>
+<li>IntelMausiEthernet.kext (Ethernet) <em>(EDIT@Oct 17, 2019: the old version may arise system panic after sleeping. To resolve it, you should clone project of the latest from <a href="https://github.com/Mieze/IntelMausiEthernet">this repo</a> and build it by yourself with Xcode, in the end copy &amp; paste it into <code>/L/E</code> folder.)</em></li>
+</ul>
+</li>
+<li>
+<p>Enable HiDPI for 2K resolution display: see <a href="https://github.com/xzhih/one-key-hidpi">this repo</a></p>
+</li>
+<li>
+<p>Previews, a built-in app on macOS, cannot previews jpg files by pressing space functionally: As mentioned in Github of NoVPAjpeg, the latest Lilu could fix it with additional boot arguments.</p>
+</li>
+</ul>
+<h1 id="summary">Summary</h1>
+<p>What works: audio, graphics card, shutdown / restart / sleep, WiFi, bluetooth, airdrop, handoff</p>
+<p>What does not work: unlock with Apple Watch (This feature is limited to support of hardware. Please choose a native-support network card.)</p>
+<p>That's all. Thanks for everyone who helped me build my first Hackintosh at Tonymacx86, especially for @CaseySJ's generous and patient help.</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[利用Aria2批量下载中国大学MOOC(慕课)(iCourse163.org)的视频]]></title>
+        <id>http://localhost:4000/post/li-yong-aria2-pi-liang-xia-zai-zhong-guo-da-xue-moocmu-ke-icourse163orgde-shi-pin</id>
+        <link href="http://localhost:4000/post/li-yong-aria2-pi-liang-xia-zai-zhong-guo-da-xue-moocmu-ke-icourse163orgde-shi-pin">
+        </link>
+        <updated>2019-10-18T13:27:40.000Z</updated>
+        <summary type="html"><![CDATA[<p>最近在看Mooc网课的一些课程，但是经常会遇到已经结课无法查看的视频，而且目前由于iCourse163使用了HLS技术来播放视频，使得通过TamperMonkey(油猴脚本)的方式下载视频更加困难。因此我花了一个下午左右的时间，找到了一个批量下载iCourse163视频的方式。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>最近在看Mooc网课的一些课程，但是经常会遇到已经结课无法查看的视频，而且目前由于iCourse163使用了HLS技术来播放视频，使得通过TamperMonkey(油猴脚本)的方式下载视频更加困难。因此我花了一个下午左右的时间，找到了一个批量下载iCourse163视频的方式。</p>
+<!-- MORE -->
+<p>在使用之前需要注意，这篇教程理论上在任何系统中都可以运行，但是我仅在macOS下测试成功，不同系统之间可能存在着Bash命令差异。在动手之前需要准备以下几样东西：</p>
+<ul>
+<li>Python3</li>
+<li>Aria2(<a href="https://www.jianshu.com/p/97efbb73a747">安装步骤</a>)</li>
+</ul>
+<p>使用步骤</p>
+<ol>
+<li>获取视频源地址，借助工具<a href="http://tools.antlm.com/">antlm</a></li>
+<li>在右下角，点击批量下载以获取<code>.bat</code>文件</li>
+<li>下载<a href="https://github.com/xavier-niu/pub/tree/master/python/aira2-icourse163-dl">bat2aria2.py</a>，修改<code>source</code>、<code>output</code>和<code>download_dir</code>后，使用<code>python3 bat2aria2.py</code>运行即可获得一个下载列表
+<ul>
+<li>source: 你刚才下载的bat文件地址</li>
+<li>output: 你想要生成的文件地址，如<code>/Users/user/Download/aria2-download-list</code>，则运行完该命令后会自动生成一个<code>aria2-download-list</code>的文件</li>
+<li>download_dir: 保存视频的地址</li>
+</ul>
+</li>
+<li>运行<code>aria2c -i &quot;&lt;output&gt;&quot;</code></li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Mac Terminal使用Shadowsocks连接网络]]></title>
+        <id>http://localhost:4000/post/mac-terminal-shi-yong-shadowsocks-lian-jie-wang-luo</id>
+        <link href="http://localhost:4000/post/mac-terminal-shi-yong-shadowsocks-lian-jie-wang-luo">
+        </link>
+        <updated>2019-10-18T13:27:22.000Z</updated>
+        <summary type="html"><![CDATA[<p>最近需要在mac上使用homebrew安装软件，但是homebrew的软件都是在github上的，恰巧这几天校园网一直无法访问github，就从网上查找到了terminal使用代理的方式：</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>最近需要在mac上使用homebrew安装软件，但是homebrew的软件都是在github上的，恰巧这几天校园网一直无法访问github，就从网上查找到了terminal使用代理的方式：</p>
+<!-- MORE -->
+<ol>
+<li>
+<p>在mac上的shadowsocks的设置：</p>
+ <img src="http://res.niuxuewei.com/2018-04-29-022952.png" height="300px">
+</li>
+<li>
+<p>开启Terminal输入：</p>
+<pre><code class="language-bash"># 一般端口为1080 我的ss的设置是1086
+export http_proxy=socks5://127.0.0.1:1086
+export https_proxy=socks5://127.0.0.1:1086
+# 或者
+export ALL_PROXY=socks5://127.0.0.1:1086
+</code></pre>
+</li>
+<li>
+<p>Enjoy!XD</p>
+</li>
+</ol>
+<p>[EDIT@Oct 15, 2019] 其实核心在于找到本地代理的端口（地址一般是127.0.0.1），因此在其余的软件，诸如Surge、Clash、ShadowsocksR(SSR)，都是差不多的原理。不过使用Surge的话有更容易的快捷键，点击Surge在菜单栏的图标后按住&quot;Command + C&quot;即可快捷复制上述代码。</p>
+<p>需要注意的是</p>
+<ul>
+<li>
+<p>这个只对当前terminal窗口有效</p>
+</li>
+<li>
+<p>ping命令无法作为有效的检查工具，因为ping命令运行于网络层，而代理是在运输层之上的，我们可以用<code>curl</code>命令检测代理是否可用</p>
+<pre><code class="language-bash">curl -i https://www.google.com
+</code></pre>
+</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-04-29-024410.png" alt="对比图"></figure>
+<p>为了更加方便，我们可以通过别名(alias)在~~~/.bashrc~~文件中设置别名来快速开启或关闭代理（注意在macOS Catalina及以上默认Bash改为了ZSH，因此设置文件是<code>~/.zshrc</code>，其余发行版需根据实际情况设置）</p>
+<pre><code class="language-bash">vi ~/.bash_profile	# 编辑配置文件
+alias setproxy=&quot;export ALL_PROXY=socks5://127.0.0.1:1086&quot;
+alias unsetproxy=&quot;unset ALL_PROXY&quot;
+:wq保存后
+source ~/.bash_profile	# 立即生效
+setproxy	# 开启代理
+unsetproxy	# 关闭代理 
+</code></pre>
+<h1 id="references">References</h1>
+<ul>
+<li><a href="https://www.noxxxx.com/mac-%E4%B8%8B%E7%BB%88%E7%AB%AF%E8%B5%B0-ss-%E4%BB%A3%E7%90%86.html">#1 Mac 下终端走 ss代理</a></li>
+<li><a href="http://gaocegege.com/Blog/%E9%9A%8F%E7%AC%94/shadowsocks-with-terminal">#2 如何在OS X 10.11的Terminal中使用shadowsocks</a></li>
+<li><a href="https://www.jianshu.com/p/30ffeff2ce53">#3 MAC下终端走代理的几种方法</a></li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Setting A Static IP on VirtualBox for Ubuntu]]></title>
+        <id>http://localhost:4000/post/setting-a-static-ip-on-virtualbox-for-ubuntu</id>
+        <link href="http://localhost:4000/post/setting-a-static-ip-on-virtualbox-for-ubuntu">
+        </link>
+        <updated>2019-10-18T13:27:12.000Z</updated>
+        <summary type="html"><![CDATA[<p>Recently, I need to install a virtual machine on VirtualBox on my mac and assign it with a static ip. But I encountered several problems worthing to record it.</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Recently, I need to install a virtual machine on VirtualBox on my mac and assign it with a static ip. But I encountered several problems worthing to record it.</p>
+<!--MORE-->
+<p>The first step is install VirtualBox and download the iso of latest Ubuntu. These steps, too simple to waste time, are skipped. The following part will describe the details one-by-one.</p>
+<p>Step 1. Create a Host-only Network on VirtualBox</p>
+<ul>
+<li>Click &quot;File &gt; Host Network Manager&quot;</li>
+<li>Click &quot;Create&quot; in the upper left corner</li>
+</ul>
+<p>DHCP option I prefer do not modify, although it doesn't matter with setting static ip. In this way, you can get a new net called &quot;vboxnet0&quot;.</p>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2019-03-10-132337.png" alt="image-20190310212335100"></figure>
+<p>Step 2. Config your Virtual Machine</p>
+<ul>
+<li>Click right on your VM and select &quot;Settings&quot; option</li>
+<li>Click &quot;Network &gt; Adapter 2&quot; and alter these options as the below image</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2019-03-10-132610.png" alt="image-20190310212609408"></figure>
+<p>Step 3. Config the Network inside the VM</p>
+<p>(OS: Ubuntu Server 18.04 LTS)Startup your VM, and insert the command</p>
+<pre><code class="language-bash">ifconfig -a
+</code></pre>
+<p>It will output all Ethernets on your VM, your can find there is a different ethernet with no inet, netmask on the terminal. It is named &quot;end0s8&quot; in this case, but it can be a little difference between your case.  Then press the command</p>
+<pre><code class="language-bash">sudo vim /etc/netplan/50-cloud-init.yaml
+</code></pre>
+<p>Append some lines into that file</p>
+<pre><code class="language-yaml">networks: 
+  ethernets: 
+    enp0s3: 
+      dhcp4: true
+    # start here
+    enp0s8: 
+      # you can replace 101 between 1 and 254 arbitrarily
+      # please note do not use the same ip in one subnet
+      addresses: [192.168.56.101/24]
+    # end
+  version: 2
+</code></pre>
+<p>Save it and reboot. To verify, you can use &quot;ping 192.168.56.101&quot; command in terminal on the host. If the output is same like the below, congratulation, you done it.</p>
+<figure data-type="image" tabindex="3"><img src="http://res.niuxuewei.com/2019-03-10-134344.png" alt="image-20190310214342885"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Design Pattern in Python]]></title>
+        <id>http://localhost:4000/post/design-pattern-in-python</id>
+        <link href="http://localhost:4000/post/design-pattern-in-python">
+        </link>
+        <updated>2019-10-18T13:26:08.000Z</updated>
+        <summary type="html"><![CDATA[<p>Design Pattern, which help improve the structure of codes and read other source code faster, is a vital skill of development.</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Design Pattern, which help improve the structure of codes and read other source code faster, is a vital skill of development.</p>
+<!--MORE-->
+<h1 id="observer">Observer</h1>
+<blockquote>
+<p>Github: <a href="https://github.com/xavier-niu/python-playground/tree/design-pattern-observer-1.0">design-pattern-observer-1.0</a></p>
+<p>Last Updated: Januray 23, 2019</p>
+</blockquote>
+<p>Observer, which can be called Publish/Subscribe Mode, Model/View Mode, Source/Listener<br>
+Mode, Dependents Mode also, is a one-to-many relation. We abstract waster heater as an example of observer in<br>
+<code>observer</code>.</p>
+<p>In the <code>observer</code>, we can further rebuild the structure of code and extract the common parent classes. More details<br>
+can be found at <code>observer_v2</code>. We can inherit the basic classes we created to implement a brand-new &quot;waster heater&quot;<br>
+observers at <code>observer_v3</code>.</p>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2019-01-23-Main.png" alt="UML of Observer Mode"></figure>
+<p>Some points should be considered:</p>
+<ul>
+<li>You should figure out who are observers and observable. For example, there is a textarea that should be observable.<br>
+On the contrary, mouse and keyboard could be observer.</li>
+<li>Observable sends the notification to all observers without filtering. Observers should determine by themselves<br>
+whether subscribe the notifications from observable.</li>
+<li>Observable should has three methods at least, add observer, remove observer and notify observer. Meanwhile,<br>
+observers should has one method at least for processing when observable sent a notification.</li>
+</ul>
+<h1 id="adapter">Adapter</h1>
+<p>The more details are wrote into the comment of <a href="https://github.com/xavier-niu/python-playground/blob/design-pattern-adapter-1.0/adapter.py">adapter.py</a>. Please read this file first. The definition of adapter pattern is convert the interface of a class into another interface clients expect. Adapter lets classes work together that can't otherwise because of incompatible interfaces. Adapter mode like HDMI to DVI adapter in our life. The intentions of adapter are:</p>
+<ul>
+<li>Interface conversion</li>
+<li>Wrapping an existed class to a new class</li>
+<li>Making an old module adapt to a new environment</li>
+</ul>
+<p>There are three mainly roles:</p>
+<ul>
+<li>Target(IHighPerson): the interface clients expect</li>
+<li>Adaptee(ShortPerson): who you want to convert</li>
+<li>Adapter(PersonWithHHS): the core member of adapter mode</li>
+</ul>
+<p>To sum up, adapter is not for the new system instead of large one that has lots of components and will add some new classes that not support by original.</p>
+<h1 id="state">State</h1>
+<p>[<a href="https://github.com/xavier-niu/python-playground/tree/design-pattern-state-1.0">Github</a>]Just think about water, which have three different states but the substance is same. In the <code>state</code>, we simulate the<br>
+states of water, solid, liquid and gaseous, which change by the temperature. State pattern is the behavior and<br>
+external properties become difference when the internal state(temperature in this example) changes.</p>
+<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2019-01-26-134443.jpg" alt="UML of water example"></figure>
+<p>The abstract state pattern model can be found at <code>state_v2</code>.</p>
+<figure data-type="image" tabindex="3"><img src="http://res.niuxuewei.com/2019-01-26-142223.jpg" alt="UML of general model of the state pattern"></figure>
+<p><code>state_v3</code> is a version of <code>state</code> with the abstract model we created at <code>state_v2</code>. The outputs are same as <code>state</code>.<br>
+Be aware that:</p>
+<ul>
+<li><code>state_info</code> in this example is pretty simple, but it may complex in the practice. If so, this variable can be<br>
+wrapped into a class.</li>
+<li>The state of context should be singleton.</li>
+</ul>
+<p>You can apply state pattern into your project, if:</p>
+<ul>
+<li>the behavior of a class depends on the state, and the state may be changed when program running.</li>
+<li>your code has too much &quot;if&quot; statements, state mode helps enhance readability.</li>
+</ul>
+]]></content>
+    </entry>
+</feed>

@@ -1,0 +1,331 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>xav1er</title>
+<meta name="description" content="About code, about life, about everything." />
+<link rel="shortcut icon" href="http://localhost:4000/favicon.ico?v=1571406866722">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="http://localhost:4000/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="xav1er - Atom Feed" href="http://localhost:4000/atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="http://localhost:4000">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="http://localhost:4000/images/avatar.png?v=1571406866722" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">xav1er</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#hardware-summary">Hardware  Summary</a>
+<ul>
+<li><a href="#bios-options">BIOS Options</a></li>
+</ul>
+</li>
+<li><a href="#post-installation">Post-Installation</a></li>
+<li><a href="#summary">Summary</a></li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="http://localhost:4000/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="http://localhost:4000/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="http://localhost:4000/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="http://localhost:4000/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="http://localhost:4000/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">[Success] Hackintosh on Gigabyte Z370N WiFi with i5-8500</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-10-19 / 5 min read
+        </div>
+        
+        <div class="post-content yue">
+          <p>I'm new to Hackintosh. When installed it on my pc, I almost got stuck at anywhere except post-installation.</p>
+<!--MORE-->
+<p>Firstly, if you hang on &quot;Installing Bootloader&quot; with Unibeast 9.0.0, please try to reinstall your macOS, which you use Unibeast, after backup with Time Machine. Besides, I suggest when you want to build yourself at very first time <strong>DO NOT</strong> buy XFX video card, which I took about 1 week to handle an error &quot;attempting system restart&quot;, although it appears at Tony's buyer guide.</p>
+<p>Update Log:</p>
+<ul>
+<li>Oct 15, 2019: support macOS Catalina</li>
+<li>Oct 16, 2019: update stuffs related to bluetooth for macOS Catalina</li>
+<li>Oct 17, 2019: fix system panic after sleeping after updated to 10.15(19A602)</li>
+</ul>
+<h1 id="hardware-summary">Hardware  Summary</h1>
+<ul>
+<li>MoBo: Gigabyte Z370N WiFi (M-ITX)</li>
+<li>CPU: Intel Core i5-8500</li>
+<li>Memory: Corsair Vengerance LPX DDR4 16G 3000MHz x2</li>
+<li>Graphics Card: Sapphire RX 580 Pulse 8GB</li>
+<li>Drives: Samsung EVO850 500G</li>
+<li>Wireless Network Card: BCM94352Z (M.2)</li>
+<li>PSUs: CoolerMaster MWE GOLD 650W</li>
+<li>CPU Cooler: CoolMaster T400i</li>
+<li>Case: Antec Cube - Designed By Razer</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-12-29-IMG_1249.jpg" alt=""></figure>
+<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2018-12-29-085816.png" alt=""></figure>
+<h2 id="bios-options">BIOS Options</h2>
+<p>As for BIOS options, I fellow with @CaseySJ's guide at <a href="https://www.tonymacx86.com/threads/success-ongoing-status-of-designare-z390-with-i7-9700k.266065/page-29#post-1880116">here</a>. There are huge differences (at least in the name of options) between the motherboards, you should refer to other tutorials if your motherboard not from Gigabyte.</p>
+<ul>
+<li>M.I.T &gt; Extreme Memory Profile (X.M.P.) &gt; Profile 1 <s>(The problem of usb devices unexpected disconnection after sleeping may take place if opt-in Profile 1, in turn you can have higher memory frequency that  could pass over 2133MHz.)</s></li>
+<li>BIOS &gt; Windows 8/10 Features &gt; Windows 8/10 (cuz there is not the option of &quot;Other OS&quot;)</li>
+<li>BIOS &gt; CSM Support &gt; Disabled</li>
+<li>BIOS &gt; Secure Boot &gt; Disabled</li>
+<li>Peripherals &gt; Intel Platform Trust Technology (PTT)  &gt; Disabled</li>
+<li>Peripherals &gt; USB Configuration &gt; Legacy USB Support &gt; Enabled</li>
+<li>Peripherals &gt; USB Configuration &gt; XHCI Hand-off &gt; Enabled</li>
+<li>Peripherals &gt; Network Stack Configuration &gt; Network Stack &gt; Disabled</li>
+<li>Chipset &gt; Vt-d &gt; Disabled</li>
+<li>Chipset &gt; Internal Graphics &gt; Enabled</li>
+<li>Chipset &gt; DVMT Pre-Alloc &gt; 64M</li>
+<li>Chipset &gt; DVMT Total Gfx Mem &gt; 256M</li>
+<li>Chipset &gt; Above 4G Decoding &gt; Enabled</li>
+</ul>
+<h1 id="post-installation">Post-Installation</h1>
+<p>The method of kext installation and rebuilding kext cache: Copy the kexts you want to install into the folder (like /Library/Extensions, aka /L/E, or other locations). Then, download the <strong>Kext Utility</strong> that help you rebuild the kext cache and others from <a href="http://cvad-mac.narod.ru/index/0-4">here</a>.</p>
+<p>I did following thing at the stage of post-installation:</p>
+<ul>
+<li>
+<p>Multibeast: Install clover on the SSD of Hackintosh.</p>
+</li>
+<li>
+<p>Config.plist: I applied this <a href="http://res.niuxuewei.com/config.plist">config</a> provided by @CaseySJ and works fine on my hackintosh.</p>
+</li>
+<li>
+<p>USB 3.0: Download <a href="http://res.niuxuewei.com/SSDT-UIAC-GA-Z370N-WIFI.aml">SSDT</a> and copy it into <code>/EFI/ACPI/patched/</code></p>
+</li>
+<li>
+<p>WiFI &amp; Bluetooth: I have changed to BCM94352Z from the built-in intel wireless network card, so the airdrop and handoff features are available. I recommend you read <a href="https://www.tonymacx86.com/threads/broadcom-wifi-bluetooth-guide.242423/">this post</a> firstly.</p>
+<ul>
+<li>WiFi: Download <a href="https://github.com/acidanthera/AirportBrcmFixup/releases">AirportBrcmFixup</a> and <a href="https://github.com/acidanthera/Lilu/releases">Lilu</a>, and then install <code>AirportBrcmFixup.kext</code> and <code>Lilu.kext</code> into <code>/L/E</code></li>
+<li>BT: Install <a href="https://github.com/xavier-niu/pub/blob/master/hackintosh/BrcmPatchRAM3-V2.3.0d3.zip">OS-X-BrcmPatchRAM</a>, and then install <code>BrcmFirmwareRepo.kext</code>, <code>BrcmPatchRAM3.kext</code> and <code>BrcmBluetoothInjector.kext</code> into <code>/L/E</code> <em>(EDIT@Oct 16, 2019: After updated to macOS Catalina, bluetooth may be not available with kexts built by RehabMan, please install latest version kexts in the link above as substitute.)</em></li>
+</ul>
+</li>
+<li>
+<p>Kexts installed on my Hackintosh:</p>
+<ul>
+<li>AirportBrcmFixup.kext (Wi-Fi)</li>
+<li>AppleALC.kext (Audio)</li>
+<li>BrcmFirmwareRepo.kext (BT)</li>
+<li>BrcmPatchRAM3.kext (BT)</li>
+<li>BrcmBluetoothInjector.kext(BT)</li>
+<li>FakeSMC.kext</li>
+<li>FakeSMC_ACPISensors.kext</li>
+<li>FakeSMC_CPUSensors.kext</li>
+<li>FakeSMC_GPUSensors.kext</li>
+<li>FakeSMC_LPCSensors.kext</li>
+<li>FakeSMC_SMMSensors.kext</li>
+<li>Lilu.kext</li>
+<li>USBInjectAll.kext (USB)</li>
+<li>XHCI-unsupported.kext (USB)</li>
+<li>WhateverGreen.kext (AMD Graphics Card)</li>
+<li>IntelMausiEthernet.kext (Ethernet) <em>(EDIT@Oct 17, 2019: the old version may arise system panic after sleeping. To resolve it, you should clone project of the latest from <a href="https://github.com/Mieze/IntelMausiEthernet">this repo</a> and build it by yourself with Xcode, in the end copy &amp; paste it into <code>/L/E</code> folder.)</em></li>
+</ul>
+</li>
+<li>
+<p>Enable HiDPI for 2K resolution display: see <a href="https://github.com/xzhih/one-key-hidpi">this repo</a></p>
+</li>
+<li>
+<p>Previews, a built-in app on macOS, cannot previews jpg files by pressing space functionally: As mentioned in Github of NoVPAjpeg, the latest Lilu could fix it with additional boot arguments.</p>
+</li>
+</ul>
+<h1 id="summary">Summary</h1>
+<p>What works: audio, graphics card, shutdown / restart / sleep, WiFi, bluetooth, airdrop, handoff</p>
+<p>What does not work: unlock with Apple Watch (This feature is limited to support of hardware. Please choose a native-support network card.)</p>
+<p>That's all. Thanks for everyone who helped me build my first Hackintosh at Tonymacx86, especially for @CaseySJ's generous and patient help.</p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/TOwG4sGe_">
+            <span class="flex-auto">hackintosh</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/fTeD8dQZQG">
+            <span class="flex-auto">z370n</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/mMKueKHe-P">
+            <span class="flex-auto">z370n wifi</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/q0AHh6lCno">
+            <span class="flex-auto">macos</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="http://localhost:4000/post/li-yong-aria2-pi-liang-xia-zai-zhong-guo-da-xue-moocmu-ke-icourse163orgde-shi-pin">
+                <h3 class="post-title">
+                  利用Aria2批量下载中国大学MOOC(慕课)(iCourse163.org)的视频
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="http://localhost:4000/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

@@ -1,0 +1,287 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>xav1er</title>
+<meta name="description" content="About code, about life, about everything." />
+<link rel="shortcut icon" href="http://localhost:4000/favicon.ico?v=1571406866722">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="http://localhost:4000/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="xav1er - Atom Feed" href="http://localhost:4000/atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="http://localhost:4000">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="http://localhost:4000/images/avatar.png?v=1571406866722" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">xav1er</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#observer">Observer</a></li>
+<li><a href="#adapter">Adapter</a></li>
+<li><a href="#state">State</a></li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="http://localhost:4000/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="http://localhost:4000/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="http://localhost:4000/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="http://localhost:4000/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="http://localhost:4000/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Design Pattern in Python</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-10-18 / 4 min read
+        </div>
+        
+        <div class="post-content yue">
+          <p>Design Pattern, which help improve the structure of codes and read other source code faster, is a vital skill of development.</p>
+<!--MORE-->
+<h1 id="observer">Observer</h1>
+<blockquote>
+<p>Github: <a href="https://github.com/xavier-niu/python-playground/tree/design-pattern-observer-1.0">design-pattern-observer-1.0</a></p>
+<p>Last Updated: Januray 23, 2019</p>
+</blockquote>
+<p>Observer, which can be called Publish/Subscribe Mode, Model/View Mode, Source/Listener<br>
+Mode, Dependents Mode also, is a one-to-many relation. We abstract waster heater as an example of observer in<br>
+<code>observer</code>.</p>
+<p>In the <code>observer</code>, we can further rebuild the structure of code and extract the common parent classes. More details<br>
+can be found at <code>observer_v2</code>. We can inherit the basic classes we created to implement a brand-new &quot;waster heater&quot;<br>
+observers at <code>observer_v3</code>.</p>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2019-01-23-Main.png" alt="UML of Observer Mode"></figure>
+<p>Some points should be considered:</p>
+<ul>
+<li>You should figure out who are observers and observable. For example, there is a textarea that should be observable.<br>
+On the contrary, mouse and keyboard could be observer.</li>
+<li>Observable sends the notification to all observers without filtering. Observers should determine by themselves<br>
+whether subscribe the notifications from observable.</li>
+<li>Observable should has three methods at least, add observer, remove observer and notify observer. Meanwhile,<br>
+observers should has one method at least for processing when observable sent a notification.</li>
+</ul>
+<h1 id="adapter">Adapter</h1>
+<p>The more details are wrote into the comment of <a href="https://github.com/xavier-niu/python-playground/blob/design-pattern-adapter-1.0/adapter.py">adapter.py</a>. Please read this file first. The definition of adapter pattern is convert the interface of a class into another interface clients expect. Adapter lets classes work together that can't otherwise because of incompatible interfaces. Adapter mode like HDMI to DVI adapter in our life. The intentions of adapter are:</p>
+<ul>
+<li>Interface conversion</li>
+<li>Wrapping an existed class to a new class</li>
+<li>Making an old module adapt to a new environment</li>
+</ul>
+<p>There are three mainly roles:</p>
+<ul>
+<li>Target(IHighPerson): the interface clients expect</li>
+<li>Adaptee(ShortPerson): who you want to convert</li>
+<li>Adapter(PersonWithHHS): the core member of adapter mode</li>
+</ul>
+<p>To sum up, adapter is not for the new system instead of large one that has lots of components and will add some new classes that not support by original.</p>
+<h1 id="state">State</h1>
+<p>[<a href="https://github.com/xavier-niu/python-playground/tree/design-pattern-state-1.0">Github</a>]Just think about water, which have three different states but the substance is same. In the <code>state</code>, we simulate the<br>
+states of water, solid, liquid and gaseous, which change by the temperature. State pattern is the behavior and<br>
+external properties become difference when the internal state(temperature in this example) changes.</p>
+<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2019-01-26-134443.jpg" alt="UML of water example"></figure>
+<p>The abstract state pattern model can be found at <code>state_v2</code>.</p>
+<figure data-type="image" tabindex="3"><img src="http://res.niuxuewei.com/2019-01-26-142223.jpg" alt="UML of general model of the state pattern"></figure>
+<p><code>state_v3</code> is a version of <code>state</code> with the abstract model we created at <code>state_v2</code>. The outputs are same as <code>state</code>.<br>
+Be aware that:</p>
+<ul>
+<li><code>state_info</code> in this example is pretty simple, but it may complex in the practice. If so, this variable can be<br>
+wrapped into a class.</li>
+<li>The state of context should be singleton.</li>
+</ul>
+<p>You can apply state pattern into your project, if:</p>
+<ul>
+<li>the behavior of a class depends on the state, and the state may be changed when program running.</li>
+<li>your code has too much &quot;if&quot; statements, state mode helps enhance readability.</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/SWu9kI6Jj">
+            <span class="flex-auto">python</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/1SM8Ja3E-r">
+            <span class="flex-auto">design pattern</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/ybEabB9RR3">
+            <span class="flex-auto">observe</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="http://localhost:4000/post/setting-a-static-ip-on-virtualbox-for-ubuntu">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  Setting A Static IP on VirtualBox for Ubuntu
+                </h3>
+              </a>
+            </div>
+          
+
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="http://localhost:4000/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
