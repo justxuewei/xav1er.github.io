@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://localhost:4000</id>
+    <id>https://www.nxw.name</id>
     <title>xav1er</title>
-    <updated>2019-10-18T13:54:28.589Z</updated>
+    <updated>2019-10-18T13:59:10.766Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://localhost:4000"/>
-    <link rel="self" href="http://localhost:4000/atom.xml"/>
+    <link rel="alternate" href="https://www.nxw.name"/>
+    <link rel="self" href="https://www.nxw.name/atom.xml"/>
     <subtitle>About code, about life, about everything.</subtitle>
-    <logo>http://localhost:4000/images/avatar.png</logo>
-    <icon>http://localhost:4000/favicon.ico</icon>
+    <logo>https://www.nxw.name/images/avatar.png</logo>
+    <icon>https://www.nxw.name/favicon.ico</icon>
     <rights>All rights reserved 2019, xav1er</rights>
     <entry>
         <title type="html"><![CDATA[[Success] Hackintosh on Gigabyte Z370N WiFi with i5-8500]]></title>
-        <id>http://localhost:4000/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500</id>
-        <link href="http://localhost:4000/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500">
+        <id>https://www.nxw.name/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500</id>
+        <link href="https://www.nxw.name/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500">
         </link>
         <updated>2019-10-19T13:20:14.000Z</updated>
         <summary type="html"><![CDATA[<p>I'm new to Hackintosh. When installed it on my pc, I almost got stuck at anywhere except post-installation.</p>
@@ -114,8 +114,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[利用Aria2批量下载中国大学MOOC(慕课)(iCourse163.org)的视频]]></title>
-        <id>http://localhost:4000/post/li-yong-aria2-pi-liang-xia-zai-zhong-guo-da-xue-moocmu-ke-icourse163orgde-shi-pin</id>
-        <link href="http://localhost:4000/post/li-yong-aria2-pi-liang-xia-zai-zhong-guo-da-xue-moocmu-ke-icourse163orgde-shi-pin">
+        <id>https://www.nxw.name/post/li-yong-aria2-pi-liang-xia-zai-zhong-guo-da-xue-moocmu-ke-icourse163orgde-shi-pin</id>
+        <link href="https://www.nxw.name/post/li-yong-aria2-pi-liang-xia-zai-zhong-guo-da-xue-moocmu-ke-icourse163orgde-shi-pin">
         </link>
         <updated>2019-10-18T13:27:40.000Z</updated>
         <summary type="html"><![CDATA[<p>最近在看Mooc网课的一些课程，但是经常会遇到已经结课无法查看的视频，而且目前由于iCourse163使用了HLS技术来播放视频，使得通过TamperMonkey(油猴脚本)的方式下载视频更加困难。因此我花了一个下午左右的时间，找到了一个批量下载iCourse163视频的方式。</p>
@@ -144,8 +144,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[Mac Terminal使用Shadowsocks连接网络]]></title>
-        <id>http://localhost:4000/post/mac-terminal-shi-yong-shadowsocks-lian-jie-wang-luo</id>
-        <link href="http://localhost:4000/post/mac-terminal-shi-yong-shadowsocks-lian-jie-wang-luo">
+        <id>https://www.nxw.name/post/mac-terminal-shi-yong-shadowsocks-lian-jie-wang-luo</id>
+        <link href="https://www.nxw.name/post/mac-terminal-shi-yong-shadowsocks-lian-jie-wang-luo">
         </link>
         <updated>2019-10-18T13:27:22.000Z</updated>
         <summary type="html"><![CDATA[<p>最近需要在mac上使用homebrew安装软件，但是homebrew的软件都是在github上的，恰巧这几天校园网一直无法访问github，就从网上查找到了terminal使用代理的方式：</p>
@@ -202,8 +202,8 @@ unsetproxy	# 关闭代理
     </entry>
     <entry>
         <title type="html"><![CDATA[Setting A Static IP on VirtualBox for Ubuntu]]></title>
-        <id>http://localhost:4000/post/setting-a-static-ip-on-virtualbox-for-ubuntu</id>
-        <link href="http://localhost:4000/post/setting-a-static-ip-on-virtualbox-for-ubuntu">
+        <id>https://www.nxw.name/post/setting-a-static-ip-on-virtualbox-for-ubuntu</id>
+        <link href="https://www.nxw.name/post/setting-a-static-ip-on-virtualbox-for-ubuntu">
         </link>
         <updated>2019-10-18T13:27:12.000Z</updated>
         <summary type="html"><![CDATA[<p>Recently, I need to install a virtual machine on VirtualBox on my mac and assign it with a static ip. But I encountered several problems worthing to record it.</p>
@@ -250,8 +250,8 @@ unsetproxy	# 关闭代理
     </entry>
     <entry>
         <title type="html"><![CDATA[Design Pattern in Python]]></title>
-        <id>http://localhost:4000/post/design-pattern-in-python</id>
-        <link href="http://localhost:4000/post/design-pattern-in-python">
+        <id>https://www.nxw.name/post/design-pattern-in-python</id>
+        <link href="https://www.nxw.name/post/design-pattern-in-python">
         </link>
         <updated>2019-10-18T13:26:08.000Z</updated>
         <summary type="html"><![CDATA[<p>Design Pattern, which help improve the structure of codes and read other source code faster, is a vital skill of development.</p>
