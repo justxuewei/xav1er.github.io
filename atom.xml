@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>xav1er</title>
-    <updated>2019-10-18T14:01:56.222Z</updated>
+    <updated>2019-10-18T14:24:13.476Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
@@ -41,7 +41,7 @@
 </ul>
 <figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-12-29-IMG_1249.jpg" alt=""></figure>
 <figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2018-12-29-085816.png" alt=""></figure>
-<h2 id="bios-options">BIOS Options</h2>
+<h1 id="bios-options">BIOS Options</h1>
 <p>As for BIOS options, I fellow with @CaseySJ's guide at <a href="https://www.tonymacx86.com/threads/success-ongoing-status-of-designare-z390-with-i7-9700k.266065/page-29#post-1880116">here</a>. There are huge differences (at least in the name of options) between the motherboards, you should refer to other tutorials if your motherboard not from Gigabyte.</p>
 <ul>
 <li>M.I.T &gt; Extreme Memory Profile (X.M.P.) &gt; Profile 1 <s>(The problem of usb devices unexpected disconnection after sleeping may take place if opt-in Profile 1, in turn you can have higher memory frequency that  could pass over 2133MHz.)</s></li>
