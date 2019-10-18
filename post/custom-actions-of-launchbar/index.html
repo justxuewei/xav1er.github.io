@@ -40,34 +40,14 @@
       
         <div class="animated fadeInLeft" style="animation-delay: 0.4s">
           <p class="my-4 text-gray-600 font-light hidden lg:block">
-            About code, about life, about everything.
+            文章目录
           </p>
-          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
-            
-              
-                <a href="https://github.com/xavier-niu" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
-                  <i class="remixicon-github-line"></i>
-                </a>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#basic-usage">Basic Usage</a></li>
+<li><a href="#google-translate">Google Translate</a></li>
+</ul>
+
           </div>
         </div>
       
@@ -111,29 +91,90 @@
 </div>
 <div class="mask" onclick="closeMenu()">
 </div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
-        <h2 class="text-lg text-gray-700 mb-8">
-          <i class="remixicon-bookmark-line"></i> python
-        </h2>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Custom Actions of Launchbar</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-10-19 / 2 min read
+        </div>
         
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${0 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://www.nxw.name/post/design-pattern-in-python">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Design Pattern in Python</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <p>Design Pattern, which help improve the structure of codes and read other source code faster, is a vital skill of development.</p>
+        <div class="post-content yue">
+          <p><a href="https://www.obdev.at/products/launchbar/index.html">Launchbar</a>, a productivity tool for quick launch, has a feature called &quot;Action&quot; which could implement automation by programming to some extent. For more usage of Launchbar, you could check <a href="https://sspai.com/post/42907">this post(🇨🇳Chinese)</a>. And here I gonna share some of the Actions I am using. Hope this post could help you.</p>
+<h1 id="basic-usage">Basic Usage</h1>
+<p>Requirement:</p>
+<ul>
+<li>Python (for mac user python will be installed as default, so you can ignore it in case you are not familiar with)</li>
+<li>Launchbar</li>
+</ul>
+<p>How To Install:</p>
+<p>Firstly, download the actions you want to install on your mac from <a href="https://github.com/xavier-niu/pub/tree/master/launchbar">Github</a>. And you will get a file with &quot;.ibaction&quot; extention. Just double click and install. Then, open &quot;Launchbar&quot; and enter &quot;AE&quot; to go to &quot;Action Editor&quot; in which you could find all actions you have installed.<br>
+<img src="http://res.niuxuewei.com/2019-10-18-163444.png" alt=""><br>
+<img src="http://res.niuxuewei.com/2019-10-18-163506.png" alt=""></p>
+<h1 id="google-translate">Google Translate</h1>
+<p>Google Translate, GOT in short, is super handy with a feature, called Instant Send, that allows Launchbar get what select by your cursor. In behalf of accessing service Google Translate more quicker, I highly recommend to open &quot;Instant Seed&quot;. You should press <code>Command + ,</code> and go to &quot;Shortcuts&quot; tab on the top of Preferences window. Switch the option of Instant Seed from Off to any keymap you like. In my opinion, &quot;Double fn&quot; is the best and naturaliest way.</p>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2019-10-18-164637.png" alt="Shortcuts tab"></figure>
+<p>Now you can select a sentence you want to translate and press &quot;Double fn&quot; to active Instand Seed. The sentence are going to the input of launchbar and keep entering &quot;GOT&quot;, as a result you will get the translation from Google immediately.</p>
+<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2019-10-18-2019-10-19%2000.58.29.gif" alt=""></figure>
+<p>BTW, you can edit the script for more language support if you are familiar with Python. So feel free to leave a message and I will give you response as soon as possible.</p>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2019-10-18 / 4 min read</div>
-    </div>
-  </section>
+        </div>
 
-        <div class="pagination-container animated fadeIn">
-  
-  
-</div>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://www.nxw.name/tag/OrbuXWS9s">
+            <span class="flex-auto">launchbar</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://www.nxw.name/tag/w1rH-ODJTl">
+            <span class="flex-auto">action</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://www.nxw.name/tag/EsY3msUGz7">
+            <span class="flex-auto">google translate</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://www.nxw.name/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500">
+                <h3 class="post-title">
+                  [Success] Hackintosh on Gigabyte Z370N WiFi with i5-8500
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '95da5e6dfbe94e9621c5',
+    clientSecret: '6b6510006d4bd9b042323bc2c5b1374561942033',
+    repo: 'xav1er.github.io',
+    owner: 'xavier-niu',
+    admin: ['xavier-niu'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
 
       </div>
     </div>
