@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2019-10-20T00:18:13.124Z</updated>
+    <updated>2019-10-20T12:28:46.017Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
@@ -179,7 +179,7 @@
 <li>download_dir: 保存视频的地址</li>
 </ul>
 </li>
-<li>运行<code>aria2c -i &quot;&lt;output&gt;&quot;</code></li>
+<li>Enjoy it!</li>
 </ol>
 ]]></content>
     </entry>
