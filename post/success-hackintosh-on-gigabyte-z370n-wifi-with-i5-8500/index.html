@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Xavier&#39;s Blog</title>
 <meta name="description" content="About code, about life, about everything." />
-<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1572055387697">
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1572437821325">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -33,7 +33,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://www.nxw.name">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1572055387697" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1572437821325" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
       </div>
@@ -108,6 +108,7 @@
 <li>Oct 15, 2019: support macOS Catalina</li>
 <li>Oct 16, 2019: update stuffs related to bluetooth for macOS Catalina</li>
 <li>Oct 17, 2019: fix system panic after sleeping after updated to 10.15(19A602)</li>
+<li>Oct 30, 2019: update for macOS 10.15.1</li>
 </ul>
 <h1 id="hardware-summary">Hardware  Summary</h1>
 <ul>
@@ -177,7 +178,7 @@
 <li>Lilu.kext</li>
 <li>USBInjectAll.kext (USB)</li>
 <li>XHCI-unsupported.kext (USB)</li>
-<li>WhateverGreen.kext (AMD Graphics Card)</li>
+<li>WhateverGreen.kext (AMD Graphics Card) <em>(EDIT@Oct 30, 2019: For AMD users, please update WhateverGreen.kext to 1.3.4 or newer to support macOS 10.15.1, otherwise, blackscreen would happen when booting.)</em></li>
 <li>IntelMausiEthernet.kext (Ethernet) <em>(EDIT@Oct 17, 2019: the old version may arise system panic after sleeping. To resolve it, you should clone project of the latest from <a href="https://github.com/Mieze/IntelMausiEthernet">this repo</a> and build it by yourself with Xcode, in the end copy &amp; paste it into <code>/L/E</code> folder.)</em></li>
 </ul>
 </li>
