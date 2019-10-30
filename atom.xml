@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2019-10-30T12:23:06.320Z</updated>
+    <updated>2019-10-30T12:29:44.767Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
@@ -50,7 +50,7 @@
         <content type="html"><![CDATA[<p>I'm new to Hackintosh. When installed it on my pc, I almost got stuck at anywhere except post-installation.</p>
 <!--MORE-->
 <p>Firstly, if you hang on &quot;Installing Bootloader&quot; with Unibeast 9.0.0, please try to reinstall your macOS, which you use Unibeast, after backup with Time Machine. Besides, I suggest when you want to build yourself at very first time <strong>DO NOT</strong> buy XFX video card, which I took about 1 week to handle an error &quot;attempting system restart&quot;, although it appears at Tony's buyer guide.</p>
-<p>Update Log(You can locate them quickly by &quot;Ctrl+F&quot; with &quot;EDIT@&lt;UPDATE_DATE&gt;&quot;, e.g. EDIT@Oct 16, 2019):</p>
+<p>Update Log:</p>
 <ul>
 <li>Oct 15, 2019: support macOS Catalina</li>
 <li>Oct 16, 2019: update stuffs related to bluetooth for macOS Catalina</li>
