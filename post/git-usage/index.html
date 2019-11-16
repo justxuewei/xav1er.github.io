@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Xavier&#39;s Blog</title>
 <meta name="description" content="About code, about life, about everything." />
-<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1573870144529">
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1573870189390">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -33,7 +33,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://www.nxw.name">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1573870144529" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1573870189390" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
       </div>
@@ -43,7 +43,23 @@
             Table of Contents
           </p>
           <div class="toc-container hidden lg:block">
-            
+            <ul class="markdownIt-TOC">
+<li><a href="#initialization">Initialization</a></li>
+<li><a href="#branch">Branch</a></li>
+<li><a href="#tag">Tag</a></li>
+<li><a href="#fix-untracked-files">Fix untracked files</a></li>
+<li><a href="#how-to-undo-the-most-recent-commits">How to undo the most recent commits</a></li>
+<li><a href="#resolve-a-merge-conflict-using-the-command-line">Resolve a merge conflict using the command line</a></li>
+<li><a href="#remove-all-history-commits">Remove all history commits</a></li>
+<li><a href="#integrate-commit-and-push-into-one-command">Integrate commit and push into one command</a></li>
+<li><a href="#restore-the-deleted-file">Restore the deleted file</a></li>
+<li><a href="#refuse-to-merge-unrelated-histories">Refuse to Merge Unrelated Histories</a></li>
+<li><a href="#git-clone-with-specific-port">Git Clone with Specific Port</a></li>
+<li><a href="#move-files-when-checkout-a-new-branch-without-commit-or-merge">Move Files When Checkout a New Branch without Commit or Merge</a></li>
+<li><a href="#use-git-over-a-proxy">Use Git over a Proxy</a></li>
+<li><a href="#update-logs">Update Logs</a></li>
+</ul>
+
           </div>
         </div>
       
@@ -96,40 +112,40 @@
         <div class="post-content yue">
           <p>Git is an awesome tool for version control. I used to some convenient GUI applications to manage git repository, and  ignored how it works and how to do it by command line. So in this article I will record some useful git commands that I used in development.</p>
 <!--MORE-->
-<p>Initialization</p>
+<h1 id="initialization">Initialization</h1>
 <p>Initialize a local git repository</p>
-<pre><code>git init
+<pre><code class="language-bash">git init
 # recommand the way using ssh
 git remote add origin ssh@xxxx
 </code></pre>
 <p>Push to remote repository</p>
-<pre><code>git add .
+<pre><code class="language-bash">git add .
 git commit -a
 git push origin master
 </code></pre>
 <p>Pull from remote repository</p>
-<pre><code>git pull origin master
+<pre><code class="language-bash">git pull origin master
 </code></pre>
 <p>List the available remote repositories</p>
-<pre><code>git remote -v
+<pre><code class="language-bash">git remote -v
 </code></pre>
-<p>Branch</p>
+<h1 id="branch">Branch</h1>
 <p>Create</p>
-<pre><code># create a branch named &quot;branch1&quot;
+<pre><code class="language-bash"># create a branch named &quot;branch1&quot;
 git checkout -b branch1
 </code></pre>
 <p>Checkout (from local)</p>
-<pre><code>git checkout master
+<pre><code class="language-bash">git checkout master
 </code></pre>
 <p>Checkout (from remote to local)</p>
-<pre><code>git checkout -b branch1 origin/branch1
+<pre><code class="language-bash">git checkout -b branch1 origin/branch1
 </code></pre>
 <p>Merge</p>
-<pre><code># assume you are in master branch and want to merge the code from hotfix
+<pre><code class="language-bash"># assume you are in master branch and want to merge the code from hotfix
 git merge hotfix
 </code></pre>
 <p>Rename</p>
-<pre><code># rename
+<pre><code class="language-bash"># rename
 git branch -m old-name new-name
 # Delete the old-name remote branch and push the new-name local branch.
 git push origin :old-name new-name
@@ -137,16 +153,16 @@ git push origin :old-name new-name
 git push origin -u new-name
 </code></pre>
 <p>Delete local Branch</p>
-<pre><code>git branch -d branch_name
+<pre><code class="language-bash">git branch -d branch_name
 # force delete
 git branch -D branch_name
 </code></pre>
 <p>Delete remote branch (remote name: origin, remote branch: branch1)</p>
-<pre><code>git push origin --delete branch1
+<pre><code class="language-bash">git push origin --delete branch1
 </code></pre>
-<p>Tag</p>
+<h1 id="tag">Tag</h1>
 <p>Create</p>
-<pre><code># add tag(e.g. v1.0) for current branch
+<pre><code class="language-bash"># add tag(e.g. v1.0) for current branch
 git tag v1.0
 
 # add tag with commit id(e.g. 039bf8b)
@@ -156,34 +172,34 @@ git tag v1.0 039bf8b
 git tag -a v1.0 -m &quot;version 1.0&quot;
 </code></pre>
 <p>View</p>
-<pre><code># view local tags
+<pre><code class="language-bash"># view local tags
 git tag
 
 # view remote tags
 git ls-remote --tags
 </code></pre>
 <p>Share the Tags</p>
-<pre><code># push a specific tag
+<pre><code class="language-bash"># push a specific tag
 git push origin v1.0
 
 # push all local tags for one time
 git push origin --tags
 </code></pre>
 <p>Switch</p>
-<pre><code>git checkout v1.0
+<pre><code class="language-bash">git checkout v1.0
 </code></pre>
 <p>Delete remote tag(e.g. v1.0)</p>
 <pre><code>git push -d origin v1.0
 </code></pre>
-<p>Fix untracked files</p>
+<h1 id="fix-untracked-files">Fix untracked files</h1>
 <p>For example, although you added some files into .gitignore, those are still tracked by git. The solution of the problem shown in below:</p>
-<pre><code>git rm -r --cached .
+<pre><code class="language-bash">git rm -r --cached .
 git add .
 git commit -m &quot;fixed untracked files&quot;
 </code></pre>
-<p>How to undo the most recent commits</p>
-<p>The more details could be found in StackoverFlow.</p>
-<pre><code># your files will not lose, even index not too
+<h1 id="how-to-undo-the-most-recent-commits">How to undo the most recent commits</h1>
+<p>The more details could be found in <a href="https://stackoverflow.com/questions/927358/how-do-i-undo-the-most-recent-commits-in-git?page=1&amp;tab=votes#tab-top">StackoverFlow</a>.</p>
+<pre><code class="language-bash"># your files will not lose, even index not too
 # you can simply recommit again
 git reset --soft HEAD~
 git commit -a -m &quot;recommit&quot;
@@ -192,9 +208,9 @@ git commit -a -m &quot;recommit&quot;
 # that means this not leaves your files and index both
 git reset --hear HEAD~
 </code></pre>
-<p>Resolve a merge conflict using the command line</p>
-<p>The more details could be found in Github Documents.</p>
-<pre><code>git status
+<h1 id="resolve-a-merge-conflict-using-the-command-line">Resolve a merge conflict using the command line</h1>
+<p>The more details could be found in <a href="https://help.github.com/articles/resolving-a-merge-conflict-using-the-command-line/">Github Documents</a>.</p>
+<pre><code class="language-bash">git status
 # &gt;&gt;&gt; OUTPUTS OF git status &lt;&lt;&lt;
 # On branch master
 # You have unmerged paths.
@@ -222,12 +238,12 @@ git reset --hear HEAD~
 #         socket_learning/__pycache__/
 #         socket_learning/server_impl/__pycache__/
 </code></pre>
-<p>delete by us and added by us can be added or deleted simply using the following command.</p>
-<pre><code>git add &lt;file&gt;
+<p><code>delete by us</code> and <code>added by us</code> can be added or deleted simply using the following command.</p>
+<pre><code class="language-bash">git add &lt;file&gt;
 git rm &lt;file&gt;
 </code></pre>
-<p>both modified should manually merge using the text editor, like Vim or Atom. In these case, the conflict of routes.py is showing as below</p>
-<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:socket_learning/server_impl/routes.py
+<p><code>both modified</code> should manually merge using the text editor, like Vim or Atom. In these case, the conflict of <code>routes.py</code> is showing as below</p>
+<pre><code class="language-python">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:socket_learning/server_impl/routes.py
 from socket_learning.server_impl.models.message import Message
 from socket_learning.server_impl.models.user import User
 from socket_learning.server_impl.utils import log
@@ -237,40 +253,40 @@ from socket_learning.class3.models.user import User
 from socket_learning.class3.utils import log
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; d8a8b9b8ad0e55b7216520600ae1bf809b5b2aa7:socket_learning/class3/routes.py
 </code></pre>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt;,======= and&gt;&gt;&gt;&gt;&gt;&gt;&gt; indicates the places where conflict occurred, you should determine what the contents is the right one and change it with text editor.</p>
-<pre><code># handle the conflicts manually
+<p><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>,<code>=======</code> and<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> indicates the places where conflict occurred, you should determine what the contents is the right one and change it with text editor.</p>
+<pre><code class="language-python"># handle the conflicts manually
 from socket_learning.server_impl.models.message import Message
 from socket_learning.server_impl.models.user import User
 from socket_learning.server_impl.utils import log
 </code></pre>
 <p>Save it and recommit them.</p>
-<pre><code>git add .
+<pre><code class="language-bash">git add .
 git commit -a -m &quot;Merge branch 'master' of github.com:xavier-niu/python-playground&quot;
 </code></pre>
-<p>Remove all history commits</p>
+<h1 id="remove-all-history-commits">Remove all history commits</h1>
 <p>Checkout</p>
-<pre><code># the core use for &quot;git checkout --orphan&quot; is to reach 
+<pre><code class="language-bash"># the core use for &quot;git checkout --orphan&quot; is to reach 
 # a &quot;git init&quot;-like situation on a non-new repository
 git checkout --orphan latest_branch
 </code></pre>
 <p>Add all the files</p>
-<pre><code>git add -A
+<pre><code class="language-bash">git add -A
 </code></pre>
 <p>Commit the changes</p>
-<pre><code>git commit -am &quot;commit message&quot;
+<pre><code class="language-bash">git commit -am &quot;commit message&quot;
 </code></pre>
 <p>Delete the master branch (or what branch you want to clean)</p>
-<pre><code>git branch -D master
+<pre><code class="language-bash">git branch -D master
 </code></pre>
 <p>Rename the current branch to master</p>
-<pre><code>git branch -m master
+<pre><code class="language-bash">git branch -m master
 </code></pre>
 <p>Finally, force update your repository</p>
-<pre><code>git push -f origin master
+<pre><code class="language-bash">git push -f origin master
 </code></pre>
-<p>Integrate commit and push into one command</p>
-<p>This not supports by the build-in git command. But we can add a customized function into .bash_profile(for mac) to implement it.</p>
-<pre><code># lazygit for using commit and push in one command
+<h1 id="integrate-commit-and-push-into-one-command">Integrate commit and push into one command</h1>
+<p>This not supports by the build-in git command. But we can add a customized function into <code>.bash_profile</code>(for mac) to implement it.</p>
+<pre><code class="language-bash"># lazygit for using commit and push in one command
 # usage: lazygit &quot;commit msg&quot;
 function lazygit() {
 	git add .
@@ -278,80 +294,80 @@ function lazygit() {
 	git push
 }
 </code></pre>
-<p>Restore the deleted file</p>
-<p>Assume that test.txt is the file you want to restore. First of all, find the last commit that affected the given path.</p>
-<pre><code>git rev-list -n 1 HEAD -- test.txt
+<h1 id="restore-the-deleted-file">Restore the deleted file</h1>
+<p>Assume that <code>test.txt</code> is the file you want to restore. First of all, find the last commit that affected the given path.</p>
+<pre><code class="language-bash">git rev-list -n 1 HEAD -- test.txt
 # outputs: 145107deebdbbad4ce0824b0dbb6f648b5515de7
 </code></pre>
 <p>The outputs are the id of the last commit. Checkout the version at the commit before, using the caret symbol.</p>
-<pre><code>git checkout 145107deebdbbad4ce0824b0dbb6f648b5515de7^ -- text.txt
+<pre><code class="language-bash">git checkout 145107deebdbbad4ce0824b0dbb6f648b5515de7^ -- text.txt
 </code></pre>
 <p>Or in one command</p>
-<pre><code>git checkout $(get rev-list -n 1 HEAD -- text.txt)^ -- text.txt
+<pre><code class="language-bash">git checkout $(get rev-list -n 1 HEAD -- text.txt)^ -- text.txt
 </code></pre>
-<p>Refuse to Merge Unrelated Histories</p>
+<h1 id="refuse-to-merge-unrelated-histories">Refuse to Merge Unrelated Histories</h1>
 <p>Git reports an error when pulling from remote source.</p>
 <pre><code>XavierNius-iMac:lucius-dev xavierniu$ git pull origin master
 From github.com:xavier-niu/docker-lucius
  * branch            master     -&gt; FETCH_HEAD
 fatal: refusing to merge unrelated histories
 </code></pre>
-<p>The following command with --allow-unrelated-histories is work.</p>
-<pre><code>git pull origin master --allow-unrelated-histories
+<p>The following command with <code>--allow-unrelated-histories</code> is work.</p>
+<pre><code class="language-bash">git pull origin master --allow-unrelated-histories
 </code></pre>
-<p>Git Clone with Specific Port</p>
+<h1 id="git-clone-with-specific-port">Git Clone with Specific Port</h1>
 <p>The git clone command with default port is</p>
-<pre><code>git clone git@localhost:root/lucius.git
+<pre><code class="language-bash">git clone git@localhost:root/lucius.git
 </code></pre>
 <p>Assume that the port is 1923, the command is switch to</p>
-<pre><code>git clone ssh://git@@localhost:1923/root/lucius.git
+<pre><code class="language-bash">git clone ssh://git@@localhost:1923/root/lucius.git
 </code></pre>
 <p>What we added:</p>
 <ul>
 <li>ssh protocol at the beginning of address</li>
 <li>the port you specified behind the colon</li>
 </ul>
-<p>Move Files When Checkout a New Branch without Commit or Merge</p>
-<p>Sometimes, I often forget to checkout a new branch when composing a new module. Therefore, I don't want to commit it, neither want to merge it, but only would like to save current status and change the branch in that I haven't reached the milestone. To achieve it, I recommend to use stash command.</p>
-<pre><code># step 1
+<h1 id="move-files-when-checkout-a-new-branch-without-commit-or-merge">Move Files When Checkout a New Branch without Commit or Merge</h1>
+<p>Sometimes, I often forget to checkout a new branch when composing a new module. Therefore, I don't want to commit it, neither want to merge it, but only would like to save current status and change the branch in that I haven't reached the milestone. To achieve it, I recommend to use <code>stash</code> command.</p>
+<pre><code class="language-bash"># step 1
 git stash
 # step 2: checkout
 git checkout new-branch
 # step 3: restore current status
 git stash pop
 </code></pre>
-<p>Use Git over a Proxy</p>
-<p>Assume that there is a proxy like 127.0.0.1:1080, both http and ssh proxy should be configed to ensure we can access the remote resources through any ways, like ssh protocol.</p>
-<pre><code># git http proxy
+<h1 id="use-git-over-a-proxy">Use Git over a Proxy</h1>
+<p>Assume that there is a proxy like <code>127.0.0.1:1080</code>, both http and ssh proxy should be configed to ensure we can access the remote resources through any ways, like ssh protocol.</p>
+<pre><code class="language-bash"># git http proxy
 git config --global http.proxy socks5://127.0.0.1:1080
 </code></pre>
-<p>Add the following lines into ~/.ssh/config, this method is passed on the macOS, other OS I haven't test.</p>
+<p>Add the following lines into <code>~/.ssh/config</code>, this method is passed on the macOS, other OS I haven't test.</p>
 <pre><code>Host github.com
     ProxyCommand          nc -X connect -x 127.0.0.1:1081 %h %p
     ServerAliveInterval   10m
 </code></pre>
 <p>BTW, in the git http proxy config, you should use socks proxy with the &quot;socks5://&quot; prefix, on the contrary, in the ssh config, you should use http proxy.</p>
 <hr>
-<p>Update Logs</p>
+<h1 id="update-logs">Update Logs</h1>
 <p>This post will be updated continuously with my development. There are the logs to better know when I updated those contents:</p>
 <ul>
-<li>January 20, 2019: init move all contents from Notion to my blog</li>
-<li>January 21, 2019: add remove all history commits</li>
+<li>January 20, 2019: <code>init</code> move all contents from Notion to my blog</li>
+<li>January 21, 2019: <code>add</code> remove all history commits</li>
 <li>January 22, 2019:
 <ul>
-<li>add branch &gt; delete remote branch</li>
-<li>update tag &gt; create</li>
-<li>add tag &gt; delete remote tag</li>
-<li>update tag &gt; share the tags</li>
-<li>update tag &gt; view</li>
+<li><code>add</code> branch &gt; delete remote branch</li>
+<li><code>update</code> tag &gt; create</li>
+<li><code>add</code> tag &gt; delete remote tag</li>
+<li><code>update</code> tag &gt; share the tags</li>
+<li><code>update</code> tag &gt; view</li>
 </ul>
 </li>
-<li>January 27, 2019: add integrate commit and push into one command</li>
-<li>February 3, 2019: add restore the deleted file</li>
-<li>February 27, 2019: add refuse to merge unrelated histories</li>
-<li>March 8, 2019: add git clone with specific port</li>
-<li>March 17, 2019: add move files ehen checkout a new branch without commit or merge</li>
-<li>April 4, 2019: add use git over a proxy</li>
+<li>January 27, 2019: <code>add</code> integrate commit and push into one command</li>
+<li>February 3, 2019: <code>add</code> restore the deleted file</li>
+<li>February 27, 2019: <code>add</code> refuse to merge unrelated histories</li>
+<li>March 8, 2019: <code>add</code> git clone with specific port</li>
+<li>March 17, 2019: <code>add</code> move files ehen checkout a new branch without commit or merge</li>
+<li>April 4, 2019: <code>add</code> use git over a proxy</li>
 </ul>
 
         </div>
