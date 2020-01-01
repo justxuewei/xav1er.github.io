@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Xavier&#39;s Blog</title>
 <meta name="description" content="About code, about life, about everything." />
-<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1573870189390">
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1577856984772">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -33,7 +33,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://www.nxw.name">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1573870189390" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1577856984772" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
       </div>
@@ -109,6 +109,7 @@
 <li>Oct 16, 2019: update stuffs related to bluetooth for macOS Catalina</li>
 <li>Oct 17, 2019: fix system panic after sleeping after updated to 10.15(19A602)</li>
 <li>Oct 30, 2019: update for macOS 10.15.1</li>
+<li>Jan 1, 2020: replace BCM94352Z with BCM94360CS2, a network card natively supports by Apple, hence, all info related to wifi and bluetooth is removed.</li>
 </ul>
 <h1 id="hardware-summary">Hardware  Summary</h1>
 <ul>
@@ -117,13 +118,13 @@
 <li>Memory: Corsair Vengerance LPX DDR4 16G 3000MHz x2</li>
 <li>Graphics Card: Sapphire RX 580 Pulse 8GB</li>
 <li>Drives: Samsung EVO850 500G</li>
-<li>Wireless Network Card: BCM94352Z (M.2)</li>
+<li>Wireless Network Card: BCM94360CS2 (M.2)</li>
 <li>PSUs: CoolerMaster MWE GOLD 650W</li>
 <li>CPU Cooler: CoolMaster T400i</li>
 <li>Case: Antec Cube - Designed By Razer</li>
 </ul>
-<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-12-29-IMG_1249.jpg" alt=""></figure>
-<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2018-12-29-085816.png" alt=""></figure>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-12-29-IMG_1249.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2018-12-29-085816.png" alt="" loading="lazy"></figure>
 <h1 id="bios-options">BIOS Options</h1>
 <p>As for BIOS options, I fellow with @CaseySJ's guide at <a href="https://www.tonymacx86.com/threads/success-ongoing-status-of-designare-z390-with-i7-9700k.266065/page-29#post-1880116">here</a>. There are huge differences (at least in the name of options) between the motherboards, you should refer to other tutorials if your motherboard not from Gigabyte.</p>
 <ul>
@@ -155,20 +156,9 @@
 <p>USB 3.0: Download <a href="http://res.niuxuewei.com/SSDT-UIAC-GA-Z370N-WIFI.aml">SSDT</a> and copy it into <code>/EFI/ACPI/patched/</code></p>
 </li>
 <li>
-<p>WiFI &amp; Bluetooth: I have changed to BCM94352Z from the built-in intel wireless network card, so the airdrop and handoff features are available. I recommend you read <a href="https://www.tonymacx86.com/threads/broadcom-wifi-bluetooth-guide.242423/">this post</a> firstly.</p>
-<ul>
-<li>WiFi: Download <a href="https://github.com/acidanthera/AirportBrcmFixup/releases">AirportBrcmFixup</a> and <a href="https://github.com/acidanthera/Lilu/releases">Lilu</a>, and then install <code>AirportBrcmFixup.kext</code> and <code>Lilu.kext</code> into <code>/L/E</code></li>
-<li>BT: Install <a href="https://github.com/acidanthera/BrcmPatchRAM/releases">OS-X-BrcmPatchRAM</a>, and then install <code>BrcmFirmwareRepo.kext</code>, <code>BrcmPatchRAM3.kext</code> and <code>BrcmBluetoothInjector.kext</code> into <code>/L/E</code> <em>(EDIT@Oct 16, 2019: After updated to macOS Catalina, bluetooth may be not available with kexts built by RehabMan, please install latest version kexts in the link above as substitute.)</em></li>
-</ul>
-</li>
-<li>
 <p>Kexts installed on my Hackintosh:</p>
 <ul>
-<li>AirportBrcmFixup.kext (Wi-Fi)</li>
 <li>AppleALC.kext (Audio)</li>
-<li>BrcmFirmwareRepo.kext (BT)</li>
-<li>BrcmPatchRAM3.kext (BT)</li>
-<li>BrcmBluetoothInjector.kext(BT)</li>
 <li>FakeSMC.kext</li>
 <li>FakeSMC_ACPISensors.kext</li>
 <li>FakeSMC_CPUSensors.kext</li>
@@ -199,10 +189,7 @@
 <li>bluetooth</li>
 <li>airdrop</li>
 <li>handoff</li>
-</ul>
-<p>What does not work:</p>
-<ul>
-<li>unlock with Apple Watch (This feature is limited to support of hardware. Please choose a native-support network card.)</li>
+<li>unlock with Apple Watch</li>
 </ul>
 <p>That's all. Thanks for everyone who helped me build my first Hackintosh at Tonymacx86, especially for @CaseySJ's generous and patient help.</p>
 

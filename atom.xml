@@ -2,14 +2,14 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2019-11-16T02:10:20.044Z</updated>
+    <updated>2020-01-01T05:36:37.859Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
     <subtitle>About code, about life, about everything.</subtitle>
     <logo>https://www.nxw.name/images/avatar.png</logo>
     <icon>https://www.nxw.name/favicon.ico</icon>
-    <rights>All rights reserved 2019, Xavier&apos;s Blog</rights>
+    <rights>All rights reserved 2020, Xavier&apos;s Blog</rights>
     <entry>
         <title type="html"><![CDATA[Git Usage]]></title>
         <id>https://www.nxw.name/post/git-usage</id>
@@ -298,13 +298,13 @@ git config --global http.proxy socks5://127.0.0.1:1080
 </ul>
 <p>How To Install:</p>
 <p>Firstly, download the actions you want to install on your mac from <a href="https://github.com/xavier-niu/pub/tree/master/launchbar">Github</a>. And you will get a file with &quot;.ibaction&quot; extention. Just double click and install. Then, open &quot;Launchbar&quot; and enter &quot;AE&quot; to go to &quot;Action Editor&quot; in which you could find all actions you have installed.<br>
-<img src="http://res.niuxuewei.com/2019-10-18-163444.png" alt=""><br>
-<img src="http://res.niuxuewei.com/2019-10-18-163506.png" alt=""></p>
+<img src="http://res.niuxuewei.com/2019-10-18-163444.png" alt="" loading="lazy"><br>
+<img src="http://res.niuxuewei.com/2019-10-18-163506.png" alt="" loading="lazy"></p>
 <h1 id="google-translate">Google Translate</h1>
 <p>Google Translate, GOT in short, is super handy with a feature, called Instant Send, that allows Launchbar get what select by your cursor. In behalf of accessing service Google Translate more quicker, I highly recommend to open &quot;Instant Seed&quot;. You should press <code>Command + ,</code> and go to &quot;Shortcuts&quot; tab on the top of Preferences window. Switch the option of Instant Seed from Off to any keymap you like. In my opinion, &quot;Double fn&quot; is the best and naturaliest way.</p>
-<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2019-10-18-164637.png" alt="Shortcuts tab"></figure>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2019-10-18-164637.png" alt="Shortcuts tab" loading="lazy"></figure>
 <p>Now you can select a sentence you want to translate and press &quot;Double fn&quot; to active Instand Seed. The sentence are going to the input of launchbar and keep entering &quot;GOT&quot;, as a result you will get the translation from Google immediately.</p>
-<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2019-10-18-2019-10-19%2000.58.29.gif" alt=""></figure>
+<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2019-10-18-2019-10-19%2000.58.29.gif" alt="" loading="lazy"></figure>
 <p>BTW, you can edit the script for more language support if you are familiar with Python. So feel free to leave a message and I will give you response as soon as possible.</p>
 ]]></content>
     </entry>
@@ -325,6 +325,7 @@ git config --global http.proxy socks5://127.0.0.1:1080
 <li>Oct 16, 2019: update stuffs related to bluetooth for macOS Catalina</li>
 <li>Oct 17, 2019: fix system panic after sleeping after updated to 10.15(19A602)</li>
 <li>Oct 30, 2019: update for macOS 10.15.1</li>
+<li>Jan 1, 2020: replace BCM94352Z with BCM94360CS2, a network card natively supports by Apple, hence, all info related to wifi and bluetooth is removed.</li>
 </ul>
 <h1 id="hardware-summary">Hardware  Summary</h1>
 <ul>
@@ -333,13 +334,13 @@ git config --global http.proxy socks5://127.0.0.1:1080
 <li>Memory: Corsair Vengerance LPX DDR4 16G 3000MHz x2</li>
 <li>Graphics Card: Sapphire RX 580 Pulse 8GB</li>
 <li>Drives: Samsung EVO850 500G</li>
-<li>Wireless Network Card: BCM94352Z (M.2)</li>
+<li>Wireless Network Card: BCM94360CS2 (M.2)</li>
 <li>PSUs: CoolerMaster MWE GOLD 650W</li>
 <li>CPU Cooler: CoolMaster T400i</li>
 <li>Case: Antec Cube - Designed By Razer</li>
 </ul>
-<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-12-29-IMG_1249.jpg" alt=""></figure>
-<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2018-12-29-085816.png" alt=""></figure>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-12-29-IMG_1249.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2018-12-29-085816.png" alt="" loading="lazy"></figure>
 <h1 id="bios-options">BIOS Options</h1>
 <p>As for BIOS options, I fellow with @CaseySJ's guide at <a href="https://www.tonymacx86.com/threads/success-ongoing-status-of-designare-z390-with-i7-9700k.266065/page-29#post-1880116">here</a>. There are huge differences (at least in the name of options) between the motherboards, you should refer to other tutorials if your motherboard not from Gigabyte.</p>
 <ul>
@@ -371,20 +372,9 @@ git config --global http.proxy socks5://127.0.0.1:1080
 <p>USB 3.0: Download <a href="http://res.niuxuewei.com/SSDT-UIAC-GA-Z370N-WIFI.aml">SSDT</a> and copy it into <code>/EFI/ACPI/patched/</code></p>
 </li>
 <li>
-<p>WiFI &amp; Bluetooth: I have changed to BCM94352Z from the built-in intel wireless network card, so the airdrop and handoff features are available. I recommend you read <a href="https://www.tonymacx86.com/threads/broadcom-wifi-bluetooth-guide.242423/">this post</a> firstly.</p>
-<ul>
-<li>WiFi: Download <a href="https://github.com/acidanthera/AirportBrcmFixup/releases">AirportBrcmFixup</a> and <a href="https://github.com/acidanthera/Lilu/releases">Lilu</a>, and then install <code>AirportBrcmFixup.kext</code> and <code>Lilu.kext</code> into <code>/L/E</code></li>
-<li>BT: Install <a href="https://github.com/acidanthera/BrcmPatchRAM/releases">OS-X-BrcmPatchRAM</a>, and then install <code>BrcmFirmwareRepo.kext</code>, <code>BrcmPatchRAM3.kext</code> and <code>BrcmBluetoothInjector.kext</code> into <code>/L/E</code> <em>(EDIT@Oct 16, 2019: After updated to macOS Catalina, bluetooth may be not available with kexts built by RehabMan, please install latest version kexts in the link above as substitute.)</em></li>
-</ul>
-</li>
-<li>
 <p>Kexts installed on my Hackintosh:</p>
 <ul>
-<li>AirportBrcmFixup.kext (Wi-Fi)</li>
 <li>AppleALC.kext (Audio)</li>
-<li>BrcmFirmwareRepo.kext (BT)</li>
-<li>BrcmPatchRAM3.kext (BT)</li>
-<li>BrcmBluetoothInjector.kext(BT)</li>
 <li>FakeSMC.kext</li>
 <li>FakeSMC_ACPISensors.kext</li>
 <li>FakeSMC_CPUSensors.kext</li>
@@ -415,10 +405,7 @@ git config --global http.proxy socks5://127.0.0.1:1080
 <li>bluetooth</li>
 <li>airdrop</li>
 <li>handoff</li>
-</ul>
-<p>What does not work:</p>
-<ul>
-<li>unlock with Apple Watch (This feature is limited to support of hardware. Please choose a native-support network card.)</li>
+<li>unlock with Apple Watch</li>
 </ul>
 <p>That's all. Thanks for everyone who helped me build my first Hackintosh at Tonymacx86, especially for @CaseySJ's generous and patient help.</p>
 ]]></content>
@@ -494,7 +481,7 @@ export ALL_PROXY=socks5://127.0.0.1:1086
 </code></pre>
 </li>
 </ul>
-<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-04-29-024410.png" alt="对比图"></figure>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-04-29-024410.png" alt="对比图" loading="lazy"></figure>
 <p>为了更加方便，我们可以通过别名(alias)在~~~/.bashrc~~文件中设置别名来快速开启或关闭代理（注意在macOS Catalina及以上默认Bash改为了ZSH，因此设置文件是<code>~/.zshrc</code>，其余发行版需根据实际情况设置）</p>
 <pre><code class="language-bash">vi ~/.bash_profile	# 编辑配置文件
 alias setproxy=&quot;export ALL_PROXY=socks5://127.0.0.1:1086&quot;
@@ -529,13 +516,13 @@ unsetproxy	# 关闭代理
 <li>Click &quot;Create&quot; in the upper left corner</li>
 </ul>
 <p>DHCP option I prefer do not modify, although it doesn't matter with setting static ip. In this way, you can get a new net called &quot;vboxnet0&quot;.</p>
-<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2019-03-10-132337.png" alt="image-20190310212335100"></figure>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2019-03-10-132337.png" alt="image-20190310212335100" loading="lazy"></figure>
 <p>Step 2. Config your Virtual Machine</p>
 <ul>
 <li>Click right on your VM and select &quot;Settings&quot; option</li>
 <li>Click &quot;Network &gt; Adapter 2&quot; and alter these options as the below image</li>
 </ul>
-<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2019-03-10-132610.png" alt="image-20190310212609408"></figure>
+<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2019-03-10-132610.png" alt="image-20190310212609408" loading="lazy"></figure>
 <p>Step 3. Config the Network inside the VM</p>
 <p>(OS: Ubuntu Server 18.04 LTS)Startup your VM, and insert the command</p>
 <pre><code class="language-bash">ifconfig -a
@@ -557,7 +544,7 @@ unsetproxy	# 关闭代理
   version: 2
 </code></pre>
 <p>Save it and reboot. To verify, you can use &quot;ping 192.168.56.101&quot; command in terminal on the host. If the output is same like the below, congratulation, you done it.</p>
-<figure data-type="image" tabindex="3"><img src="http://res.niuxuewei.com/2019-03-10-134344.png" alt="image-20190310214342885"></figure>
+<figure data-type="image" tabindex="3"><img src="http://res.niuxuewei.com/2019-03-10-134344.png" alt="image-20190310214342885" loading="lazy"></figure>
 ]]></content>
     </entry>
     <entry>
@@ -581,7 +568,7 @@ Mode, Dependents Mode also, is a one-to-many relation. We abstract waster heater
 <p>In the <code>observer</code>, we can further rebuild the structure of code and extract the common parent classes. More details<br>
 can be found at <code>observer_v2</code>. We can inherit the basic classes we created to implement a brand-new &quot;waster heater&quot;<br>
 observers at <code>observer_v3</code>.</p>
-<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2019-01-23-Main.png" alt="UML of Observer Mode"></figure>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2019-01-23-Main.png" alt="UML of Observer Mode" loading="lazy"></figure>
 <p>Some points should be considered:</p>
 <ul>
 <li>You should figure out who are observers and observable. For example, there is a textarea that should be observable.<br>
@@ -609,9 +596,9 @@ observers should has one method at least for processing when observable sent a n
 <p>[<a href="https://github.com/xavier-niu/python-playground/tree/design-pattern-state-1.0">Github</a>]Just think about water, which have three different states but the substance is same. In the <code>state</code>, we simulate the<br>
 states of water, solid, liquid and gaseous, which change by the temperature. State pattern is the behavior and<br>
 external properties become difference when the internal state(temperature in this example) changes.</p>
-<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2019-01-26-134443.jpg" alt="UML of water example"></figure>
+<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2019-01-26-134443.jpg" alt="UML of water example" loading="lazy"></figure>
 <p>The abstract state pattern model can be found at <code>state_v2</code>.</p>
-<figure data-type="image" tabindex="3"><img src="http://res.niuxuewei.com/2019-01-26-142223.jpg" alt="UML of general model of the state pattern"></figure>
+<figure data-type="image" tabindex="3"><img src="http://res.niuxuewei.com/2019-01-26-142223.jpg" alt="UML of general model of the state pattern" loading="lazy"></figure>
 <p><code>state_v3</code> is a version of <code>state</code> with the abstract model we created at <code>state_v2</code>. The outputs are same as <code>state</code>.<br>
 Be aware that:</p>
 <ul>
