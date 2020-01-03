@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2020-01-03T09:18:27.433Z</updated>
+    <updated>2020-01-03T09:20:45.983Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
@@ -23,24 +23,10 @@
 <h1 id="projects">Projects</h1>
 <p>I am new to swift and iOS &amp; macOS development. So as with other people who is new to swift, I will start with reading source code by authors who are exprienced. The following projects are with my comments to explain what it is doing.</p>
 <ul>
-<li>Recordings: It is for Swift 5 and iOS 13 and contains serveral examples under different app architecture, you may visit <a href="https://github.com/xavier-niu/recordings">Github</a> to see more details. Credits: <a href="https://objccn.io/">ObjC China</a></li>
+<li>Recordings: It is for Swift 5 and iOS 13 and contains serveral examples under different app architectures, you may visit <a href="https://github.com/xavier-niu/recordings">Github</a> to see more details. Credits: <a href="https://objccn.io/">ObjC China</a></li>
 </ul>
 <h1 id="serialization-encoding-decoding">Serialization: Encoding &amp; Decoding</h1>
 <p>Although Apple Development Documentation is a great reference, it is not for the newbies. You may refer to <a href="http://res.niuxuewei.com/encoder_decoder_slides.pdf">this PDF</a> if you want to learn what is it and how it works.</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Page 365 of 365: 我的2019]]></title>
-        <id>https://www.nxw.name/post/page-365-of-365-wo-de-2019</id>
-        <link href="https://www.nxw.name/post/page-365-of-365-wo-de-2019">
-        </link>
-        <updated>2020-01-01T15:50:41.000Z</updated>
-        <content type="html"><![CDATA[<p>就在昨天，趁我睡着的时候彻底和2019年道了别，在2020的开头也是时候回顾我的2019年了。对于这一年，算是真正的经历了几件大事，也慢慢开始触及我原来从来没有也未曾感兴趣的领域，甚至开始思考一些人生之类看似虚无缥缈的问题。这似乎就是别人所谓的成长，在我看来无非是对未来不确定因素的恐慌，一切似乎看得清又看不清。</p>
-<h1 id="毕业">毕业</h1>
-<p>上学应该会霸占每一位中国青少年极多的少年时光，我也不例外。相比于初中高中，在大学似乎终于有机会放飞自我，做我真正热爱的事情。也从大学之后，真正的感受到了什么是时光如流水，这4年过的太快，快到让人难以置信。回头想来也算没荒度人生，我担任过学工的站长，带着200号人一步步把学工做的更好，得到了校领导的认可；也以第一作者身份发表过论文，在与导师一封封邮件中反复修改，尽管四处投稿被拒，但在大三行将结束的那个期末传来了好消息；也拿过国家奖学金，是我人生中第一次因为学习而获得的一笔巨款。我尤其庆幸在大学中遇到了那么多优秀的学长学姐、导师、指导教师。但是也带着很多巨大的遗憾我准备离开校园。在大学的最后一年中，我匆匆忙忙的完成了毕业设计，参加了毕业答辩，在无比炎热的夏天拍了毕业照片。直到真正要走的那一天，我看到图书馆上悬挂的“欢送2019届毕业生”的横幅，我才真正意识到明天的我就与大学彻底无关了，从今往后那个24号楼229宿舍将永久停业，那个我待了三年的学六306也将会充满着陌生的新面孔，对于母校终究成了一名过客。</p>
-<h1 id="考研">考研</h1>
-<p>在我以前看来，考研算得上是最无趣的事情之一。但是当我真正站在人生交叉口上，真正面对未来诸多不确定的因素时，我开始逐渐拥抱考研。2019年的近8个月中我完全为考研做着准备，甚至最后三个月我几乎连小区院子也没出。在准备的过程中，我仍无法认同所谓的应试教育，尤其是最后一个月看到各式各样的教育机构推出的所谓的“冲刺班”、“救命班”，看到那些所谓的教师熟练的讲述如何不看懂原文就能蒙对之类的内容时，更加深了我对应试教育以及购买这些课程的学生的鄙夷，但是这并不妨碍我在准备考研这段时间中我的收获。<br>
-首先，我对数学之类的学科真正的有了了解。在此之前，我认为对数学感兴趣的人都是不可理喻之人，我着实无法理解在一行行生硬的定理中该如何激发对这门学科的兴趣。令我大为改观的是张宇老师，一位非常优秀的考研数学老师，他将数学史、应用与生硬的定理和谐的融合在一起。那些生硬的定律很有可能源自于一件无与伦比的小事之中，数学史就是那些定律的发展史</p>
 ]]></content>
     </entry>
     <entry>
