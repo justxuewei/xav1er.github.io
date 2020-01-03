@@ -40,42 +40,14 @@
       
         <div class="animated fadeInLeft" style="animation-delay: 0.4s">
           <p class="my-4 text-gray-600 font-light hidden lg:block">
-            About code, about life, about everything.
+            Table of Contents
           </p>
-          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
-            
-              
-                <a href="https://github.com/xavier-niu" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
-                  <i class="remixicon-github-line"></i>
-                </a>
-              
-            
-              
-                <a href="https://twitter.com/xavierniu" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
-                  <i class="remixicon-twitter-line"></i>
-                </a>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <a href="https://t.me/xavierniu" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
-                  <i class="remixicon-telegram-line"></i>
-                </a>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#projects">Projects</a></li>
+<li><a href="#serialization-encoding-decoding">Serialization: Encoding &amp; Decoding</a></li>
+</ul>
+
           </div>
         </div>
       
@@ -119,29 +91,69 @@
 </div>
 <div class="mask" onclick="closeMenu()">
 </div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
-        <h2 class="text-lg text-gray-700 mb-8">
-          <i class="remixicon-bookmark-line"></i> z370n
-        </h2>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Swift Usage</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-01-03 / 1 min read
+        </div>
         
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${0 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://www.nxw.name/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">[Success] Hackintosh on Gigabyte Z370N WiFi with i5-8500</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <p>I'm new to Hackintosh. When installed it on my pc, I almost got stuck at anywhere except post-installation.</p>
+        <div class="post-content yue">
+          <h1 id="projects">Projects</h1>
+<p>I am new to swift and iOS &amp; macOS development. So as with other people who is new to swift, I will start with reading source code by authors who are exprienced. The following projects are with my comments to explain what it is doing. Hopefully these will help you.</p>
+<ul>
+<li>Recordings: It is for Swift 5 and iOS 13 and contains serveral examples under different app architecture, you may visit <a href="https://github.com/xavier-niu/recordings">Github</a> to see more details. Credits: <a href="https://objccn.io/">ObjC China</a></li>
+</ul>
+<h1 id="serialization-encoding-decoding">Serialization: Encoding &amp; Decoding</h1>
+<p>Although Apple Development Documentation is a great reference, it is not for the newbies. You may refer to <a href="http://res.niuxuewei.com/encoder_decoder_slides.pdf">this PDF</a> if you want to learn what is it and how it works.</p>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2019-10-18 / 5 min read</div>
-    </div>
-  </section>
+        </div>
 
-        <div class="pagination-container animated fadeIn">
-  
-  
-</div>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://www.nxw.name/post/git-usage">
+                <h3 class="post-title">
+                  Git Usage
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '95da5e6dfbe94e9621c5',
+    clientSecret: '6b6510006d4bd9b042323bc2c5b1374561942033',
+    repo: 'xav1er.github.io',
+    owner: 'xavier-niu',
+    admin: ['xavier-niu'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false,  // Facebook-like distraction free mode
+    language: 'en'
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
 
       </div>
     </div>
