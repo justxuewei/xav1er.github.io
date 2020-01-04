@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2020-01-03T12:09:28.358Z</updated>
+    <updated>2020-01-04T01:11:39.175Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
@@ -368,9 +368,9 @@ git config --global http.proxy socks5://127.0.0.1:1080
         <link href="https://www.nxw.name/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500">
         </link>
         <updated>2019-10-18T15:20:14.000Z</updated>
-        <summary type="html"><![CDATA[<p>I'm new to Hackintosh. When installed it on my pc, I almost got stuck at anywhere except post-installation.</p>
+        <summary type="html"><![CDATA[<p>I'm new to Hackintosh. When installed it on my comp, I almost got stuck at anywhere except post-installation.</p>
 ]]></summary>
-        <content type="html"><![CDATA[<p>I'm new to Hackintosh. When installed it on my pc, I almost got stuck at anywhere except post-installation.</p>
+        <content type="html"><![CDATA[<p>I'm new to Hackintosh. When installed it on my comp, I almost got stuck at anywhere except post-installation.</p>
 <!--MORE-->
 <p>Firstly, if you hang on &quot;Installing Bootloader&quot; with Unibeast 9.0.0, please try to reinstall your macOS, which you use Unibeast, after backup with Time Machine. Besides, I suggest when you want to build yourself at very first time <strong>DO NOT</strong> buy XFX video card, which I took about 1 week to handle an error &quot;attempting system restart&quot;, although it appears at Tony's buyer guide.</p>
 <p>Update Log:</p>
@@ -379,7 +379,7 @@ git config --global http.proxy socks5://127.0.0.1:1080
 <li>Oct 16, 2019: update stuffs related to bluetooth for macOS Catalina</li>
 <li>Oct 17, 2019: fix system panic after sleeping after updated to 10.15(19A602)</li>
 <li>Oct 30, 2019: update for macOS 10.15.1</li>
-<li>Dec 19, 2019: [WARNING] updating to 10.15.2 should be carefully, because a process named &quot;com.apple.parsec-fbf.flush&quot; which is running and active on background until power off can lead your Hackintosh can't sleep properly. To get more info and a temporary solution, you may refer to <a href="https://www.tonymacx86.com/threads/process-com-apple-parsec-fbf-flush-on-catalina-10-15-2-prevents-system-from-sleeping-automatically.288951/">this post</a>.</li>
+<li>Dec 19, 2019: [WARNING] updating to 10.15.2 should be carefully, a process named &quot;com.apple.parsec-fbf.flush&quot; which is running and keeping active in background until power off can lead your Hackintosh can't sleep properly. To get more info and a temporary solution, you may refer to <a href="https://www.tonymacx86.com/threads/process-com-apple-parsec-fbf-flush-on-catalina-10-15-2-prevents-system-from-sleeping-automatically.288951/">this post on tonymacx86</a>.</li>
 <li>Jan 1, 2020: replace BCM94352Z with BCM94360CS2, a network card is natively supported by Apple, hence, all info related to wifi and bluetooth is removed.</li>
 </ul>
 <h1 id="hardware-summary">Hardware  Summary</h1>
