@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2020-01-04T01:11:39.175Z</updated>
+    <updated>2020-01-09T11:00:26.318Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
@@ -27,6 +27,22 @@
 </ul>
 <h1 id="serialization-encoding-decoding">Serialization: Encoding &amp; Decoding</h1>
 <p>Although Apple Development Documentation is a great reference, it is not for the newbies. You may refer to <a href="http://res.niuxuewei.com/encoder_decoder_slides.pdf">this PDF</a> if you want to learn what is it and how it works.</p>
+<h1 id="automatic-reference-counting-arc">Automatic Reference Counting (ARC)</h1>
+<p>For beginner, it is a tricky thing to deal with reference counting, although it's easier compared to the situation without ARC. As a result, it causes Strong Reference Cycles if mishandled. There are some posts to describe what is ARC and whether you need <code>[weak self]</code> or <code>[unowned self]</code> in a closure entirely and detailedly:</p>
+<ul>
+<li><a href="https://www.avanderlee.com/swift/weak-self/">Weak self and unowned self explained in Swift</a></li>
+<li><a href="https://medium.com/flawless-app-stories/you-dont-always-need-weak-self-a778bec505ef">You don’t (always) need [weak self]</a></li>
+</ul>
+<h1 id="uistackviewnsstackview">UIStackView/NSStackView</h1>
+<p>UIStackView is a useful component for iOS/macOS developor, and it makes your app more flexible, here are some tutorials for those who are not familiar with:</p>
+<ul>
+<li>Basic knowledge: <a href="https://www.raywenderlich.com/2198310-uistackview-tutorial-for-ios-introducing-stack-views">UIStackView Tutorial for iOS: Introducing Stack Views</a></li>
+<li>How to fix left-hand elements and stretch the last elements to fix the width: <a href="https://stackoverflow.com/questions/44681649/stretch-the-last-element-in-uistackview">Stretch the last element in UIStackView</a></li>
+</ul>
+<h1 id="managing-your-apps-life-cycle-featured-in-ios13">Managing Your App's Life Cycle (featured in iOS13)</h1>
+<ul>
+<li>Official documents: <a href="https://developer.apple.com/documentation/uikit/app_and_environment/managing_your_app_s_life_cycle">Managing Your App's Life Cycle</a></li>
+</ul>
 ]]></content>
     </entry>
     <entry>

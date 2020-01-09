@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Xavier&#39;s Blog</title>
 <meta name="description" content="About code, about life, about everything." />
-<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1578100295924">
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1578567624145">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -33,7 +33,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://www.nxw.name">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1578100295924" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1578567624145" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
       </div>
@@ -46,6 +46,9 @@
             <ul class="markdownIt-TOC">
 <li><a href="#projects">Projects</a></li>
 <li><a href="#serialization-encoding-decoding">Serialization: Encoding &amp; Decoding</a></li>
+<li><a href="#automatic-reference-counting-arc">Automatic Reference Counting (ARC)</a></li>
+<li><a href="#uistackviewnsstackview">UIStackView/NSStackView</a></li>
+<li><a href="#managing-your-apps-life-cycle-featured-in-ios13">Managing Your App's Life Cycle (featured in iOS13)</a></li>
 </ul>
 
           </div>
@@ -94,7 +97,7 @@
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
         <h1 class="text-3xl font-bold lg:mt-16">Swift Usage</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2020-01-03 / 1 min read
+          2020-01-03 / 2 min read
         </div>
         
         <div class="post-content yue">
@@ -107,6 +110,22 @@
 </ul>
 <h1 id="serialization-encoding-decoding">Serialization: Encoding &amp; Decoding</h1>
 <p>Although Apple Development Documentation is a great reference, it is not for the newbies. You may refer to <a href="http://res.niuxuewei.com/encoder_decoder_slides.pdf">this PDF</a> if you want to learn what is it and how it works.</p>
+<h1 id="automatic-reference-counting-arc">Automatic Reference Counting (ARC)</h1>
+<p>For beginner, it is a tricky thing to deal with reference counting, although it's easier compared to the situation without ARC. As a result, it causes Strong Reference Cycles if mishandled. There are some posts to describe what is ARC and whether you need <code>[weak self]</code> or <code>[unowned self]</code> in a closure entirely and detailedly:</p>
+<ul>
+<li><a href="https://www.avanderlee.com/swift/weak-self/">Weak self and unowned self explained in Swift</a></li>
+<li><a href="https://medium.com/flawless-app-stories/you-dont-always-need-weak-self-a778bec505ef">You don’t (always) need [weak self]</a></li>
+</ul>
+<h1 id="uistackviewnsstackview">UIStackView/NSStackView</h1>
+<p>UIStackView is a useful component for iOS/macOS developor, and it makes your app more flexible, here are some tutorials for those who are not familiar with:</p>
+<ul>
+<li>Basic knowledge: <a href="https://www.raywenderlich.com/2198310-uistackview-tutorial-for-ios-introducing-stack-views">UIStackView Tutorial for iOS: Introducing Stack Views</a></li>
+<li>How to fix left-hand elements and stretch the last elements to fix the width: <a href="https://stackoverflow.com/questions/44681649/stretch-the-last-element-in-uistackview">Stretch the last element in UIStackView</a></li>
+</ul>
+<h1 id="managing-your-apps-life-cycle-featured-in-ios13">Managing Your App's Life Cycle (featured in iOS13)</h1>
+<ul>
+<li>Official documents: <a href="https://developer.apple.com/documentation/uikit/app_and_environment/managing_your_app_s_life_cycle">Managing Your App's Life Cycle</a></li>
+</ul>
 
         </div>
 
