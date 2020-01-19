@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2020-01-13T08:16:37.554Z</updated>
+    <updated>2020-01-19T13:24:16.882Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
@@ -51,6 +51,21 @@
 <h1 id="getter-setter">Getter &amp; Setter</h1>
 <ul>
 <li><code>private(set)</code> is a way to set a public getting and private setting, but you could build public setter for yourself as well: <a href="https://www.natashatherobot.com/swift-magic-public-getter-private-setter/">Swift Magic: Public Getter, Private Setter</a></li>
+</ul>
+<h1 id="package-management">Package Management</h1>
+<p>Get start</p>
+<ul>
+<li><a href="https://github.com/Carthage/Carthage">Carthage</a></li>
+<li><a href="https://www.raywenderlich.com/416-carthage-tutorial-getting-started">Carthage Tutorial: Getting Started</a></li>
+</ul>
+<p>Error of embeded framework in Xcode 11</p>
+<pre><code>Multiple commands produce 'xxx.framework':
+1) Target 'xxx' has copy command from 'xxx.framework' to 'xxx.framework'
+2) That command depends on command in Target 'xxx': script phase “Run Script”
+</code></pre>
+<ul>
+<li><a href="https://stackoverflow.com/questions/46800932/carthage-multiple-build-commands-for-output-file-framework?noredirect=1&amp;lq=1">Carthage: Multiple build commands for output file framework</a></li>
+<li><a href="https://github.com/Carthage/Carthage/issues/2897">Xcode 11 documentation update</a></li>
 </ul>
 ]]></content>
     </entry>

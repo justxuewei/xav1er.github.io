@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Xavier&#39;s Blog</title>
 <meta name="description" content="About code, about life, about everything." />
-<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1578903395754">
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1579440255058">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -33,7 +33,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://www.nxw.name">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1578903395754" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1579440255058" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
       </div>
@@ -50,6 +50,7 @@
 <li><a href="#stackview">StackView</a></li>
 <li><a href="#apps-life-cycle-for-ios13">App's Life Cycle (for iOS13)</a></li>
 <li><a href="#getter-setter">Getter &amp; Setter</a></li>
+<li><a href="#package-management">Package Management</a></li>
 </ul>
 
           </div>
@@ -135,6 +136,21 @@
 <h1 id="getter-setter">Getter &amp; Setter</h1>
 <ul>
 <li><code>private(set)</code> is a way to set a public getting and private setting, but you could build public setter for yourself as well: <a href="https://www.natashatherobot.com/swift-magic-public-getter-private-setter/">Swift Magic: Public Getter, Private Setter</a></li>
+</ul>
+<h1 id="package-management">Package Management</h1>
+<p>Get start</p>
+<ul>
+<li><a href="https://github.com/Carthage/Carthage">Carthage</a></li>
+<li><a href="https://www.raywenderlich.com/416-carthage-tutorial-getting-started">Carthage Tutorial: Getting Started</a></li>
+</ul>
+<p>Error of embeded framework in Xcode 11</p>
+<pre><code>Multiple commands produce 'xxx.framework':
+1) Target 'xxx' has copy command from 'xxx.framework' to 'xxx.framework'
+2) That command depends on command in Target 'xxx': script phase “Run Script”
+</code></pre>
+<ul>
+<li><a href="https://stackoverflow.com/questions/46800932/carthage-multiple-build-commands-for-output-file-framework?noredirect=1&amp;lq=1">Carthage: Multiple build commands for output file framework</a></li>
+<li><a href="https://github.com/Carthage/Carthage/issues/2897">Xcode 11 documentation update</a></li>
 </ul>
 
         </div>
