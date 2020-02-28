@@ -39,42 +39,20 @@
       
         <div class="animated fadeInLeft" style="animation-delay: 0.4s">
           <p class="my-4 text-gray-600 font-light hidden lg:block">
-            About code, about life, about everything.
+            TOC
           </p>
-          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
-            
-              
-                <a href="https://github.com/xavier-niu" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
-                  <i class="ri-github-line"></i>
-                </a>
-              
-            
-              
-                <a href="https://twitter.com/xavierniu" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
-                  <i class="ri-twitter-line"></i>
-                </a>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <a href="https://t.me/xavierniu" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
-                  <i class="ri-telegram-line"></i>
-                </a>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#installation">Installation</a></li>
+<li><a href="#development">Development</a>
+<ul>
+<li><a href="#build-your-dockerfile">Build your Dockerfile</a></li>
+<li><a href="#github-actions">Github Actions</a></li>
+</ul>
+</li>
+<li><a href="#clean-up">Clean-up</a></li>
+</ul>
+
           </div>
         </div>
       
@@ -118,29 +96,110 @@
 </div>
 <div class="mask" onclick="closeMenu()">
 </div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
-        <h2 class="text-lg text-gray-700 mb-8">
-          <i class="ri-bookmark-line"></i> google translate
-        </h2>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Docker Usage</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-02-28 / 2 min read
+        </div>
         
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${0 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://www.nxw.name/post/custom-actions-of-launchbar">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Custom Actions of Launchbar</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <p><a href="https://www.obdev.at/products/launchbar/index.html">Launchbar</a> is a tool aimed for quick launch. Action, one of the function of Launchbar for productivity improvement in programming way, could runs tons of types of script to implement automation.</p>
+        <div class="post-content yue">
+          <h1 id="installation">Installation</h1>
+<p>In most cases, you can use a shell provided by docker official to install docker on your server.</p>
+<pre><code class="language-bash">wget -qO- https://get.docker.com/ | bash
+</code></pre>
+<p>Then, you should open it and ensure the docker will be launched after login.</p>
+<pre><code class="language-bash"># for Debian &amp; Ubuntu
+systemctl start docker
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2019-10-19 / 2 min read</div>
-    </div>
-  </section>
+# for CentOS
+service docker start &amp;&amp; systemctl enable docker.service
+</code></pre>
+<h1 id="development">Development</h1>
+<p>If you want to build Dockerfile by yourself and push your image to Docker Hub, I highly recommend you develop in local and push them by Github Actions which is a solution for CD/CI proposed by Github.</p>
+<h2 id="build-your-dockerfile">Build your Dockerfile</h2>
+<p>Go to your project directory which has a file named Dockerfile first. Then you should build them.</p>
+<pre><code class="language-bash">docker build -t &lt;YOUR DOCKER IMAGE NAME&gt; .
+</code></pre>
+<p>You can run them in your local machine after the build process completed by <code>docker run</code> command like you run a docker image as usual.</p>
+<h2 id="github-actions">Github Actions</h2>
+<p>For more details about Github Actions, please refer to <a href="https://github.com/features/actions">its documentation</a>.</p>
+<p>This config only works when a new tag is pushed to Github.</p>
+<pre><code class="language-yml">name: Publish Docker
+on: 
+  push:
+    tags: 
+      - '*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: &lt;YOUR USERNAME&gt;/&lt;YOUR REPO NAME&gt;
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          tag_names: true
+</code></pre>
+<h1 id="clean-up">Clean-up</h1>
+<blockquote>
+<p>For more details, you can see this <a href="https://linuxize.com/post/how-to-remove-docker-images-containers-volumes-and-networks/">post</a>.</p>
+</blockquote>
+<p>Remove all unused objects involving containers, images and networks.</p>
+<pre><code class="language-bash">docker system prune
+</code></pre>
+<p>In additional to remove all objects, you can append <code>--volumes</code> to the command to remove unused volumes.</p>
+<pre><code class="language-bash">docker system prune --volumes
+</code></pre>
 
-        <div class="pagination-container animated fadeIn">
-  
-  
-</div>
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://www.nxw.name/post/swift-usage">
+                <h3 class="post-title">
+                  Swift Usage
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://geektutu.github.io/hexo-theme-geektutu/js/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '95da5e6dfbe94e9621c5',
+    clientSecret: '6b6510006d4bd9b042323bc2c5b1374561942033',
+    repo: 'xav1er.github.io',
+    owner: 'xavier-niu',
+    admin: ['xavier-niu'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
 
       </div>
     </div>
