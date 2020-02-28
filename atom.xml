@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2020-02-28T09:59:16.965Z</updated>
+    <updated>2020-02-28T10:08:49.417Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
@@ -16,7 +16,11 @@
         <link href="https://www.nxw.name/post/docker-usage">
         </link>
         <updated>2020-02-28T09:58:48.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="installation">Installation</h1>
+        <summary type="html"><![CDATA[<p>Docker is a set of platform as a service products that uses OS-level virtualization to deliver software in packages called containers.</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Docker is a set of platform as a service products that uses OS-level virtualization to deliver software in packages called containers.</p>
+<!-- more -->
+<h1 id="installation">Installation</h1>
 <p>In most cases, you can use a shell provided by docker official to install docker on your server.</p>
 <pre><code class="language-bash">wget -qO- https://get.docker.com/ | bash
 </code></pre>
@@ -26,6 +30,14 @@ systemctl start docker
 
 # for CentOS
 service docker start &amp;&amp; systemctl enable docker.service
+</code></pre>
+<h1 id="image-update">Image Update</h1>
+<p>To update your image you should pull the latest image from Docker Hub, destory the running container and recreate it with the new image. The data may be lost if you have not persisted them on your disk.</p>
+<pre><code class="language-bash">docker pull &lt;DOCKER HUB COORDINATE&gt;
+
+docker stop &lt;YOUR CONTAINER NAME&gt; &amp;&amp; docker rm &lt;YOUR CONTAINER NAME&gt;
+
+docker run ...
 </code></pre>
 <h1 id="development">Development</h1>
 <p>If you want to build Dockerfile by yourself and push your image to Docker Hub, I highly recommend you develop in local and push them by Github Actions which is a solution for CD/CI proposed by Github.</p>

@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Xavier&#39;s Blog</title>
 <meta name="description" content="About code, about life, about everything." />
-<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1582883953459">
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1582884523161">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -32,7 +32,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://www.nxw.name">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1582883953459" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1582884523161" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
       </div>
@@ -44,6 +44,7 @@
           <div class="toc-container hidden lg:block">
             <ul class="markdownIt-TOC">
 <li><a href="#installation">Installation</a></li>
+<li><a href="#image-update">Image Update</a></li>
 <li><a href="#development">Development</a>
 <ul>
 <li><a href="#build-your-dockerfile">Build your Dockerfile</a></li>
@@ -99,11 +100,13 @@
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
         <h1 class="text-3xl font-bold lg:mt-16">Docker Usage</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2020-02-28 / 2 min read
+          2020-02-28 / 3 min read
         </div>
         
         <div class="post-content yue">
-          <h1 id="installation">Installation</h1>
+          <p>Docker is a set of platform as a service products that uses OS-level virtualization to deliver software in packages called containers.</p>
+<!-- more -->
+<h1 id="installation">Installation</h1>
 <p>In most cases, you can use a shell provided by docker official to install docker on your server.</p>
 <pre><code class="language-bash">wget -qO- https://get.docker.com/ | bash
 </code></pre>
@@ -113,6 +116,14 @@ systemctl start docker
 
 # for CentOS
 service docker start &amp;&amp; systemctl enable docker.service
+</code></pre>
+<h1 id="image-update">Image Update</h1>
+<p>To update your image you should pull the latest image from Docker Hub, destory the running container and recreate it with the new image. The data may be lost if you have not persisted them on your disk.</p>
+<pre><code class="language-bash">docker pull &lt;DOCKER HUB COORDINATE&gt;
+
+docker stop &lt;YOUR CONTAINER NAME&gt; &amp;&amp; docker rm &lt;YOUR CONTAINER NAME&gt;
+
+docker run ...
 </code></pre>
 <h1 id="development">Development</h1>
 <p>If you want to build Dockerfile by yourself and push your image to Docker Hub, I highly recommend you develop in local and push them by Github Actions which is a solution for CD/CI proposed by Github.</p>
