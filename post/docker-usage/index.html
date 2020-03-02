@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Xavier&#39;s Blog</title>
 <meta name="description" content="About code, about life, about everything." />
-<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1583067189698">
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1583115179612">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -32,7 +32,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://www.nxw.name">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1583067189698" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1583115179612" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
       </div>
@@ -133,8 +133,8 @@ docker run ...
 </code></pre>
 <p>You can run them in your local machine after the build process completed by <code>docker run</code> command like you run a docker image as usual.</p>
 <h2 id="github-actions">Github Actions</h2>
-<p>For more details about Github Actions, please refer to <a href="https://github.com/features/actions">its documentation</a>.</p>
-<p>This config only works when a new tag is pushed to Github.</p>
+<p>For more details about Github Actions, please refer to <a href="https://github.com/features/actions">documentation of Github Actions for developer</a>.</p>
+<p>Each time you pushing to Github will trigger this action to build Docker image by <code>Dockerfile</code> in the root of project and push it to Docker Hub with <code>latest</code> tag. If you push to Github with a specific tag, pushing to Docker Hub will have the same tag as well.</p>
 <pre><code class="language-yml">name: Publish Docker
 on: push
 jobs:

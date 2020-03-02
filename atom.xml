@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2020-03-01T12:53:27.562Z</updated>
+    <updated>2020-03-02T02:13:01.795Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
@@ -47,8 +47,8 @@ docker run ...
 </code></pre>
 <p>You can run them in your local machine after the build process completed by <code>docker run</code> command like you run a docker image as usual.</p>
 <h2 id="github-actions">Github Actions</h2>
-<p>For more details about Github Actions, please refer to <a href="https://github.com/features/actions">its documentation</a>.</p>
-<p>This config only works when a new tag is pushed to Github.</p>
+<p>For more details about Github Actions, please refer to <a href="https://github.com/features/actions">documentation of Github Actions for developer</a>.</p>
+<p>Each time you pushing to Github will trigger this action to build Docker image by <code>Dockerfile</code> in the root of project and push it to Docker Hub with <code>latest</code> tag. If you push to Github with a specific tag, pushing to Docker Hub will have the same tag as well.</p>
 <pre><code class="language-yml">name: Publish Docker
 on: push
 jobs:
