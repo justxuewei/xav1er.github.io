@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2020-03-02T02:13:01.795Z</updated>
+    <updated>2020-03-02T02:15:26.742Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
@@ -41,12 +41,12 @@ docker run ...
 </code></pre>
 <h1 id="development">Development</h1>
 <p>If you want to build Dockerfile by yourself and push your image to Docker Hub, I highly recommend you develop in local and push them by Github Actions which is a solution for CD/CI proposed by Github.</p>
-<h2 id="build-your-dockerfile">Build your Dockerfile</h2>
+<h2 id="building-dockerfile-in-local">Building Dockerfile in local</h2>
 <p>Go to your project directory which has a file named Dockerfile first. Then you should build them.</p>
 <pre><code class="language-bash">docker build -t &lt;YOUR DOCKER IMAGE NAME&gt; .
 </code></pre>
 <p>You can run them in your local machine after the build process completed by <code>docker run</code> command like you run a docker image as usual.</p>
-<h2 id="github-actions">Github Actions</h2>
+<h2 id="building-dockerfile-with-github-actions">Building Dockerfile with Github Actions</h2>
 <p>For more details about Github Actions, please refer to <a href="https://github.com/features/actions">documentation of Github Actions for developer</a>.</p>
 <p>Each time you pushing to Github will trigger this action to build Docker image by <code>Dockerfile</code> in the root of project and push it to Docker Hub with <code>latest</code> tag. If you push to Github with a specific tag, pushing to Docker Hub will have the same tag as well.</p>
 <pre><code class="language-yml">name: Publish Docker
