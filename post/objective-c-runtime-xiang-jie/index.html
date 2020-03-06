@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Xavier&#39;s Blog</title>
 <meta name="description" content="About code, about life, about everything." />
-<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1583478599448">
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1583478769186">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -32,7 +32,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://www.nxw.name">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1583478599448" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1583478769186" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
       </div>
@@ -181,9 +181,9 @@
         
         <div class="post-content yue">
           <blockquote>
-<p>最近在学习RxSwift，对于DelegateProxy如何进行消息转发问题比较感兴趣，所以仔细阅读了源码，发现其利用了Objective-C Runtime的特性实现消息转发，因此在网上找到了这一系列的文章。<br>
-这篇文章大部分内容转自<a href="http://southpeak.github.io/categories/objectivec/">南峰子的技术博客</a>。由于年代久远的关系，其中内嵌的部分图片已经丢失，遂在这篇文章中进行补齐，同时在对于文中描述的一些不是很清楚的内容加入了我的理解。<br>
-实际上该一系列文章下分六篇文章，在我的版本中将单独的文章予以合并以图后续查阅方便。</p>
+<p>最近在学习RxSwift，对于DelegateProxy如何进行消息转发问题比较感兴趣，所以仔细阅读了源码，发现其在底层利用了Objective-C Runtime的特性实现消息转发，因此在网上找到了这一系列的文章。<br>
+这篇文章大部分内容转自<a href="http://southpeak.github.io/categories/objectivec/">南峰子的技术博客</a>。由于年代久远的关系，其部分图片已经404，遂在这篇文章中进行补齐，同时对于文中描述的一些不是很清楚的内容加入了我的理解。<br>
+实际上该系列文章下分六篇独立文章，在我的版本中将单独的文章予以合并以图后续查阅方便。</p>
 </blockquote>
 <!-- more -->
 <p>Objective-C语言是一门动态语言，它将很多静态语言在编译和链接时期做的事放到了运行时来处理。这种动态语言的优势在于：我们写代码时能够更具灵活性，如我们可以把消息转发给我们想要的对象，或者随意交换一个方法的实现等。</p>
