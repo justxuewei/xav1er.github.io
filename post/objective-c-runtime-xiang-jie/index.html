@@ -1,28 +1,186 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://www.nxw.name</id>
-    <title>Xavier&apos;s Blog</title>
-    <updated>2020-03-06T07:10:05.764Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://www.nxw.name"/>
-    <link rel="self" href="https://www.nxw.name/atom.xml"/>
-    <subtitle>About code, about life, about everything.</subtitle>
-    <logo>https://www.nxw.name/images/avatar.png</logo>
-    <icon>https://www.nxw.name/favicon.ico</icon>
-    <rights>All rights reserved 2020, Xavier&apos;s Blog</rights>
-    <entry>
-        <title type="html"><![CDATA[Objective-C Runtime详解]]></title>
-        <id>https://www.nxw.name/post/objective-c-runtime-xiang-jie/</id>
-        <link href="https://www.nxw.name/post/objective-c-runtime-xiang-jie/">
-        </link>
-        <updated>2020-03-06T06:57:54.000Z</updated>
-        <summary type="html"><![CDATA[<blockquote>
-<p>最近在学习RxSwift，对于DelegateProxy如何进行消息转发问题比较感兴趣，所以仔细阅读了源码，发现其利用了Objective-C Runtime的特性实现消息转发，因此在网上找到了这一系列的文章。<br>
-这篇文章大部分内容转自<a href="http://southpeak.github.io/categories/objectivec/">南峰子的技术博客</a>。由于年代久远的关系，其中内嵌的部分图片已经丢失，遂在这篇文章中进行补齐，同时在对于文中描述的一些不是很清楚的内容加入了我的理解。<br>
-实际上该一系列文章下分六篇文章，在我的版本中将单独的文章予以合并以图后续查阅方便。</p>
-</blockquote>
-]]></summary>
-        <content type="html"><![CDATA[<blockquote>
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Xavier&#39;s Blog</title>
+<meta name="description" content="About code, about life, about everything." />
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1583478599448">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://www.nxw.name/styles/main.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129706677-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-129706677-2');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://www.nxw.name">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1583478599448" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            Contents
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">类与对象基础数据结构</a>
+<ul>
+<li><a href="#objc_class">objc_class</a></li>
+<li><a href="#objc_object%E4%B8%8Eid">objc_object与id</a></li>
+<li><a href="#objc_cache">objc_cache</a></li>
+<li><a href="#%E5%85%83%E7%B1%BBmeta-class">元类(meta class)</a></li>
+</ul>
+</li>
+<li><a href="#%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0">类与对象操作函数</a>
+<ul>
+<li><a href="#%E7%B1%BB%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0">类相关操作函数</a>
+<ul>
+<li><a href="#%E7%B1%BB%E5%90%8Dname">类名(name)</a></li>
+<li><a href="#%E7%88%B6%E7%B1%BBsuper_class%E5%92%8C%E5%85%83%E7%B1%BBmeta-class">父类(super_class)和元类(meta-class)</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E5%8F%98%E9%87%8F%E5%A4%A7%E5%B0%8Finstance_size">实例变量大小(instance_size)</a></li>
+<li><a href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8Fivars%E5%8F%8A%E5%B1%9E%E6%80%A7">成员变量(ivars)及属性</a></li>
+<li><a href="#%E6%96%B9%E6%B3%95methodlists">方法(methodLists)</a></li>
+<li><a href="#%E5%8D%8F%E8%AE%AEobjc_protocol_list">协议(objc_protocol_list)</a></li>
+<li><a href="#%E7%89%88%E6%9C%ACversion">版本(version)</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8Bexample">实例(Example)</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1">动态创建类和对象</a>
+<ul>
+<li><a href="#%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E7%B1%BB">动态创建类</a></li>
+<li><a href="#%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1">动态创建对象</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0">实例操作函数</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E7%B1%BB%E5%AE%9A%E4%B9%89">获取类定义</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%B1%BB%E5%9E%8B%E7%BC%96%E7%A0%81type-encoding">类型编码(Type Encoding)</a></li>
+<li><a href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-%E5%B1%9E%E6%80%A7">成员变量、属性</a>
+<ul>
+<li><a href="#%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">基础数据类型</a>
+<ul>
+<li><a href="#ivar">Ivar</a></li>
+<li><a href="#objc_property_t">objc_property_t</a></li>
+<li><a href="#objc_property_attribute_t">objc_property_attribute_t</a></li>
+</ul>
+</li>
+<li><a href="#%E5%85%B3%E8%81%94%E5%AF%B9%E8%B1%A1associated-object">关联对象(Associated Object)</a></li>
+<li><a href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-%E5%B1%9E%E6%80%A7%E7%9A%84%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95">成员变量、属性的操作方法</a>
+<ul>
+<li><a href="#%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F">成员变量</a></li>
+<li><a href="#%E5%85%B3%E8%81%94%E5%AF%B9%E8%B1%A1">关联对象</a></li>
+<li><a href="#%E5%B1%9E%E6%80%A7">属性</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%AE%9E%E4%BE%8B">实例</a></li>
+<li><a href="#%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-2">基础数据类型</a>
+<ul>
+<li><a href="#sel">SEL</a></li>
+<li><a href="#imp">IMP</a></li>
+<li><a href="#method">Method</a>
+<ul>
+<li><a href="#objc_method_description">objc_method_description</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E6%96%B9%E6%B3%95%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0">方法相关操作函数</a>
+<ul>
+<li><a href="#%E6%96%B9%E6%B3%95">方法</a></li>
+<li><a href="#%E6%96%B9%E6%B3%95%E9%80%89%E6%8B%A9%E5%99%A8">方法选择器</a></li>
+</ul>
+</li>
+<li><a href="#%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B">方法调用流程</a>
+<ul>
+<li><a href="#%E9%9A%90%E8%97%8F%E5%8F%82%E6%95%B0">隐藏参数</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E6%96%B9%E6%B3%95%E5%9C%B0%E5%9D%80">获取方法地址</a></li>
+</ul>
+</li>
+<li><a href="#%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8F%91">消息转发</a>
+<ul>
+<li><a href="#%E5%8A%A8%E6%80%81%E6%96%B9%E6%B3%95%E8%A7%A3%E6%9E%90">动态方法解析</a></li>
+<li><a href="#%E5%A4%87%E7%94%A8%E6%8E%A5%E6%94%B6%E8%80%85">备用接收者</a></li>
+<li><a href="#%E5%AE%8C%E6%95%B4%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8F%91">完整消息转发</a></li>
+<li><a href="#%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8F%91%E4%B8%8E%E5%A4%9A%E9%87%8D%E7%BB%A7%E6%89%BF">消息转发与多重继承</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by Gridea & GitHub.</div>
+    <a class="rss" href="https://www.nxw.name/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Objective-C Runtime详解</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-03-06 / 65 min read
+        </div>
+        
+        <div class="post-content yue">
+          <blockquote>
 <p>最近在学习RxSwift，对于DelegateProxy如何进行消息转发问题比较感兴趣，所以仔细阅读了源码，发现其利用了Objective-C Runtime的特性实现消息转发，因此在网上找到了这一系列的文章。<br>
 这篇文章大部分内容转自<a href="http://southpeak.github.io/categories/objectivec/">南峰子的技术博客</a>。由于年代久远的关系，其中内嵌的部分图片已经丢失，遂在这篇文章中进行补齐，同时在对于文中描述的一些不是很清楚的内容加入了我的理解。<br>
 实际上该一系列文章下分六篇文章，在我的版本中将单独的文章予以合并以图后续查阅方便。</p>
@@ -1252,706 +1410,156 @@ int main(int argc, const char * argv[]) {
 	return NO; 	
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Docker Usage]]></title>
-        <id>https://www.nxw.name/post/docker-usage/</id>
-        <link href="https://www.nxw.name/post/docker-usage/">
-        </link>
-        <updated>2020-02-28T09:58:48.000Z</updated>
-        <summary type="html"><![CDATA[<p>Docker is a set of platform as a service products that uses OS-level virtualization to deliver software in packages called containers.</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>Docker is a set of platform as a service products that uses OS-level virtualization to deliver software in packages called containers.</p>
-<!-- more -->
-<h1 id="installation">Installation</h1>
-<p>In most cases, you can use a shell provided by docker official to install docker on your server.</p>
-<pre><code class="language-bash">wget -qO- https://get.docker.com/ | bash
-</code></pre>
-<p>Then, you should open it and ensure the docker will be launched after login.</p>
-<pre><code class="language-bash"># for Debian &amp; Ubuntu
-systemctl start docker
 
-# for CentOS
-service docker start &amp;&amp; systemctl enable docker.service
-</code></pre>
-<h1 id="image-update">Image Update</h1>
-<p>To update your image you should pull the latest image from Docker Hub, destory the running container and recreate it with the new image. The data may be lost if you have not persisted them on your disk.</p>
-<pre><code class="language-bash">docker pull &lt;DOCKER HUB COORDINATE&gt;
+        </div>
 
-docker stop &lt;YOUR CONTAINER NAME&gt; &amp;&amp; docker rm &lt;YOUR CONTAINER NAME&gt;
+        
 
-docker run ...
-</code></pre>
-<h1 id="development">Development</h1>
-<p>If you want to build Dockerfile by yourself and push your image to Docker Hub, I highly recommend you develop in local and push them by Github Actions which is a solution for CD/CI proposed by Github.</p>
-<h2 id="building-dockerfile-in-local">Building Dockerfile in local</h2>
-<p>Go to your project directory which has a file named Dockerfile first. Then you should build them.</p>
-<pre><code class="language-bash">docker build -t &lt;YOUR DOCKER IMAGE NAME&gt; .
-</code></pre>
-<p>You can run them in your local machine after the build process completed by <code>docker run</code> command like you run a docker image as usual.</p>
-<h2 id="building-dockerfile-with-github-actions">Building Dockerfile with Github Actions</h2>
-<p>For more details about Github Actions, please refer to <a href="https://github.com/features/actions">documentation of Github Actions for developer</a>.</p>
-<p>Each time you pushing to Github will trigger this action to build Docker image by <code>Dockerfile</code> in the root of project and push it to Docker Hub with <code>latest</code> tag. If you push to Github with a specific tag, pushing to Docker Hub will have the same tag as well.</p>
-<pre><code class="language-yml">name: Publish Docker
-on: push
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Publish to Registry
-        uses: elgohr/Publish-Docker-Github-Action@master
-        with:
-          name: &lt;YOUR USERNAME&gt;/&lt;YOUR REPO NAME&gt;
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          tag_names: true
-</code></pre>
-<h1 id="clean-up">Clean-up</h1>
-<blockquote>
-<p>For more details, you can see this <a href="https://linuxize.com/post/how-to-remove-docker-images-containers-volumes-and-networks/">post</a>.</p>
-</blockquote>
-<p>Remove all unused objects involving containers, images and networks.</p>
-<pre><code class="language-bash">docker system prune
-</code></pre>
-<p>In additional to remove all objects, you can append <code>--volumes</code> to the command to remove unused volumes.</p>
-<pre><code class="language-bash">docker system prune --volumes
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Swift Usage]]></title>
-        <id>https://www.nxw.name/post/swift-usage/</id>
-        <link href="https://www.nxw.name/post/swift-usage/">
-        </link>
-        <updated>2020-01-03T08:48:49.000Z</updated>
-        <summary type="html"><![CDATA[<p>This article is for recording the resources which I collected together about how to gracefully use swift, an language released by Apple in 2014. Hopefully this post will help you.</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>This article is for recording the resources which I collected together about how to gracefully use swift, an language released by Apple in 2014. Hopefully this post will help you.</p>
-<!--MORE-->
-<h1 id="projects">Projects</h1>
-<p>As with other people who are newcomers to swift, I will start with reading source code by authors who are exprienced. The following projects are with my comments to explain what it is doing.</p>
-<ul>
-<li>Recordings: It is for Swift 5 and iOS 13 and contains serveral examples under different app architectures, you may visit <a href="https://github.com/xavier-niu/recordings">Github</a> to see more details. Credits: <a href="https://objccn.io/">ObjC China</a></li>
-</ul>
-<h1 id="serialization-encoding-decoding">Serialization: Encoding &amp; Decoding</h1>
-<p>Although Apple Development Documentation is a great reference, it is not for the newbies. You may refer to <a href="http://res.niuxuewei.com/encoder_decoder_slides.pdf">this PDF</a> if you want to learn what is it and how it works.</p>
-<h1 id="automatic-reference-counting-arc">Automatic Reference Counting (ARC)</h1>
-<p>For beginner, it is a tricky thing to deal with reference counting, although it's easier compared to the situation without ARC. As a result, it causes Strong Reference Cycles if mishandled. There are some posts to describe what is ARC and whether you need <code>[weak self]</code> or <code>[unowned self]</code> in a closure entirely and detailedly:</p>
-<ul>
-<li><a href="https://www.avanderlee.com/swift/weak-self/">Weak self and unowned self explained in Swift</a></li>
-<li><a href="https://medium.com/flawless-app-stories/you-dont-always-need-weak-self-a778bec505ef">You don’t (always) need [weak self]</a></li>
-</ul>
-<h1 id="stackview">StackView</h1>
-<p>UIStackView is a useful component for iOS/macOS developor, and it makes your app more flexible, here are some tutorials for those who are not familiar with:</p>
-<ul>
-<li>Basic knowledge: <a href="https://www.raywenderlich.com/2198310-uistackview-tutorial-for-ios-introducing-stack-views">UIStackView Tutorial for iOS: Introducing Stack Views</a></li>
-<li>How to fix left-hand elements and stretch the last elements to fill the width: <a href="https://stackoverflow.com/questions/44681649/stretch-the-last-element-in-uistackview">Stretch the last element in UIStackView</a></li>
-</ul>
-<h1 id="apps-life-cycle-for-ios13">App's Life Cycle (for iOS13)</h1>
-<p>Official documentations</p>
-<ul>
-<li><a href="https://developer.apple.com/documentation/uikit/app_and_environment/managing_your_app_s_life_cycle">Managing Your App's Life Cycle</a></li>
-</ul>
-<p>Unofficial documentations</p>
-<ul>
-<li><a href="https://learnappmaking.com/scene-delegate-app-delegate-xcode-11-ios-13/">The Scene Delegate In Xcode 11 And iOS 13</a></li>
-</ul>
-<h1 id="getter-setter">Getter &amp; Setter</h1>
-<ul>
-<li><code>private(set)</code> is a way to set a public getting and private setting, but you could build public setter for yourself as well: <a href="https://www.natashatherobot.com/swift-magic-public-getter-private-setter/">Swift Magic: Public Getter, Private Setter</a></li>
-</ul>
-<h1 id="package-management">Package Management</h1>
-<p>Get start</p>
-<ul>
-<li><a href="https://github.com/Carthage/Carthage">Carthage</a></li>
-<li><a href="https://www.raywenderlich.com/416-carthage-tutorial-getting-started">Carthage Tutorial: Getting Started</a></li>
-</ul>
-<p>Error of embeded framework in Xcode 11</p>
-<pre><code>Multiple commands produce 'xxx.framework':
-1) Target 'xxx' has copy command from 'xxx.framework' to 'xxx.framework'
-2) That command depends on command in Target 'xxx': script phase “Run Script”
-</code></pre>
-<ul>
-<li><a href="https://stackoverflow.com/questions/46800932/carthage-multiple-build-commands-for-output-file-framework?noredirect=1&amp;lq=1">Carthage: Multiple build commands for output file framework</a></li>
-<li><a href="https://github.com/Carthage/Carthage/issues/2897">Xcode 11 documentation update</a></li>
-</ul>
-<h1 id="reactive-programming">Reactive Programming</h1>
-<p>RxSwift &amp; RxCocoa</p>
-<ul>
-<li><a href="https://www.raywenderlich.com/1228891-getting-started-with-rxswift-and-rxcocoa">Getting Started With RxSwift and RxCocoa</a></li>
-<li><a href="https://stackoverflow.com/a/40231605">BehaviorSubject vs Observable?</a></li>
-<li><a href="https://medium.com/@R00We/different-between-map-and-flatmap-in-rx-e4230355f17f">Different between Map and FlatMap in RX</a></li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Page 365 of 365: 我的2019]]></title>
-        <id>https://www.nxw.name/post/page-365-of-365-wo-de-2019/</id>
-        <link href="https://www.nxw.name/post/page-365-of-365-wo-de-2019/">
-        </link>
-        <updated>2020-01-01T15:50:41.000Z</updated>
-        <summary type="html"><![CDATA[<p>就在昨天，趁我睡着的时候彻底和2019年道了别，在2020的开头也是时候回顾我的2019年了。对于这一年，算是真正的经历了几件大事，也慢慢开始触及我原来从来没有也未曾感兴趣的领域，甚至开始思考一些人生之类看似虚无缥缈的问题。这似乎就是别人所谓的成长，在我看来无非是对未来不确定因素的恐慌，一切似乎看得清又看不清。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>就在昨天，趁我睡着的时候彻底和2019年道了别，在2020的开头也是时候回顾我的2019年了。对于这一年，算是真正的经历了几件大事，也慢慢开始触及我原来从来没有也未曾感兴趣的领域，甚至开始思考一些人生之类看似虚无缥缈的问题。这似乎就是别人所谓的成长，在我看来无非是对未来不确定因素的恐慌，一切似乎看得清又看不清。</p>
-<!-- more -->
-<h1 id="毕业">毕业</h1>
-<p>上学应该会霸占每一位中国青少年极多的少年时光，我也不例外。相比于初中高中，在大学似乎终于有机会放飞自我，做我真正热爱的事情。也从大学之后，真正的感受到了什么是时光如流水，这4年过的太快，快到让人难以置信。</p>
-<p>回头想来也算没荒度人生，我担任过学工的站长，说来也奇怪，在我任站长的一点经历了很多的第一次，第一次举办线上考试，在新生入学那几天我们开发的系统为近1万名新生提供服务，第一次组织易班，第一次举办开学典礼发言人遴选，第一次数字化十佳辅导员投票系统，直到最后我们还得到一间宽敞的、崭新的办公室，虽然装修好了之后就换届了，但这也算是学校领导对我们近一年工作的肯定；也以第一作者身份发表过论文，在与导师一封封邮件中反复修改，尽管四处被拒，但在大三行将结束的那个期末传来了好消息；也拿过国家奖学金，是我人生中第一次因为学习而获得如此巨大的奖励。</p>
-<p>我尤其庆幸在大学中遇到了那么多优秀的学长学姐、导师、指导教师、同学、舍友，但是也带着很多遗憾我准备离开校园。在大学的最后一年中，我匆匆忙忙的完成了毕业设计，参加了毕业答辩，在无比炎热的夏天拍了毕业照片。直到真正要走的那一天，我看到图书馆上悬挂的“欢送2019届毕业生”的横幅，我才真正意识到明天的我就与大学彻底无关了，从今往后那个24号楼229宿舍会永久停业，那个我待了三年的学六306也将会充满着陌生的新面孔，对于母校终究成了一名过客。</p>
-<h1 id="考研">考研</h1>
-<p>在我以前看来，考研算得上是世界中最无趣的事情之一。但是当我真正站在人生交叉口上，真正面对未来诸多不确定时，我开始逐渐拥抱考研。2019年的近8个月中我完全为考研做着准备，甚至最后三个月我几乎连小区院子也没出。在准备的过程中，我仍无法认同所谓的应试教育，尤其是最后一个月看到各式各样的教育机构推出的所谓的“冲刺班”、“救命班”，看到那些所谓的教师熟练的讲述如何不看懂原文就能蒙对之类的内容时，更加深了我对应试教育以及购买这些课程的学生的鄙夷，但是这并不妨碍我在准备考研这段时间中我的收获。</p>
-<p>首先，我对数学之类的学科有了全新的认识。在此之前，我认为对数学感兴趣的人都是不可理喻之人，着实无法理解在一行行生硬的定理中该如何激发对这门学科的兴趣。令我大为改观的是张宇老师，一位非常优秀的考研数学老师，他将数学史、应用与生硬的定理和谐的融合为一体。其实那些生硬的定律大都源自于一件甚至可能天天在我们身边发生的事，那些数学大家也是从无知逐渐一步步迈向真理，比如牛顿这一辈子可能都没搞明白微积分的真谛。数学其实本身没有那么枯燥，只是从小到大我们一直接受的应试教育完全抹除了它们的乐趣，而只是生硬的做题、背公式、改错题。</p>
-<p>其次，我重新深刻的学习了CS的基础：数据结构、计算机组成原理、操作系统和计算机网络。直到学完的那刻才能真正的了解这些基础的重要性。原来的我也不过只是个CURD Boy(aka API Boy)，天天抱着文档调接口，当然我承认这样确实容易做出能用的产品从而获得巨大的成就感，但是我未曾站在机器的立场想过内部的原理。虽然不知道最终的成绩如何，但是无论如何借由考研的机会让我真的知道我的层次，对于我也算是受益良多。所以2020要立几个Flag：重新完整学习C++并读完Redis的源码。</p>
-<p>然后就是健身，虽然考研并不是推动我健身的直接力量（胖才是）。原来也断断续续有去健身房，但是在学校毕竟需要做的事情比较多，课程太过分散，因此也就没怎么有坚持下来，反而在准备考研期间，几乎一天的时间都可以由我自由支配。还有就是将要进入第二个本命年的我，已经明显感觉到身体没以前那么抗造，隔三差五的某些地方就要疼你几天，这确实也是迫使我健身的第二大动力。不过经过半年左右的坚持锻炼（考研前3个月就专心复习，没有再去了），与之前对比确实有很明显的改观。因此考研刚结束我也就马不停蹄的动起来，希望明年的这个时候会有新的改变。</p>
-<p>再就是我开始关注政治、经济方面的问题了。这主要源于考研的零碎休息时间刷YouTube，看到一个叫“观视频”的频道，里面的“又见”系列真的做的很不错，虽然有个别的“中吹”嫌疑，但是总体上我认为说的还算客观公正。这里面的教授每个人都有独到的观点，所以真的是强烈推荐。</p>
-<p>最后考研带给我的改变就是沉心静气。现在是信息化时代，我们获取信息确实非常方便快捷。任何事情有得有失，信息化还带来了“碎片化”、“极端化”等问题。碎片化其实对我影响最大，以前在接触新东西之前我总是喜欢摸着石头过河，需要什么去网上查一查解决方案，当然这在入门期间确实大有益处，但是越往深处走就会发现这种方便快捷带来的是支离破碎、不成体系的知识，远不如沉心静气看下一本书收获来的多。在考研期间我耐着性子看完了好几本书、做完了好几本题之后，我突然发现原来看完一本书远没有想象中的那么痛苦。这也是我在前面flag里说“重新完整学习C++”，也就是下决心把《C++ Primer》这本书从头到尾看一遍。</p>
-<p>BTW，考研期间还掌握了一大技能就是调制港式奶茶，毫不夸张的说味道很赞！XD</p>
-<h1 id="2020">2020</h1>
-<p>这篇文章写于考研成绩公布之前，心中多少还有些忐忑。正如前面所说未来不确定的因素太多，但谁的青春不迷茫呢？就在考研期间我在twitter上follow了一些中国的独立开发者，没错，在看过他们的推特后激起了我强烈的兴趣。我时常在想如果我发布一款属于自己的产品那该有多好。因此刚考完研，我就已经开始构思我的产品啦！希望在2020年能够发布第一版的demo，为成为freelancer迈出第一步。</p>
-<h1 id="goodbye-9012">Goodbye, 9012</h1>
-<p>最后的最后还想记录一下在9012年我觉得很不错的一些APP：</p>
-<ul>
-<li>Surge: 一款几乎完美的网络调试工具，开发者是Yachen Liu</li>
-<li>Elpass: 2019年12月发布的一款密码管理工具，开发者是Yachen Liu</li>
-<li>Spotify: 今年从QQ音乐转移到了Spotify，去掉了那些花里胡哨的社交功能让听音乐变得更纯粹</li>
-<li>Telegram: 一款使用体验完美碾压于微信的聊天工具</li>
-</ul>
-<p>那么9012再见，2020你好。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Git Usage]]></title>
-        <id>https://www.nxw.name/post/git-usage/</id>
-        <link href="https://www.nxw.name/post/git-usage/">
-        </link>
-        <updated>2019-11-16T02:08:42.000Z</updated>
-        <summary type="html"><![CDATA[<p>Git is an awesome tool for version control. I used to some convenient GUI applications to manage git repository, and  ignored how it works and how to do it by command line. So in this article I will record some useful git commands that I used in development.</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>Git is an awesome tool for version control. I used to some convenient GUI applications to manage git repository, and  ignored how it works and how to do it by command line. So in this article I will record some useful git commands that I used in development.</p>
-<!--MORE-->
-<h1 id="initialization">Initialization</h1>
-<p>Initialize a local git repository</p>
-<pre><code class="language-bash">git init
-# recommand the way using ssh
-git remote add origin ssh@xxxx
-</code></pre>
-<p>Push to remote repository</p>
-<pre><code class="language-bash">git add .
-git commit -a
-git push origin master
-</code></pre>
-<p>Pull from remote repository</p>
-<pre><code class="language-bash">git pull origin master
-</code></pre>
-<p>List the available remote repositories</p>
-<pre><code class="language-bash">git remote -v
-</code></pre>
-<h1 id="branch">Branch</h1>
-<p>Create</p>
-<pre><code class="language-bash"># create a branch named &quot;branch1&quot;
-git checkout -b branch1
-</code></pre>
-<p>Checkout (from local)</p>
-<pre><code class="language-bash">git checkout master
-</code></pre>
-<p>Checkout (from remote to local)</p>
-<pre><code class="language-bash">git checkout -b branch1 origin/branch1
-</code></pre>
-<p>Merge</p>
-<pre><code class="language-bash"># assume you are in master branch and want to merge the code from hotfix
-git merge hotfix
-</code></pre>
-<p>Rename</p>
-<pre><code class="language-bash"># rename
-git branch -m old-name new-name
-# Delete the old-name remote branch and push the new-name local branch.
-git push origin :old-name new-name
-# Reset the upstream branch for the new-name local branch.
-git push origin -u new-name
-</code></pre>
-<p>Delete local Branch</p>
-<pre><code class="language-bash">git branch -d branch_name
-# force delete
-git branch -D branch_name
-</code></pre>
-<p>Delete remote branch (remote name: origin, remote branch: branch1)</p>
-<pre><code class="language-bash">git push origin --delete branch1
-</code></pre>
-<h1 id="tag">Tag</h1>
-<p>Create</p>
-<pre><code class="language-bash"># add tag(e.g. v1.0) for current branch
-git tag v1.0
 
-# add tag with commit id(e.g. 039bf8b)
-git tag v1.0 039bf8b
+        <div class="flex justify-between py-8">
+          
 
-# add tag with extra message
-git tag -a v1.0 -m &quot;version 1.0&quot;
-</code></pre>
-<p>View</p>
-<pre><code class="language-bash"># view local tags
-git tag
+          
+            <div class="next-post">
+              <a href="https://www.nxw.name/post/docker-usage/">
+                <h3 class="post-title">
+                  Docker Usage
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
 
-# view remote tags
-git ls-remote --tags
-</code></pre>
-<p>Share the Tags</p>
-<pre><code class="language-bash"># push a specific tag
-git push origin v1.0
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://geektutu.github.io/hexo-theme-geektutu/js/gitalk.min.js"></script>
 
-# push all local tags for one time
-git push origin --tags
-</code></pre>
-<p>Switch</p>
-<pre><code class="language-bash">git checkout v1.0
-</code></pre>
-<p>Delete remote tag(e.g. v1.0)</p>
-<pre><code>git push -d origin v1.0
-</code></pre>
-<h1 id="fix-untracked-files">Fix untracked files</h1>
-<p>For example, although you added some files into .gitignore, those are still tracked by git. The solution of the problem shown in below:</p>
-<pre><code class="language-bash">git rm -r --cached .
-git add .
-git commit -m &quot;fixed untracked files&quot;
-</code></pre>
-<h1 id="how-to-undo-the-most-recent-commits">How to undo the most recent commits</h1>
-<p>The more details could be found in <a href="https://stackoverflow.com/questions/927358/how-do-i-undo-the-most-recent-commits-in-git?page=1&amp;tab=votes#tab-top">StackoverFlow</a>.</p>
-<pre><code class="language-bash"># your files will not lose, even index not too
-# you can simply recommit again
-git reset --soft HEAD~
-git commit -a -m &quot;recommit&quot;
+<div id="gitalk-container"></div>
 
-# reset with &quot;--hard&quot; would switchs the previous state entirely
-# that means this not leaves your files and index both
-git reset --hear HEAD~
-</code></pre>
-<h1 id="resolve-a-merge-conflict-using-the-command-line">Resolve a merge conflict using the command line</h1>
-<p>The more details could be found in <a href="https://help.github.com/articles/resolving-a-merge-conflict-using-the-command-line/">Github Documents</a>.</p>
-<pre><code class="language-bash">git status
-# &gt;&gt;&gt; OUTPUTS OF git status &lt;&lt;&lt;
-# On branch master
-# You have unmerged paths.
-#   (fix conflicts and run &quot;git commit&quot;)
-#   (use &quot;git merge --abort&quot; to abort the merge)
-#
-# Changes to be committed:
-#
-#         new file:   socket_learning/class3/__init__.py
-#         new file:   socket_learning/class3/db/Message.txt
-#         new file:   socket_learning/class3/db/User.txt
-#         new file:   socket_learning/class3/models/message.py
-#         new file:   socket_learning/class3/models/user.py
-#
-# Unmerged paths:
-#   (use &quot;git add/rm &lt;file&gt;...&quot; as appropriate to mark resolution)
-#
-#         deleted by us:   socket_learning/class3/models/__init__.py
-#         added by us:     socket_learning/server_impl/models/__init__.py
-#         both modified:   socket_learning/server_impl/routes.py
-# 
-# Untracked files:
-#   (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
-#
-#         socket_learning/__pycache__/
-#         socket_learning/server_impl/__pycache__/
-</code></pre>
-<p><code>delete by us</code> and <code>added by us</code> can be added or deleted simply using the following command.</p>
-<pre><code class="language-bash">git add &lt;file&gt;
-git rm &lt;file&gt;
-</code></pre>
-<p><code>both modified</code> should manually merge using the text editor, like Vim or Atom. In these case, the conflict of <code>routes.py</code> is showing as below</p>
-<pre><code class="language-python">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:socket_learning/server_impl/routes.py
-from socket_learning.server_impl.models.message import Message
-from socket_learning.server_impl.models.user import User
-from socket_learning.server_impl.utils import log
-=======
-from socket_learning.class3.models.message import Message
-from socket_learning.class3.models.user import User
-from socket_learning.class3.utils import log
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; d8a8b9b8ad0e55b7216520600ae1bf809b5b2aa7:socket_learning/class3/routes.py
-</code></pre>
-<p><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>,<code>=======</code> and<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> indicates the places where conflict occurred, you should determine what the contents is the right one and change it with text editor.</p>
-<pre><code class="language-python"># handle the conflicts manually
-from socket_learning.server_impl.models.message import Message
-from socket_learning.server_impl.models.user import User
-from socket_learning.server_impl.utils import log
-</code></pre>
-<p>Save it and recommit them.</p>
-<pre><code class="language-bash">git add .
-git commit -a -m &quot;Merge branch 'master' of github.com:xavier-niu/python-playground&quot;
-</code></pre>
-<h1 id="remove-all-history-commits">Remove all history commits</h1>
-<p>Checkout</p>
-<pre><code class="language-bash"># the core use for &quot;git checkout --orphan&quot; is to reach 
-# a &quot;git init&quot;-like situation on a non-new repository
-git checkout --orphan latest_branch
-</code></pre>
-<p>Add all the files</p>
-<pre><code class="language-bash">git add -A
-</code></pre>
-<p>Commit the changes</p>
-<pre><code class="language-bash">git commit -am &quot;commit message&quot;
-</code></pre>
-<p>Delete the master branch (or what branch you want to clean)</p>
-<pre><code class="language-bash">git branch -D master
-</code></pre>
-<p>Rename the current branch to master</p>
-<pre><code class="language-bash">git branch -m master
-</code></pre>
-<p>Finally, force update your repository</p>
-<pre><code class="language-bash">git push -f origin master
-</code></pre>
-<h1 id="integrate-commit-and-push-into-one-command">Integrate commit and push into one command</h1>
-<p>This not supports by the build-in git command. But we can add a customized function into <code>.bash_profile</code>(for mac) to implement it.</p>
-<pre><code class="language-bash"># lazygit for using commit and push in one command
-# usage: lazygit &quot;commit msg&quot;
-function lazygit() {
-	git add .
-	git commit -am &quot;$1&quot;
-	git push
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '95da5e6dfbe94e9621c5',
+    clientSecret: '6b6510006d4bd9b042323bc2c5b1374561942033',
+    repo: 'xav1er.github.io',
+    owner: 'xavier-niu',
+    admin: ['xavier-niu'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false,  // Facebook-like distraction free mode
+    language: 'en'
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://www.nxw.name/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
 }
-</code></pre>
-<h1 id="restore-the-deleted-file">Restore the deleted file</h1>
-<p>Assume that <code>test.txt</code> is the file you want to restore. First of all, find the last commit that affected the given path.</p>
-<pre><code class="language-bash">git rev-list -n 1 HEAD -- test.txt
-# outputs: 145107deebdbbad4ce0824b0dbb6f648b5515de7
-</code></pre>
-<p>The outputs are the id of the last commit. Checkout the version at the commit before, using the caret symbol.</p>
-<pre><code class="language-bash">git checkout 145107deebdbbad4ce0824b0dbb6f648b5515de7^ -- text.txt
-</code></pre>
-<p>Or in one command</p>
-<pre><code class="language-bash">git checkout $(get rev-list -n 1 HEAD -- text.txt)^ -- text.txt
-</code></pre>
-<h1 id="refuse-to-merge-unrelated-histories">Refuse to Merge Unrelated Histories</h1>
-<p>Git reports an error when pulling from remote source.</p>
-<pre><code>XavierNius-iMac:lucius-dev xavierniu$ git pull origin master
-From github.com:xavier-niu/docker-lucius
- * branch            master     -&gt; FETCH_HEAD
-fatal: refusing to merge unrelated histories
-</code></pre>
-<p>The following command with <code>--allow-unrelated-histories</code> is work.</p>
-<pre><code class="language-bash">git pull origin master --allow-unrelated-histories
-</code></pre>
-<h1 id="git-clone-with-specific-port">Git Clone with Specific Port</h1>
-<p>The git clone command with default port is</p>
-<pre><code class="language-bash">git clone git@localhost:root/lucius.git
-</code></pre>
-<p>Assume that the port is 1923, the command is switch to</p>
-<pre><code class="language-bash">git clone ssh://git@@localhost:1923/root/lucius.git
-</code></pre>
-<p>What we added:</p>
-<ul>
-<li>ssh protocol at the beginning of address</li>
-<li>the port you specified behind the colon</li>
-</ul>
-<h1 id="move-files-when-checkout-a-new-branch-without-commit-or-merge">Move Files When Checkout a New Branch without Commit or Merge</h1>
-<p>Sometimes, I often forget to checkout a new branch when composing a new module. Therefore, I don't want to commit it, neither want to merge it, but only would like to save current status and change the branch in that I haven't reached the milestone. To achieve it, I recommend to use <code>stash</code> command.</p>
-<pre><code class="language-bash"># step 1
-git stash
-# step 2: checkout
-git checkout new-branch
-# step 3: restore current status
-git stash pop
-</code></pre>
-<h1 id="use-git-over-a-proxy">Use Git over a Proxy</h1>
-<p>Assume that there is a proxy like <code>127.0.0.1:1080</code>, both http and ssh proxy should be configed to ensure we can access the remote resources through any ways, like ssh protocol.</p>
-<pre><code class="language-bash"># git http proxy
-git config --global http.proxy socks5://127.0.0.1:1080
-</code></pre>
-<p>Add the following lines into <code>~/.ssh/config</code>, this method is passed on the macOS, other OS I haven't test.</p>
-<pre><code>Host github.com
-    ProxyCommand          nc -X connect -x 127.0.0.1:1081 %h %p
-    ServerAliveInterval   10m
-</code></pre>
-<p>BTW, in the git http proxy config, you should use socks proxy with the &quot;socks5://&quot; prefix, on the contrary, in the ssh config, you should use http proxy.</p>
-<hr>
-<h1 id="update-logs">Update Logs</h1>
-<p>This post will be updated continuously with my development. There are the logs to better know when I updated those contents:</p>
-<ul>
-<li>January 20, 2019: <code>init</code> move all contents from Notion to my blog</li>
-<li>January 21, 2019: <code>add</code> remove all history commits</li>
-<li>January 22, 2019:
-<ul>
-<li><code>add</code> branch &gt; delete remote branch</li>
-<li><code>update</code> tag &gt; create</li>
-<li><code>add</code> tag &gt; delete remote tag</li>
-<li><code>update</code> tag &gt; share the tags</li>
-<li><code>update</code> tag &gt; view</li>
-</ul>
-</li>
-<li>January 27, 2019: <code>add</code> integrate commit and push into one command</li>
-<li>February 3, 2019: <code>add</code> restore the deleted file</li>
-<li>February 27, 2019: <code>add</code> refuse to merge unrelated histories</li>
-<li>March 8, 2019: <code>add</code> git clone with specific port</li>
-<li>March 17, 2019: <code>add</code> move files ehen checkout a new branch without commit or merge</li>
-<li>April 4, 2019: <code>add</code> use git over a proxy</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Custom Actions of Launchbar]]></title>
-        <id>https://www.nxw.name/post/custom-actions-of-launchbar/</id>
-        <link href="https://www.nxw.name/post/custom-actions-of-launchbar/">
-        </link>
-        <updated>2019-10-18T16:10:56.000Z</updated>
-        <summary type="html"><![CDATA[<p><a href="https://www.obdev.at/products/launchbar/index.html">Launchbar</a> is a tool aimed for quick launch. Action, one of the function of Launchbar for productivity improvement in programming way, could runs tons of types of script to implement automation.</p>
-]]></summary>
-        <content type="html"><![CDATA[<p><a href="https://www.obdev.at/products/launchbar/index.html">Launchbar</a> is a tool aimed for quick launch. Action, one of the function of Launchbar for productivity improvement in programming way, could runs tons of types of script to implement automation.</p>
-<!--MORE-->
-<p>For more usage of Launchbar, you could check <a href="https://sspai.com/post/42907">this post</a> (🇨🇳Chinese). And here I gonna share some of the Actions I am using. Hope this post could help you.</p>
-<h1 id="requirement-installation">Requirement &amp; Installation</h1>
-<p>Requirement:</p>
-<ul>
-<li>Python (for mac user python will be installed as default, so you can ignore it in case you are not familiar with)</li>
-<li>Launchbar</li>
-</ul>
-<p>How To Install:</p>
-<p>Firstly, download the actions you want to install on your mac from <a href="https://github.com/xavier-niu/pub/tree/master/launchbar">Github</a>. And you will get a file with &quot;.ibaction&quot; extention. Just double click and install. Then, open &quot;Launchbar&quot; and enter &quot;AE&quot; to go to &quot;Action Editor&quot; in which you could find all actions you have installed.<br>
-<img src="http://res.niuxuewei.com/2019-10-18-163444.png" alt="" loading="lazy"><br>
-<img src="http://res.niuxuewei.com/2019-10-18-163506.png" alt="" loading="lazy"></p>
-<h1 id="google-translate">Google Translate</h1>
-<p>Google Translate, GOT in short, is super handy with a feature, called Instant Send, that allows Launchbar get what select by your cursor. In behalf of accessing service Google Translate more quicker, I highly recommend to open &quot;Instant Seed&quot;. You should press <code>Command + ,</code> and go to &quot;Shortcuts&quot; tab on the top of Preferences window. Switch the option of Instant Seed from Off to any keymap you like. In my opinion, &quot;Double fn&quot; is the best and naturaliest way.</p>
-<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2019-10-18-164637.png" alt="Shortcuts tab" loading="lazy"></figure>
-<p>Now you can select a sentence you want to translate and press &quot;Double fn&quot; to active Instand Seed. The sentence are going to the input of launchbar and keep entering &quot;GOT&quot;, as a result you will get the translation from Google immediately.</p>
-<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2019-10-18-2019-10-19%2000.58.29.gif" alt="" loading="lazy"></figure>
-<p>BTW, you can edit the script for more language support if you are familiar with Python. So feel free to leave a message and I will give you response as soon as possible.</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[Success] Hackintosh on Gigabyte Z370N WiFi with i5-8500]]></title>
-        <id>https://www.nxw.name/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500/</id>
-        <link href="https://www.nxw.name/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500/">
-        </link>
-        <updated>2019-10-18T15:20:14.000Z</updated>
-        <summary type="html"><![CDATA[<p>I'm new to Hackintosh. When installed it on my comp, I almost got stuck at anywhere except post-installation.</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>I'm new to Hackintosh. When installed it on my comp, I almost got stuck at anywhere except post-installation.</p>
-<!--MORE-->
-<p>Firstly, if you hang on &quot;Installing Bootloader&quot; with Unibeast 9.0.0, please try to reinstall your macOS, which you use Unibeast, after backup with Time Machine. Besides, I suggest when you want to build yourself at very first time <strong>DO NOT</strong> buy XFX video card, which I took about 1 week to handle an error &quot;attempting system restart&quot;, although it appears at Tony's buyer guide.</p>
-<p>Update Log:</p>
-<ul>
-<li>Oct 15, 2019: support macOS Catalina</li>
-<li>Oct 16, 2019: update stuffs related to bluetooth for macOS Catalina</li>
-<li>Oct 17, 2019: fix system panic after sleeping after updated to 10.15(19A602)</li>
-<li>Oct 30, 2019: update for macOS 10.15.1</li>
-<li>Dec 19, 2019: [WARNING] updating to 10.15.2 should be carefully, a process named &quot;com.apple.parsec-fbf.flush&quot; which is running and keeping active in background until power off can lead your Hackintosh can't sleep properly. To get more info and a temporary solution, you may refer to <a href="https://www.tonymacx86.com/threads/process-com-apple-parsec-fbf-flush-on-catalina-10-15-2-prevents-system-from-sleeping-automatically.288951/">this post on tonymacx86</a>.</li>
-<li>Jan 1, 2020: replace BCM94352Z with BCM94360CS2, a network card is natively supported by Apple, hence, all info related to wifi and bluetooth is removed.</li>
-</ul>
-<h1 id="hardware-summary">Hardware  Summary</h1>
-<ul>
-<li>MoBo: Gigabyte Z370N WiFi (M-ITX)</li>
-<li>CPU: Intel Core i5-8500</li>
-<li>Memory: Corsair Vengerance LPX DDR4 16G 3000MHz x2</li>
-<li>Graphics Card: Sapphire RX 580 Pulse 8GB</li>
-<li>Drives: Samsung EVO850 500G</li>
-<li>Wireless Network Card: BCM94360CS2 (NGFF + M.2)</li>
-<li>PSUs: CoolerMaster MWE GOLD 650W</li>
-<li>CPU Cooler: CoolMaster T400i</li>
-<li>Case: Antec Cube - Designed By Razer</li>
-</ul>
-<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-12-29-IMG_1249.jpg" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2018-12-29-085816.png" alt="" loading="lazy"></figure>
-<h1 id="bios-options">BIOS Options</h1>
-<p>As for BIOS options, I fellow with @CaseySJ's guide at <a href="https://www.tonymacx86.com/threads/success-ongoing-status-of-designare-z390-with-i7-9700k.266065/page-29#post-1880116">here</a>. There are huge differences (at least in the name of options) between the motherboards, you should refer to other tutorials if your motherboard not from Gigabyte.</p>
-<ul>
-<li>M.I.T &gt; Extreme Memory Profile (X.M.P.) &gt; Profile 1 <s>(The problem of usb devices unexpected disconnection after sleeping may take place if opt-in Profile 1, in turn you can have higher memory frequency that  could pass over 2133MHz.)</s></li>
-<li>BIOS &gt; Windows 8/10 Features &gt; Windows 8/10 (cuz there is not the option of &quot;Other OS&quot;)</li>
-<li>BIOS &gt; CSM Support &gt; Disabled</li>
-<li>BIOS &gt; Secure Boot &gt; Disabled</li>
-<li>Peripherals &gt; Intel Platform Trust Technology (PTT)  &gt; Disabled</li>
-<li>Peripherals &gt; USB Configuration &gt; Legacy USB Support &gt; Enabled</li>
-<li>Peripherals &gt; USB Configuration &gt; XHCI Hand-off &gt; Enabled</li>
-<li>Peripherals &gt; Network Stack Configuration &gt; Network Stack &gt; Disabled</li>
-<li>Chipset &gt; Vt-d &gt; Disabled</li>
-<li>Chipset &gt; Internal Graphics &gt; Enabled</li>
-<li>Chipset &gt; DVMT Pre-Alloc &gt; 64M</li>
-<li>Chipset &gt; DVMT Total Gfx Mem &gt; 256M</li>
-<li>Chipset &gt; Above 4G Decoding &gt; Enabled</li>
-</ul>
-<h1 id="post-installation">Post-Installation</h1>
-<p>The method of kext installation and rebuilding kext cache: Copy the kexts you want to install into the folder (like /Library/Extensions, aka /L/E, or other locations). Then, download the <strong>Kext Utility</strong> that help you rebuild the kext cache and others from <a href="http://cvad-mac.narod.ru/index/0-4">here</a>.</p>
-<p>I did following thing at the stage of post-installation:</p>
-<ul>
-<li>
-<p>Multibeast: Install clover on the SSD of Hackintosh.</p>
-</li>
-<li>
-<p>Config.plist: I applied this <a href="http://res.niuxuewei.com/config.plist">config</a> provided by @CaseySJ and works fine on my hackintosh.</p>
-</li>
-<li>
-<p>USB 3.0: Download <a href="http://res.niuxuewei.com/SSDT-UIAC-GA-Z370N-WIFI.aml">SSDT</a> and copy it into <code>/EFI/ACPI/patched/</code></p>
-</li>
-<li>
-<p>Kexts installed on my Hackintosh:</p>
-<ul>
-<li>AppleALC.kext (Audio)</li>
-<li>FakeSMC.kext</li>
-<li>Lilu.kext</li>
-<li>USBInjectAll.kext (USB)</li>
-<li>XHCI-unsupported.kext (USB)</li>
-<li>WhateverGreen.kext (AMD Graphics Card) <em>(EDIT@Oct 30, 2019: For AMD users, please update WhateverGreen.kext to 1.3.4 or newer to support macOS 10.15.1, otherwise, blackscreen would happen when booting.)</em></li>
-<li>IntelMausiEthernet.kext (Ethernet) <em>(EDIT@Oct 17, 2019: the old version may arise system panic after sleeping. To resolve it, you should clone project of the latest from <a href="https://github.com/Mieze/IntelMausiEthernet">this repo</a> and build it by yourself with Xcode, in the end copy &amp; paste it into <code>/L/E</code> folder.)</em></li>
-</ul>
-</li>
-<li>
-<p>Enable HiDPI for 2K resolution display: see <a href="https://github.com/xzhih/one-key-hidpi">this repo</a></p>
-</li>
-<li>
-<p>Previews, a built-in app on macOS, cannot previews jpg files by pressing space functionally: As mentioned in Github of NoVPAjpeg, the latest Lilu could fix it with additional boot arguments.</p>
-</li>
-</ul>
-<h1 id="summary">Summary</h1>
-<p>What works:</p>
-<ul>
-<li>audio</li>
-<li>graphics card</li>
-<li>shutdown / restart / sleep</li>
-<li>WiFi</li>
-<li>bluetooth</li>
-<li>airdrop</li>
-<li>handoff</li>
-<li>unlock with Apple Watch</li>
-</ul>
-<p>That's all. Thanks for everyone who helped me build my first Hackintosh at Tonymacx86, especially for @CaseySJ's generous and patient help. I am writing this post for  those who has similar config and installs Hackintosh in their first attempt, hopefully it can help you.</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[利用Aria2批量下载中国大学MOOC(慕课)(iCourse163.org)的视频]]></title>
-        <id>https://www.nxw.name/post/li-yong-aria2-pi-liang-xia-zai-zhong-guo-da-xue-moocmu-ke-icourse163orgde-shi-pin/</id>
-        <link href="https://www.nxw.name/post/li-yong-aria2-pi-liang-xia-zai-zhong-guo-da-xue-moocmu-ke-icourse163orgde-shi-pin/">
-        </link>
-        <updated>2019-10-18T13:27:40.000Z</updated>
-        <summary type="html"><![CDATA[<p>最近在看Mooc网课的一些课程，但是经常会遇到已经结课无法查看的视频，而且目前由于iCourse163使用了HLS技术来播放视频，使得通过TamperMonkey(油猴脚本)的方式下载视频更加困难。因此我花了一个下午左右的时间，找到了一个批量下载iCourse163视频的方式。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>最近在看Mooc网课的一些课程，但是经常会遇到已经结课无法查看的视频，而且目前由于iCourse163使用了HLS技术来播放视频，使得通过TamperMonkey(油猴脚本)的方式下载视频更加困难。因此我花了一个下午左右的时间，找到了一个批量下载iCourse163视频的方式。</p>
-<!-- MORE -->
-<p>在使用之前需要注意，这篇教程理论上在任何系统中都可以运行，但是我仅在macOS下测试成功，不同系统之间可能存在着Bash命令差异。在动手之前需要准备以下几样东西：</p>
-<ul>
-<li>Python3</li>
-<li>Aria2(<a href="https://www.jianshu.com/p/97efbb73a747">安装步骤</a>)</li>
-</ul>
-<p>使用步骤</p>
-<ol>
-<li>获取视频源地址，借助工具<a href="http://tools.antlm.com/">antlm</a></li>
-<li>在右下角，点击批量下载以获取<code>.bat</code>文件</li>
-<li>下载<a href="https://github.com/xavier-niu/pub/tree/master/python/aira2-icourse163-dl">bat2aria2.py</a>，修改<code>source</code>、<code>output</code>和<code>download_dir</code>后，使用<code>python3 bat2aria2.py</code>运行即可获得一个下载列表
-<ul>
-<li>source: 你刚才下载的bat文件地址</li>
-<li>output: 你想要生成的文件地址，如<code>/Users/user/Download/aria2-download-list</code>，则运行完该命令后会自动生成一个<code>aria2-download-list</code>的文件</li>
-<li>download_dir: 保存视频的地址</li>
-</ul>
-</li>
-<li>运行<code>python3 bat2aria2.py</code>（或者<code>python bat2aria2.py</code>）</li>
-<li>Enjoy it!</li>
-</ol>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Mac Terminal使用Shadowsocks连接网络]]></title>
-        <id>https://www.nxw.name/post/mac-terminal-shi-yong-shadowsocks-lian-jie-wang-luo/</id>
-        <link href="https://www.nxw.name/post/mac-terminal-shi-yong-shadowsocks-lian-jie-wang-luo/">
-        </link>
-        <updated>2019-10-18T13:27:22.000Z</updated>
-        <summary type="html"><![CDATA[<p>最近需要在mac上使用homebrew安装软件，但是homebrew的软件都是在github上的，恰巧这几天校园网一直无法访问github，就从网上查找到了terminal使用代理的方式：</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>最近需要在mac上使用homebrew安装软件，但是homebrew的软件都是在github上的，恰巧这几天校园网一直无法访问github，就从网上查找到了terminal使用代理的方式：</p>
-<!-- MORE -->
-<ol>
-<li>
-<p>在mac上的shadowsocks的设置：</p>
- <img src="http://res.niuxuewei.com/2018-04-29-022952.png" height="300px">
-</li>
-<li>
-<p>开启Terminal输入：</p>
-<pre><code class="language-bash"># 一般端口为1080 我的ss的设置是1086
-export http_proxy=socks5://127.0.0.1:1086
-export https_proxy=socks5://127.0.0.1:1086
-# 或者
-export ALL_PROXY=socks5://127.0.0.1:1086
-</code></pre>
-</li>
-<li>
-<p>Enjoy!XD</p>
-</li>
-</ol>
-<p>[EDIT@Oct 15, 2019] 其实核心在于找到本地代理的端口（地址一般是127.0.0.1），因此在其余的软件，诸如Surge、Clash、ShadowsocksR(SSR)，都是差不多的原理。不过使用Surge的话有更容易的快捷键，点击Surge在菜单栏的图标后按住&quot;Command + C&quot;即可快捷复制上述代码。</p>
-<p>需要注意的是</p>
-<ul>
-<li>
-<p>这个只对当前terminal窗口有效</p>
-</li>
-<li>
-<p>ping命令无法作为有效的检查工具，因为ping命令运行于网络层，而代理是在运输层之上的，我们可以用<code>curl</code>命令检测代理是否可用</p>
-<pre><code class="language-bash">curl -i https://www.google.com
-</code></pre>
-</li>
-</ul>
-<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-04-29-024410.png" alt="对比图" loading="lazy"></figure>
-<p>为了更加方便，我们可以通过别名(alias)在~~~/.bashrc~~文件中设置别名来快速开启或关闭代理（注意在macOS Catalina及以上默认Bash改为了ZSH，因此设置文件是<code>~/.zshrc</code>，其余发行版需根据实际情况设置）</p>
-<pre><code class="language-bash">vi ~/.bash_profile	# 编辑配置文件
-alias setproxy=&quot;export ALL_PROXY=socks5://127.0.0.1:1086&quot;
-alias unsetproxy=&quot;unset ALL_PROXY&quot;
-:wq保存后
-source ~/.bash_profile	# 立即生效
-setproxy	# 开启代理
-unsetproxy	# 关闭代理 
-</code></pre>
-<h1 id="references">References</h1>
-<ul>
-<li><a href="https://www.noxxxx.com/mac-%E4%B8%8B%E7%BB%88%E7%AB%AF%E8%B5%B0-ss-%E4%BB%A3%E7%90%86.html">#1 Mac 下终端走 ss代理</a></li>
-<li><a href="http://gaocegege.com/Blog/%E9%9A%8F%E7%AC%94/shadowsocks-with-terminal">#2 如何在OS X 10.11的Terminal中使用shadowsocks</a></li>
-<li><a href="https://www.jianshu.com/p/30ffeff2ce53">#3 MAC下终端走代理的几种方法</a></li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Setting A Static IP on VirtualBox for Ubuntu]]></title>
-        <id>https://www.nxw.name/post/setting-a-static-ip-on-virtualbox-for-ubuntu/</id>
-        <link href="https://www.nxw.name/post/setting-a-static-ip-on-virtualbox-for-ubuntu/">
-        </link>
-        <updated>2019-10-18T13:27:12.000Z</updated>
-        <summary type="html"><![CDATA[<p>Recently, I need to install a virtual machine on VirtualBox on my mac and assign it with a static ip. But I encountered several problems worthing to record it.</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>Recently, I need to install a virtual machine on VirtualBox on my mac and assign it with a static ip. But I encountered several problems worthing to record it.</p>
-<!--MORE-->
-<p>The first step is install VirtualBox and download the iso of latest Ubuntu. These steps, too simple to waste time, are skipped. The following part will describe the details one-by-one.</p>
-<p>Step 1. Create a Host-only Network on VirtualBox</p>
-<ul>
-<li>Click &quot;File &gt; Host Network Manager&quot;</li>
-<li>Click &quot;Create&quot; in the upper left corner</li>
-</ul>
-<p>DHCP option I prefer do not modify, although it doesn't matter with setting static ip. In this way, you can get a new net called &quot;vboxnet0&quot;.</p>
-<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2019-03-10-132337.png" alt="image-20190310212335100" loading="lazy"></figure>
-<p>Step 2. Config your Virtual Machine</p>
-<ul>
-<li>Click right on your VM and select &quot;Settings&quot; option</li>
-<li>Click &quot;Network &gt; Adapter 2&quot; and alter these options as the below image</li>
-</ul>
-<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2019-03-10-132610.png" alt="image-20190310212609408" loading="lazy"></figure>
-<p>Step 3. Config the Network inside the VM</p>
-<p>(OS: Ubuntu Server 18.04 LTS)Startup your VM, and insert the command</p>
-<pre><code class="language-bash">ifconfig -a
-</code></pre>
-<p>It will output all Ethernets on your VM, your can find there is a different ethernet with no inet, netmask on the terminal. It is named &quot;end0s8&quot; in this case, but it can be a little difference between your case.  Then press the command</p>
-<pre><code class="language-bash">sudo vim /etc/netplan/50-cloud-init.yaml
-</code></pre>
-<p>Append some lines into that file</p>
-<pre><code class="language-yaml">networks: 
-  ethernets: 
-    enp0s3: 
-      dhcp4: true
-    # start here
-    enp0s8: 
-      # you can replace 101 between 1 and 254 arbitrarily
-      # please note do not use the same ip in one subnet
-      addresses: [192.168.56.101/24]
-    # end
-  version: 2
-</code></pre>
-<p>Save it and reboot. To verify, you can use &quot;ping 192.168.56.101&quot; command in terminal on the host. If the output is same like the below, congratulation, you done it.</p>
-<figure data-type="image" tabindex="3"><img src="http://res.niuxuewei.com/2019-03-10-134344.png" alt="image-20190310214342885" loading="lazy"></figure>
-]]></content>
-    </entry>
-</feed>
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

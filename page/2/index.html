@@ -25,7 +25,7 @@
 
   </head>
   <body>
-    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+    <div class="main px-4 flex flex-col lg:flex-row">
       <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
   <div class="lg:sticky top-0">
     <div class="sidebar-content">
@@ -39,9 +39,41 @@
       
         <div class="animated fadeInLeft" style="animation-delay: 0.4s">
           <p class="my-4 text-gray-600 font-light hidden lg:block">
-            Contents
+            About code, about life, about everything.
           </p>
-          <div class="toc-container hidden lg:block">
+          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
+            
+              
+                <a href="https://github.com/xavier-niu" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                  <i class="ri-github-line"></i>
+                </a>
+              
+            
+              
+                <a href="https://twitter.com/xavierniu" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                  <i class="ri-twitter-line"></i>
+                </a>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <a href="https://t.me/xavierniu" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                  <i class="ri-telegram-line"></i>
+                </a>
+              
+            
+              
+            
+              
+            
+              
+            
+              
             
           </div>
         </div>
@@ -86,105 +118,38 @@
 </div>
 <div class="mask" onclick="closeMenu()">
 </div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">利用Aria2批量下载中国大学MOOC(慕课)(iCourse163.org)的视频</h1>
-        <div class="text-sm text-gray-700 lg:my-8">
-          2019-10-18 / 2 min read
-        </div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
+        <h2 class="latest-article text-lg text-gray-700 mb-8">
+          <i class="ri-article-line"></i>
+          Posts
+        </h2>
         
-        <div class="post-content yue">
-          <p>最近在看Mooc网课的一些课程，但是经常会遇到已经结课无法查看的视频，而且目前由于iCourse163使用了HLS技术来播放视频，使得通过TamperMonkey(油猴脚本)的方式下载视频更加困难。因此我花了一个下午左右的时间，找到了一个批量下载iCourse163视频的方式。</p>
-<!-- MORE -->
-<p>在使用之前需要注意，这篇教程理论上在任何系统中都可以运行，但是我仅在macOS下测试成功，不同系统之间可能存在着Bash命令差异。在动手之前需要准备以下几样东西：</p>
-<ul>
-<li>Python3</li>
-<li>Aria2(<a href="https://www.jianshu.com/p/97efbb73a747">安装步骤</a>)</li>
-</ul>
-<p>使用步骤</p>
-<ol>
-<li>获取视频源地址，借助工具<a href="http://tools.antlm.com/">antlm</a></li>
-<li>在右下角，点击批量下载以获取<code>.bat</code>文件</li>
-<li>下载<a href="https://github.com/xavier-niu/pub/tree/master/python/aira2-icourse163-dl">bat2aria2.py</a>，修改<code>source</code>、<code>output</code>和<code>download_dir</code>后，使用<code>python3 bat2aria2.py</code>运行即可获得一个下载列表
-<ul>
-<li>source: 你刚才下载的bat文件地址</li>
-<li>output: 你想要生成的文件地址，如<code>/Users/user/Download/aria2-download-list</code>，则运行完该命令后会自动生成一个<code>aria2-download-list</code>的文件</li>
-<li>download_dir: 保存视频的地址</li>
-</ul>
-</li>
-<li>运行<code>python3 bat2aria2.py</code>（或者<code>python bat2aria2.py</code>）</li>
-<li>Enjoy it!</li>
-</ol>
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${0 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://www.nxw.name/post/design-pattern-in-python/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Design Pattern in Python</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <p>Design Pattern, which help improve the structure of codes and read other source code faster, is a vital skill of development.</p>
 
-        </div>
+      </div>
+      <div class="text-gray-400 text-sm font-light">2019-10-18 / 4 min read</div>
+    </div>
+  </section>
 
-        
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://www.nxw.name/tag/r6kQGHWgE/">
-            <span class="flex-auto">aria2</span>
-          </a>
-        
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://www.nxw.name/tag/FBbh_ZLDnY/">
-            <span class="flex-auto">icourse163</span>
-          </a>
-        
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://www.nxw.name/tag/OSlmfqo8wM/">
-            <span class="flex-auto">中国大学MOOC</span>
-          </a>
-        
-
-
-        <div class="flex justify-between py-8">
-          
-            <div class="prev-post">
-              <a href="https://www.nxw.name/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500/">
-                <h3 class="post-title">
-                  <i class="ri-arrow-left-line"></i>
-                  [Success] Hackintosh on Gigabyte Z370N WiFi with i5-8500
-                </h3>
-              </a>
-            </div>
-          
-
-          
-            <div class="next-post">
-              <a href="https://www.nxw.name/post/mac-terminal-shi-yong-shadowsocks-lian-jie-wang-luo/">
-                <h3 class="post-title">
-                  Mac Terminal使用Shadowsocks连接网络
-                  <i class="ri-arrow-right-line"></i>
-                </h3>
-              </a>
-            </div>
+        <div class="read-more">
           
         </div>
+        <div class="index-page">
+          <div class="pagination-container animated fadeIn">
+  
+    <a href="https://www.nxw.name/" class="page-btn"><i class="ri-arrow-left-line"></i> 上一页</a>
+  
+  
+</div>
 
-        
-          
-            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://geektutu.github.io/hexo-theme-geektutu/js/gitalk.min.js"></script>
-
-<div id="gitalk-container"></div>
-
-<script>
-
-  var gitalk = new Gitalk({
-    clientID: '95da5e6dfbe94e9621c5',
-    clientSecret: '6b6510006d4bd9b042323bc2c5b1374561942033',
-    repo: 'xav1er.github.io',
-    owner: 'xavier-niu',
-    admin: ['xavier-niu'],
-    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-    distractionFreeMode: false,  // Facebook-like distraction free mode
-    language: 'en'
-  })
-
-  gitalk.render('gitalk-container')
-
-</script>
-
-          
-
-          
-        
-
+        </div>
       </div>
     </div>
 
