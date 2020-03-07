@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Xavier&#39;s Blog</title>
 <meta name="description" content="About code, about life, about everything." />
-<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1583478822644">
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1583579157245">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -32,7 +32,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://www.nxw.name">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1583478822644" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1583579157245" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
       </div>
@@ -872,7 +872,7 @@ struct objc_ivar {
 </code></pre>
 <h2 id="关联对象associated-object">关联对象(Associated Object)</h2>
 <p>关联对象是Runtime中一个非常实用的特性，不过可能很容易被忽视。</p>
-<p>关联对象类似于成员变量，不过是在运行时添加的。我们通常会把成员变量(<code>Ivar</code>)放在类声明的头文件中，或者放在类实现的<code>@implementation</code>后面。但这有一个缺点，我们不能在分类中添加成员变量。如果我们尝试在分类中添加新的成员变量，编译器会报错。</p>
+<p>关联对象类似于成员变量，不过是在运行时添加的。我们通常会把成员变量(<code>Ivar</code>)放在类声明的头文件中，或者放在类实现的<code>@implementation</code>后面。但这有一个缺点，<mark>我们不能在分类中添加成员变量。如果我们尝试在分类中添加新的成员变量</mark>，编译器会报错。</p>
 <p>我们可能希望通过使用(甚至是滥用)全局变量来解决这个问题。但这些都不是<code>Ivar</code>，因为他们不会连接到一个单独的实例。因此，这种方法很少使用。</p>
 <p>Objective-C针对这一问题，提供了一个解决方案：即关联对象(<code>Associated Object</code>)。</p>
 <p>我们可以把关联对象想象成一个Objective-C对象(如字典)，这个对象通过给定的key连接到类的一个实例上。不过由于使用的是C接口，所以key是一个<code>void</code>指针(<code>const void *</code>)。我们还需要指定一个内存管理策略，以告诉<code>Runtime</code>如何管理这个对象的内存。这个内存管理的策略可以由以下值指定：</p>

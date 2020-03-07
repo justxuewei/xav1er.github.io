@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2020-03-06T07:13:48.282Z</updated>
+    <updated>2020-03-07T11:06:02.521Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
@@ -714,7 +714,7 @@ struct objc_ivar {
 </code></pre>
 <h2 id="关联对象associated-object">关联对象(Associated Object)</h2>
 <p>关联对象是Runtime中一个非常实用的特性，不过可能很容易被忽视。</p>
-<p>关联对象类似于成员变量，不过是在运行时添加的。我们通常会把成员变量(<code>Ivar</code>)放在类声明的头文件中，或者放在类实现的<code>@implementation</code>后面。但这有一个缺点，我们不能在分类中添加成员变量。如果我们尝试在分类中添加新的成员变量，编译器会报错。</p>
+<p>关联对象类似于成员变量，不过是在运行时添加的。我们通常会把成员变量(<code>Ivar</code>)放在类声明的头文件中，或者放在类实现的<code>@implementation</code>后面。但这有一个缺点，<mark>我们不能在分类中添加成员变量。如果我们尝试在分类中添加新的成员变量</mark>，编译器会报错。</p>
 <p>我们可能希望通过使用(甚至是滥用)全局变量来解决这个问题。但这些都不是<code>Ivar</code>，因为他们不会连接到一个单独的实例。因此，这种方法很少使用。</p>
 <p>Objective-C针对这一问题，提供了一个解决方案：即关联对象(<code>Associated Object</code>)。</p>
 <p>我们可以把关联对象想象成一个Objective-C对象(如字典)，这个对象通过给定的key连接到类的一个实例上。不过由于使用的是C接口，所以key是一个<code>void</code>指针(<code>const void *</code>)。我们还需要指定一个内存管理策略，以告诉<code>Runtime</code>如何管理这个对象的内存。这个内存管理的策略可以由以下值指定：</p>
