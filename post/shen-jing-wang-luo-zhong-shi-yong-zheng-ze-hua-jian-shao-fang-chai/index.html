@@ -4,13 +4,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Xavier&#39;s Blog</title>
 <meta name="description" content="About code, about life, about everything." />
-<link rel="shortcut icon" href="http://localhost:4000/favicon.ico?v=1583923315098">
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1583923620472">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
-<link rel="stylesheet" href="http://localhost:4000/styles/main.css">
+<link rel="stylesheet" href="https://www.nxw.name/styles/main.css">
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129706677-2"></script>
@@ -31,8 +31,8 @@
     <div class="sidebar-content">
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
-        <a href="http://localhost:4000">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="http://localhost:4000/images/avatar.png?v=1583923315098" alt="">
+        <a href="https://www.nxw.name">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1583923620472" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
       </div>
@@ -87,7 +87,7 @@
   </div>
   <div class="site-footer">
     <div class="py-4 text-gray-700">Powered by Gridea & GitHub.</div>
-    <a class="rss" href="http://localhost:4000/atom.xml" target="_blank">RSS</a>
+    <a class="rss" href="https://www.nxw.name/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
 <div class="mask" onclick="closeMenu()">
@@ -100,6 +100,7 @@
         
         <div class="post-content yue">
           <p>在稍早前的文章中(<a href="http://www.niuxuewei.com/2018/03/27/Bias-Variance-%E5%81%8F%E5%B7%AE-%E6%96%B9%E5%B7%AE-DeepLearning-ai-Lesson2-2/">Bias/Variance(偏差/方差) - DeepLearning.ai Lesson2 #2</a>)有提到过，使用正则化(regularization)可以在不增加偏差的前提下减少方差，所以本文将会解释正则化的原理。</p>
+<!--MORE-->
 <h1 id="为什么使用正则化">为什么使用正则化</h1>
 <p>对于监督学习来说，其精髓在于：</p>
 <p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>W</mi><mo>∗</mo></msup><mo>=</mo><mi>L</mi><mi>o</mi><mi>s</mi><mi>s</mi><mo>(</mo><mi>y</mi><mo separator="true">,</mo><mover accent="true"><mi>y</mi><mo>^</mo></mover><mo>)</mo><mo>+</mo><mi>λ</mi><mi mathvariant="normal">Ω</mi><mo>(</mo><mi>w</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">W^{*} = Loss(y, \hat{y}) + \lambda \Omega(w)
@@ -107,7 +108,6 @@
 <p>对于Loss函数来说，如果是log_loss就是逻辑回归，如果是hinge_loss就是svm…后面<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>λ</mi><mi mathvariant="normal">Ω</mi><mo>(</mo><mi>w</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">\lambda \Omega(w)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">λ</span><span class="mord">Ω</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mclose">)</span></span></span></span>就是正则化函数。</p>
 <figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-04-07-114934.jpg" alt="" loading="lazy"></figure>
 <p>一般模型越复杂越有可能导致“过拟合(over-fitting)”(也就是上图最右)的情况，具体下面会讲到，所以我们需要有一种机制保证模型“简单”，这样我们训练得到的模型才能具有较好的泛化能力，正则化就是这种机制之一。</p>
-<!--MORE-->
 <figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2018-04-07-114837.png" alt="" loading="lazy"></figure>
 <p>上图就简单的描述了正则化的工作原理，通过减小一部分神经元的作用来提升泛化能力，我们可以理解为这些特征仅在本数据集(如训练集)中含有，但是在全局(测试集)中并没有的，所以这就导致正则化之后的网络变得很小但很深。</p>
 <h1 id="什么是范数">什么是范数</h1>
@@ -154,7 +154,7 @@ M1001 80H400000v40H1013z'/></svg></span></span></span><span class="vlist-s">​<
         <div class="flex justify-between py-8">
           
             <div class="prev-post">
-              <a href="http://localhost:4000/post/Dropout正则化/">
+              <a href="https://www.nxw.name/post/Dropout正则化/">
                 <h3 class="post-title">
                   <i class="ri-arrow-left-line"></i>
                   Dropout正则化
@@ -165,7 +165,7 @@ M1001 80H400000v40H1013z'/></svg></span></span></span><span class="vlist-s">​<
 
           
             <div class="next-post">
-              <a href="http://localhost:4000/post/xiang-si-ju-zhen/">
+              <a href="https://www.nxw.name/post/xiang-si-ju-zhen/">
                 <h3 class="post-title">
                   相似矩阵
                   <i class="ri-arrow-right-line"></i>
@@ -207,7 +207,7 @@ M1001 80H400000v40H1013z'/></svg></span></span></span><span class="vlist-s">​<
       </div>
     </div>
 
-    <script src="http://localhost:4000/media/prism.js"></script>  
+    <script src="https://www.nxw.name/media/prism.js"></script>  
 <script>
 
 Prism.highlightAll()

@@ -4,13 +4,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Xavier&#39;s Blog</title>
 <meta name="description" content="About code, about life, about everything." />
-<link rel="shortcut icon" href="http://localhost:4000/favicon.ico?v=1583923315098">
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1583923620472">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
-<link rel="stylesheet" href="http://localhost:4000/styles/main.css">
+<link rel="stylesheet" href="https://www.nxw.name/styles/main.css">
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129706677-2"></script>
@@ -31,8 +31,8 @@
     <div class="sidebar-content">
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
-        <a href="http://localhost:4000">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="http://localhost:4000/images/avatar.png?v=1583923315098" alt="">
+        <a href="https://www.nxw.name">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1583923620472" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
       </div>
@@ -95,7 +95,7 @@
   </div>
   <div class="site-footer">
     <div class="py-4 text-gray-700">Powered by Gridea & GitHub.</div>
-    <a class="rss" href="http://localhost:4000/atom.xml" target="_blank">RSS</a>
+    <a class="rss" href="https://www.nxw.name/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
 <div class="mask" onclick="closeMenu()">
@@ -108,9 +108,9 @@
         
         <div class="post-content yue">
           <p>Dropout正则化(Dropout Regularization)是一个消除数据过拟合情况的工具，与L2正则化所最终的效果差不都，只不过dropout方式更暴力一些。总体来说<strong>dropout方式是随机减少每层的神经元来实现的</strong>。</p>
+<!--MORE-->
 <h3 id="实现方式">实现方式</h3>
 <figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-04-11-020544.png" alt="" loading="lazy"></figure>
-<!--MORE-->
 <ol>
 <li>生成一个随机向量<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="bold">d</mi></mrow><annotation encoding="application/x-tex">\pmb{d}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7166622222222222em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault">d</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7166622222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7166622222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7166622222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault">d</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault">d</span></span></span></span></span></span></span>，其形状(shape)与当层的神经元的数量一致，其值是随机生成的（范围0-1）。以上图layer1为例，所以向量的形状为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>4</mn><mo separator="true">,</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(4, 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>。</li>
 <li>指定一个参数keep-prob(kp)，如果变量<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="bold">d</mi></mrow><annotation encoding="application/x-tex">\pmb{d}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7166622222222222em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault">d</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7166622222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7166622222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7166622222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault">d</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault">d</span></span></span></span></span></span></span>的变量小于kp则保留（变为1），如果大于kp则移除（变为0），结合步骤3就能在一层中随机的移除一些节点。</li>
@@ -132,15 +132,15 @@
         </div>
 
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/EmaZbqe0mO/">
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://www.nxw.name/tag/EmaZbqe0mO/">
             <span class="flex-auto">regularization</span>
           </a>
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/oRC1qoD3ex/">
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://www.nxw.name/tag/oRC1qoD3ex/">
             <span class="flex-auto">optimization</span>
           </a>
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/fXvH9hCyg_/">
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://www.nxw.name/tag/fXvH9hCyg_/">
             <span class="flex-auto">dropout</span>
           </a>
         
@@ -149,7 +149,7 @@
         <div class="flex justify-between py-8">
           
             <div class="prev-post">
-              <a href="http://localhost:4000/post/DeepLearning-ai-Lesson2-Week1-Summary/">
+              <a href="https://www.nxw.name/post/DeepLearning-ai-Lesson2-Week1-Summary/">
                 <h3 class="post-title">
                   <i class="ri-arrow-left-line"></i>
                   DeepLearning.ai Lesson2 Week1 Summary
@@ -160,7 +160,7 @@
 
           
             <div class="next-post">
-              <a href="http://localhost:4000/post/shen-jing-wang-luo-zhong-shi-yong-zheng-ze-hua-jian-shao-fang-chai/">
+              <a href="https://www.nxw.name/post/shen-jing-wang-luo-zhong-shi-yong-zheng-ze-hua-jian-shao-fang-chai/">
                 <h3 class="post-title">
                   神经网络中使用正则化减少方差
                   <i class="ri-arrow-right-line"></i>
@@ -202,7 +202,7 @@
       </div>
     </div>
 
-    <script src="http://localhost:4000/media/prism.js"></script>  
+    <script src="https://www.nxw.name/media/prism.js"></script>  
 <script>
 
 Prism.highlightAll()

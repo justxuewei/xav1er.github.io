@@ -4,13 +4,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Xavier&#39;s Blog</title>
 <meta name="description" content="About code, about life, about everything." />
-<link rel="shortcut icon" href="http://localhost:4000/favicon.ico?v=1583923315098">
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1583923620472">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
-<link rel="stylesheet" href="http://localhost:4000/styles/main.css">
+<link rel="stylesheet" href="https://www.nxw.name/styles/main.css">
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129706677-2"></script>
@@ -31,8 +31,8 @@
     <div class="sidebar-content">
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
-        <a href="http://localhost:4000">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="http://localhost:4000/images/avatar.png?v=1583923315098" alt="">
+        <a href="https://www.nxw.name">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1583923620472" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
       </div>
@@ -109,7 +109,7 @@
   </div>
   <div class="site-footer">
     <div class="py-4 text-gray-700">Powered by Gridea & GitHub.</div>
-    <a class="rss" href="http://localhost:4000/atom.xml" target="_blank">RSS</a>
+    <a class="rss" href="https://www.nxw.name/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
 <div class="mask" onclick="closeMenu()">
@@ -122,6 +122,7 @@
         
         <div class="post-content yue">
           <p>LDA(Latent Dirichlet Allocation)用到了很多数学知识，在这里只对重点的做介绍，其他的可以参见《LDA数学八卦》，文末将会给出下载地址。目前讲LDA很全面的文章且适合于初学者的教程还不是很多，我把我学习的过程中认为对我有帮助的文章都写在了REFERENCES中，如果你看我的文章有不明白的地方也可以阅读一下那些文章。</p>
+<!--MORE-->
 <h1 id="概要">概要</h1>
 <p>LDA认为一篇文章由多个主题构成，一个主题又有多个词汇构成，因此写作的人手里有两个骰子，一个骰子是确定主题的，一个骰子是确定词汇的，当然这个和普通的骰子不大一样，这个骰子可能有1000个面，甚至每个面出现的概率都不相同，这样才能出现各式各样的文章。如果想了解LDA需要了解一下基础知识：</p>
 <ul>
@@ -135,7 +136,6 @@
 <li>Gibbs采样</li>
 </ul>
 <p>确实有点吓人，咱们一点点的来。</p>
-<!--MORE-->
 <h1 id="概率分布">概率分布</h1>
 <p>对于贝叶斯框架推荐先看一下我之前的文章**[REFERENCES 5]**，看完了这篇文章我们大概了解了贝叶斯的思想其实就是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">后</mi><mi mathvariant="normal">验</mi><mi mathvariant="normal">概</mi><mi mathvariant="normal">率</mi><mo>∝</mo><mi mathvariant="normal">似</mi><mi mathvariant="normal">然</mi><mi mathvariant="normal">估</mi><mi mathvariant="normal">计</mi><mo>×</mo><mi mathvariant="normal">先</mi><mi mathvariant="normal">验</mi><mi mathvariant="normal">概</mi><mi mathvariant="normal">率</mi></mrow><annotation encoding="application/x-tex">后验概率 \propto 似然估计 \times 先验概率</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">验</span><span class="mord cjk_fallback">概</span><span class="mord cjk_fallback">率</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∝</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord cjk_fallback">似</span><span class="mord cjk_fallback">然</span><span class="mord cjk_fallback">估</span><span class="mord cjk_fallback">计</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0em;vertical-align:0em;"></span><span class="mord cjk_fallback">先</span><span class="mord cjk_fallback">验</span><span class="mord cjk_fallback">概</span><span class="mord cjk_fallback">率</span></span></span></span>，其中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∝</mo></mrow><annotation encoding="application/x-tex">\propto</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mrel">∝</span></span></span></span>是正比于，因为在原始公式中还有一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mi>v</mi><mi>i</mi><mi>d</mi><mi>e</mi><mi>n</mi><mi>c</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">evidence</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">i</span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">c</span><span class="mord mathdefault">e</span></span></span></span>，在这里我们直接忽略。</p>
 <p><s>LDA可以理解为一个迭代的过程</s>，因此需要将第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>轮的后验概率当做第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>轮的先验分布，所以就需要引入共轭先验概率，<u>本质上它是一种先验概率</u>，那几种分布的关系如下图所示。</p>
@@ -555,11 +555,11 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
         </div>
 
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/QezVvvUfL/">
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://www.nxw.name/tag/QezVvvUfL/">
             <span class="flex-auto">LDA</span>
           </a>
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/CDbTyfKR9/">
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://www.nxw.name/tag/CDbTyfKR9/">
             <span class="flex-auto">概率论</span>
           </a>
         
@@ -568,7 +568,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
         <div class="flex justify-between py-8">
           
             <div class="prev-post">
-              <a href="http://localhost:4000/post/决策树与随机森林/">
+              <a href="https://www.nxw.name/post/决策树与随机森林/">
                 <h3 class="post-title">
                   <i class="ri-arrow-left-line"></i>
                   决策树与随机森林
@@ -579,7 +579,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 
           
             <div class="next-post">
-              <a href="http://localhost:4000/post/什么是先验-后验分布和似然估计/">
+              <a href="https://www.nxw.name/post/什么是先验-后验分布和似然估计/">
                 <h3 class="post-title">
                   什么是先验/后验分布和似然估计
                   <i class="ri-arrow-right-line"></i>
@@ -621,7 +621,7 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
       </div>
     </div>
 
-    <script src="http://localhost:4000/media/prism.js"></script>  
+    <script src="https://www.nxw.name/media/prism.js"></script>  
 <script>
 
 Prism.highlightAll()
