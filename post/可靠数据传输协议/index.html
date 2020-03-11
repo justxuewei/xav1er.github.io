@@ -1,0 +1,558 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Xavier&#39;s Blog</title>
+<meta name="description" content="About code, about life, about everything." />
+<link rel="shortcut icon" href="http://localhost:4000/favicon.ico?v=1583923315098">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="http://localhost:4000/styles/main.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129706677-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-129706677-2');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="http://localhost:4000">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="http://localhost:4000/images/avatar.png?v=1583923315098" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            Contents
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#%E6%9E%B6%E6%9E%84">架构</a></li>
+<li><a href="#rdt">RDT</a>
+<ul>
+<li><a href="#rdt-10">RDT 1.0</a>
+<ul>
+<li><a href="#fsm%E7%8A%B6%E6%80%81">FSM状态</a>
+<ul>
+<li><a href="#sender%E5%8F%91%E9%80%81%E6%96%B9">SENDER(发送方)</a></li>
+<li><a href="#receiver%E6%8E%A5%E6%94%B6%E6%96%B9">RECEIVER(接收方)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#rdt-20">RDT 2.0</a>
+<ul>
+<li><a href="#%E4%BB%8E%E9%94%99%E8%AF%AF%E4%B8%AD%E6%81%A2%E5%A4%8D">从错误中恢复</a></li>
+<li><a href="#fsm%E7%8A%B6%E6%80%81-2">FSM状态</a>
+<ul>
+<li><a href="#sender%E5%8F%91%E9%80%81%E6%96%B9-2">SENDER(发送方)</a></li>
+<li><a href="#receiver%E6%8E%A5%E6%94%B6%E6%96%B9-2">RECEIVER(接收方)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#rdt-21">RDT 2.1</a>
+<ul>
+<li><a href="#fsm%E7%8A%B6%E6%80%81-3">FSM状态</a>
+<ul>
+<li><a href="#sender%E5%8F%91%E9%80%81%E6%96%B9-3">SENDER(发送方)</a></li>
+<li><a href="#receiver%E6%8E%A5%E6%94%B6%E6%96%B9-3">RECEIVER(接收方)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#rdt-22">RDT 2.2</a>
+<ul>
+<li><a href="#fsm%E7%8A%B6%E6%80%81-4">FSM状态</a></li>
+</ul>
+</li>
+<li><a href="#rdt-30">RDT 3.0</a>
+<ul>
+<li><a href="#fsm%E7%8A%B6%E6%80%81-5">FSM状态</a>
+<ul>
+<li><a href="#sender%E5%8F%91%E9%80%81%E6%96%B9-4">SENDER(发送方)</a></li>
+<li><a href="#receiver%E6%8E%A5%E6%94%B6%E6%96%B9-4">RECEIVER(接收方)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#rdt%E5%8D%8F%E8%AE%AE%E7%93%B6%E9%A2%88">RDT协议瓶颈</a></li>
+</ul>
+</li>
+<li><a href="#%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%9C%BA%E5%88%B6">流水线机制</a>
+<ul>
+<li><a href="#%E8%A6%81%E6%B1%82">要求</a></li>
+<li><a href="#%E6%A6%82%E8%A6%81">概要</a></li>
+<li><a href="#gbngo-back-n">GBN(GO-BACK-N)</a>
+<ul>
+<li><a href="#sender">SENDER</a></li>
+<li><a href="#receiver">RECEIVER</a></li>
+<li><a href="#%E7%BB%83%E4%B9%A0">练习</a></li>
+</ul>
+</li>
+<li><a href="#srselective-repeat">SR(Selective Repeat)</a>
+<ul>
+<li><a href="#sender-2">SENDER</a></li>
+<li><a href="#receiver-2">RECEIVER</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98">问题</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by Gridea & GitHub.</div>
+    <a class="rss" href="http://localhost:4000/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">可靠数据传输协议</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-01-12 / 8 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h1 id="架构">架构</h1>
+<p>应用层调用<code>rdt_send()</code>-&gt;传输层调用<code>udt_send()</code>，指在不可靠的协议上传输（IP协议）-&gt;接受方的传输层调用<code>rdt_rcv()</code>-&gt;受放的传输层调用<code>deliver_data()</code>将可靠数据发给接收方的应用层</p>
+<p><strong>如下图所示：</strong></p>
+<figure data-type="image" tabindex="1"><img src="http://7xqjkf.com1.z0.glb.clouddn.com/Xnip2018-01-12_11-23-49.jpg" alt="" loading="lazy"></figure>
+<!--MORE-->
+<h1 id="rdt">RDT</h1>
+<h2 id="rdt-10">RDT 1.0</h2>
+<p>可靠信道上的可靠数据传输，这是理想信道，不可能实现。</p>
+<h3 id="fsm状态">FSM状态</h3>
+<p>由于是可靠信道，所以发送方和接收方是独立的。</p>
+<h4 id="sender发送方">SENDER(发送方)</h4>
+<figure data-type="image" tabindex="2"><img src="http://7xqjkf.com1.z0.glb.clouddn.com/Xnip2018-01-12_11-35-05.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li>[status]Wait for call from above: 等待上层调用(应用层)
+<ul>
+<li>[events]rdt_send(data): 上层调用会产生一个rdt_send(data)事件</li>
+<li>[actions]packet = make_pkt(data): 创建一个packet</li>
+<li>[actions]udt_send(packet): 发送这个packet</li>
+</ul>
+</li>
+</ul>
+<h4 id="receiver接收方">RECEIVER(接收方)</h4>
+<figure data-type="image" tabindex="3"><img src="http://7xqjkf.com1.z0.glb.clouddn.com/Xnip2018-01-12_11-41-56.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li>[status]Wait for call from below: 等待下层调用(网络层)
+<ul>
+<li>[events]rdt_rcv(packet)</li>
+<li>[actions]extract(packet, data): 将packet的数据提取出来</li>
+<li>[actions]deliver_data(data)</li>
+</ul>
+</li>
+</ul>
+<h2 id="rdt-20">RDT 2.0</h2>
+<p>在不可靠的信道上的可靠传输。RDT2.0主要解决的位错误，如0翻转为1的错误。主要的手段是校验和(checksum)。所以重点在于如何从错误中恢复过来。</p>
+<p>相比于RDT 1.0</p>
+<ul>
+<li>差错检测</li>
+<li>接收方反馈控制消息: ACK/NAK</li>
+<li>重传机制</li>
+</ul>
+<h3 id="从错误中恢复">从错误中恢复</h3>
+<ul>
+<li>确认机制(Acknowledgements, ACK): 接受方告诉发送方分组正确接受</li>
+<li>NAK: 接受方告诉发送方分组有误</li>
+<li>发送方收到NAK则重传</li>
+</ul>
+<h3 id="fsm状态-2">FSM状态</h3>
+<h4 id="sender发送方-2">SENDER(发送方)</h4>
+<figure data-type="image" tabindex="4"><img src="http://7xqjkf.com1.z0.glb.clouddn.com/Xnip2018-01-12_11-59-58.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li>[status]Wait for call from above: 等待上层调用(应用层)
+<ul>
+<li>[events]rdt_send(data): 上层调用会产生一个rdt_send(data)事件</li>
+<li>[actions]snkpkt = make_pkt(data, checksum): 创建一个snkpkt，额外加入校验和</li>
+<li>[actions]udt_send(snkpkt): 发送这个packet</li>
+</ul>
+</li>
+<li>[status]Wait for ACK or NAK: 等待ACK或NAK
+<ul>
+<li>[events]rdt_rcv(rcvpkt) &amp;&amp; isNAK(rcvpkt): 接受接收方发来的消息，并检测到发生了错误</li>
+<li>[events]rdt_rcv(rcvpkt) &amp;&amp; isACK(rcvpkt): 全部正确</li>
+</ul>
+</li>
+</ul>
+<h4 id="receiver接收方-2">RECEIVER(接收方)</h4>
+<figure data-type="image" tabindex="5"><img src="http://7xqjkf.com1.z0.glb.clouddn.com/Xnip2018-01-12_12-06-44.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li>[status]Wait for call from below: 等待下层调用(网络层)
+<ul>
+<li>[events]rdt_rcv(rcvpkt) &amp;&amp; corrupt(rcvpkt): 接收到分组并且有错误发生</li>
+</ul>
+</li>
+<li>[actions] udt_send(NAK): 发送错误消息
+<ul>
+<li>[events]rdt_rcv(rcvpkt) &amp;&amp; uncorrupt(rcvpkt): 接收到分组并且有错误发生</li>
+<li>[actions]extract(rcvpkt, data): 将packet的数据提取出来</li>
+<li>[actions]deliver_data(data)</li>
+<li>[actions]udt_send(ACK)</li>
+</ul>
+</li>
+</ul>
+<h2 id="rdt-21">RDT 2.1</h2>
+<p>RDT 2.0的缺陷是在ACK和NCK在传输中被破坏的情况下会出现死锁。所以使用分组重传来解决，但是如果上一次ACK被破坏，重传后也被正确接收了，这就会产生分组重复问题，所以需要增加序列号。</p>
+<p>相比于RDT 2.0</p>
+<ul>
+<li>发送方
+<ul>
+<li>为每个分组增加了序列号</li>
+<li>需要校验ACK和NAK是否发生错误</li>
+<li>状态数量翻倍（由于引入了两个分组）</li>
+</ul>
+</li>
+<li>接收方
+<ul>
+<li>需要判断分组是否重复</li>
+</ul>
+</li>
+</ul>
+<h3 id="fsm状态-3">FSM状态</h3>
+<h4 id="sender发送方-3">SENDER(发送方)</h4>
+<blockquote>
+<p>现在分组有两个编号0和1</p>
+</blockquote>
+<figure data-type="image" tabindex="6"><img src="http://7xqjkf.com1.z0.glb.clouddn.com/Xnip2018-01-12_12-27-49.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li>[status]Wait for call 0 from above: 等待上层对0分组的调用
+<ul>
+<li>[actions]sndpkt = make_pkt(0, data, checksum): 加上序号0，其余不变</li>
+</ul>
+</li>
+<li>[status]Wait for ACK or NAK 0: 等待分组0的ACK和NAK消息
+<ul>
+<li>[events]rdt_rcv(rcvpkt) &amp;&amp; (corrupt(rcvpkt) || isNAK(rcvpkt)): 接收到接收方的返回分组并且损坏或者发送错误的情况</li>
+<li>[actions]udt_send(sndpkt): 重传</li>
+<li>[events]rdt_rcv(rcvpkt) &amp;&amp; notcorrupt(rcvpkt) &amp;&amp; isACK(rcvpkt): 全部正确则转向下一个状态</li>
+</ul>
+</li>
+<li>[status]以下与分组0相同 所以省略</li>
+</ul>
+<h4 id="receiver接收方-3">RECEIVER(接收方)</h4>
+<figure data-type="image" tabindex="7"><img src="http://7xqjkf.com1.z0.glb.clouddn.com/Xnip2018-01-12_12-36-41.jpg" alt="" loading="lazy"></figure>
+<ul>
+<li>[status]Wait for 0 from below: 等待下方调用分组0
+<ul>
+<li>[events]rdt_rcv(rcvpkt) &amp;&amp; notcurrupt(rcvpkt) &amp;&amp; has_seq0(rcvpkt): 收到了分组并且没有被破坏并且就是分组0（完全理想的情况）</li>
+<li>[actions]sndpkt = make_pkt(ACK, checksum): 返回带有校验和的ACK</li>
+<li>[events]rdt_rcv(rcvpkt) &amp;&amp; currupt(rcvpkt): 分组坏掉</li>
+<li>[actions]sndpkt = make_pkt(NAK, checksum): 返回带有校验和的NAK</li>
+<li>[events]rdt_rcv(rcvpkt) &amp;&amp; notcurrupt(rcvpkt) &amp;&amp; has_seq1(rcvpkt): 收到了分组并且没有被破坏但是分组为1</li>
+<li>[actions]sndpkt = make_pkt(ACK, checksum): 发送ACK</li>
+</ul>
+</li>
+</ul>
+<h2 id="rdt-22">RDT 2.2</h2>
+<p>取消NAK，在ACK显式的加入最后一个被正确接受的分组序号，所以发送方接收到重复的ACK之后就对应原先的NAK。</p>
+<h3 id="fsm状态-4">FSM状态</h3>
+<figure data-type="image" tabindex="8"><img src="http://7xqjkf.com1.z0.glb.clouddn.com/Xnip2018-01-12_12-51-16.jpg" alt="" loading="lazy"></figure>
+<h2 id="rdt-30">RDT 3.0</h2>
+<p>在RDT 2.0假设的基础上加入可能丢失分组的假设。如果丢失分组就有可能发生死锁，接收方和发送方互相等待，所以这时候可以考虑在等待一定时间后进行重传。</p>
+<h3 id="fsm状态-5">FSM状态</h3>
+<h4 id="sender发送方-4">SENDER(发送方)</h4>
+<figure data-type="image" tabindex="9"><img src="http://7xqjkf.com1.z0.glb.clouddn.com/Xnip2018-01-12_12-59-42.jpg" alt="" loading="lazy"></figure>
+<p>所有在使用<code>udt_send(pkt)</code>之后都需要执行<code>start_timer</code>来启动定时器，并在下一个状态中增加一个事件<code>timeout</code>，并且在全部正确的情况下增加一个<code>stop_timer</code>来停止定时器的执行。</p>
+<ul>
+<li>[status]Wait for call X from above
+<ul>
+<li>[events]rdt_rcv(rcvpkt) &amp;&amp; (corrupt(rcvpkt) || isACK(rcvpkt, 1)): 接受错误就什么都不做直到过期后重发</li>
+<li>[events]timeout: 超时</li>
+<li>[status]udt_send(sndpkt): 重发</li>
+<li>[status]start_timer: 启动定时器</li>
+</ul>
+</li>
+<li>[status]Wait for ACK X
+<ul>
+<li>[events]rdt_rcv(rcvpkt): 接受到信息</li>
+</ul>
+</li>
+</ul>
+<h4 id="receiver接收方-4">RECEIVER(接收方)</h4>
+<p>接收方不需要做任何变动。</p>
+<h2 id="rdt协议瓶颈">RDT协议瓶颈</h2>
+<p>主要瓶颈在于停等上，如下图</p>
+<figure data-type="image" tabindex="10"><img src="http://7xqjkf.com1.z0.glb.clouddn.com/Xnip2018-01-12_13-42-42.jpg" alt="" loading="lazy"></figure>
+<p>传输时延为L/R, 传播时延为RTT, 最终利用率为0.00027, 所以可以看出停等协议的效率很差。</p>
+<h1 id="流水线机制">流水线机制</h1>
+<p>思想：一次多发点。靠滑动窗口协议实现。</p>
+<figure data-type="image" tabindex="11"><img src="http://7xqjkf.com1.z0.glb.clouddn.com/Xnip2018-01-12_13-50-05.jpg" alt="" loading="lazy"></figure>
+<h2 id="要求">要求</h2>
+<ul>
+<li>更大的序列号</li>
+<li>接收方和接收方需要更大的存储区域作为缓存</li>
+</ul>
+<h2 id="概要">概要</h2>
+<ul>
+<li>窗口
+<ol>
+<li>允许使用的序列号范围</li>
+<li>窗口尺寸为N代表最多有N个等待确认的消息</li>
+</ol>
+</li>
+<li>滑动窗口<br>
+随着协议的进行，窗口在序列号空间内向前滑动。<br>
+<img src="http://7xqjkf.com1.z0.glb.clouddn.com/Xnip2018-01-12_14-02-43.jpg" alt="" loading="lazy"></li>
+<li>滑动窗口协议
+<ul>
+<li>GBN</li>
+<li>SR</li>
+</ul>
+</li>
+</ul>
+<h2 id="gbngo-back-n">GBN(GO-BACK-N)</h2>
+<ul>
+<li>分组头部包含<code>k</code>bit的序列号，相当于说这里面最大有<code>2^k</code>个序号</li>
+<li>窗口尺寸为N，最多允许N个分组没有被ACK确认</li>
+<li>当收到ACK(n)说明序列号N及以前的序列号全部被正确接收(1, 2, ..., n-1, n都成功接收了)</li>
+<li>Timeout(n)重传序号大于等于n并且没有收到ACK确认的全部分组，潜在的会造成资源的浪费</li>
+</ul>
+<h3 id="sender">SENDER</h3>
+<figure data-type="image" tabindex="12"><img src="http://7xqjkf.com1.z0.glb.clouddn.com/Xnip2018-01-12_14-25-26.jpg" alt="" loading="lazy"></figure>
+<p>针对第6个问题请参见RECEIVER的设计，它每次返回的是被正确接受的最高的序号</p>
+<h3 id="receiver">RECEIVER</h3>
+<figure data-type="image" tabindex="13"><img src="http://7xqjkf.com1.z0.glb.clouddn.com/Xnip2018-01-12_14-38-27.jpg" alt="" loading="lazy"></figure>
+<p>这要求必须顺序到达，如果乱序到达的话会被丢弃。比如expectedseqnum为5，发过来的是7，应该返回的ACK序号为4。</p>
+<h3 id="练习">练习</h3>
+<p>Q: 数据链路层采用后退 N 帧（GBN）协议，发送方已经发送了编号为 0~7 的帧。当计时器超时时，若发送方只收到 0、2、3 号帧的确认。则发送方需要重发的帧数是多少？分别是那几个帧？</p>
+<p>A: 根据 GBN 协议工作原理，GBN 协议的确认是累积确认，所以此时发送端需要重发的帧数是 4 个，依次分别是 4、5、6、7 号帧。</p>
+<h2 id="srselective-repeat">SR(Selective Repeat)</h2>
+<p>GBN的缺陷在于累计确认机制会重复发送很多分组，所以SR就是在GBN的基础上添加了单独确认和缓存。发送方没有什么变化，接收方增加了一个不与发送方窗口同步的窗口。</p>
+<figure data-type="image" tabindex="14"><img src="http://7xqjkf.com1.z0.glb.clouddn.com/Xnip2018-01-12_14-52-24.jpg" alt="" loading="lazy"></figure>
+<h3 id="sender-2">SENDER</h3>
+<ul>
+<li>data from above: 如果窗口内还有空闲位置，则发送pkt，并且start_timer(n)</li>
+<li>timeout(n): 重发pkt n, 并且restart_timer(n)</li>
+<li>ack(n) in [sendbase, sendbase+N]: 如果是现在窗口中最小的序列号，则base移动到下一个unACK的序列号上；如果不是最小的序列号，则仅标记为被接受</li>
+</ul>
+<h3 id="receiver-2">RECEIVER</h3>
+<ul>
+<li>pkt n in [rcvbase, rcvbase+N-1]: send_ack(n)。如果是乱序到达的就缓存；如果正常到达就移动到下一个没有被确认的序列号处。</li>
+<li>pkt n in [rcvbase-N, rcvbase-1]: 这说明在发送ACK的过程中可能没有接收到，发送方timer超时重发造成的，此时只需要send_ack(n)</li>
+<li>其他情况忽略即可</li>
+</ul>
+<h3 id="问题">问题</h3>
+<p>在序列号和窗口的长度过于相近的话，可能会造成识别问题，所以在窗口尺寸上需要做验证。假设现在序列号共有k个，发送方窗口为Ns，接收方窗口为Nr，则应满足<code>Ns+Nr&lt;=2^k</code></p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/xyBdOliFu/">
+            <span class="flex-auto">TCP</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="http://localhost:4000/post/tong-guo-gong-han-mo-shi-chuang-jian-dan-li-yi-ji-gong-han-mo-shi-de-you-shi/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  通过工厂模式创建单例以及工厂模式的优势
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="http://localhost:4000/post/shu-ju-ku-xing-neng-you-hua/">
+                <h3 class="post-title">
+                  数据库性能优化
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://geektutu.github.io/hexo-theme-geektutu/js/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '95da5e6dfbe94e9621c5',
+    clientSecret: '6b6510006d4bd9b042323bc2c5b1374561942033',
+    repo: 'xav1er.github.io',
+    owner: 'xavier-niu',
+    admin: ['xavier-niu'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false,  // Facebook-like distraction free mode
+    language: 'en'
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="http://localhost:4000/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

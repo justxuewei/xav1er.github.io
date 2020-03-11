@@ -1,0 +1,336 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Xavier&#39;s Blog</title>
+<meta name="description" content="About code, about life, about everything." />
+<link rel="shortcut icon" href="http://localhost:4000/favicon.ico?v=1583923315098">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="http://localhost:4000/styles/main.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129706677-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-129706677-2');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="http://localhost:4000">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="http://localhost:4000/images/avatar.png?v=1583923315098" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            Contents
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%81%8F%E5%B7%AE%E5%92%8C%E6%96%B9%E5%B7%AE">什么是偏差和方差</a></li>
+<li><a href="#%E5%81%8F%E5%B7%AE%E6%96%B9%E5%B7%AE%E8%B0%83%E4%BC%98">偏差/方差调优</a></li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by Gridea & GitHub.</div>
+    <a class="rss" href="http://localhost:4000/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Bias/Variance(偏差/方差) - DeepLearning.ai Lesson2 #2</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-03-27 / 3 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h1 id="什么是偏差和方差">什么是偏差和方差</h1>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-03-27-092600.jpg" alt="" loading="lazy"></figure>
+<p>上图是以二维数据为例，展示了偏差和方差这两个概念：</p>
+<ul>
+<li>高偏差(high bias): 高偏差是指不能很好的拟合数据，是一种<u>欠拟合</u>情况，如上图1情况所示；</li>
+<li>高方差(high variance): 高方差是指过分在该数据集中拟合数据，是一种<u>过拟合</u>情况，如上图3情况所示。其危害是在Train Set中可能正确率非常高，一旦投入生产环境中可能错误率就会相对于合适的情况要高很多。</li>
+</ul>
+<!--MORE-->
+<hr>
+<p>通过训练集（Train Set）和验证集（Dev Set）来说明什么是偏差/方差，假设分辨一个猫的图片，人眼的错误率为0%（最优误差）并且TS与DS同分布：</p>
+<table>
+<thead>
+<tr>
+<th>No</th>
+<th>TS Error Rate(训练集错误率)</th>
+<th>DS Error Rate(验证集错误率)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1%</td>
+<td>11%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>15%</td>
+<td>16%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>15%</td>
+<td>30%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0.5%</td>
+<td>1%</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>实验1：高方差，也就是有过拟合的情况；</li>
+<li>实验2：高偏差，也就是有欠拟合的情况；</li>
+<li>实验3：高方差&amp;高偏差，这种情况是因为一部分数据欠拟合而另一部分的数据过拟合；</li>
+<li>实验4：just right。</li>
+</ul>
+<p>但是之前假设是人的错误率为0%，如果这些照片中有一些非常模糊的及时连人也无法正确分辨的情况下，这是假设人的错误率为15%，则最合适的情况是实验2。</p>
+<h1 id="偏差方差调优">偏差/方差调优</h1>
+<ul>
+<li>偏差调优
+<ul>
+<li>使用一个更大的网络，包括更多的隐藏层或隐藏单元的网络（通常最有效）；</li>
+<li>通过增加迭代次数来花费更多时间训练网络；</li>
+<li>使用更先进的优化算法；</li>
+<li>试着使用其他的Neural Network Architecture，如卷积网络等。</li>
+</ul>
+</li>
+<li>方差调优
+<ul>
+<li>投喂更多数据；</li>
+<li>如果无法使用更多数据可以考虑通过<u><strong>正则化(regularization)</strong></u>减少过拟合的情况；</li>
+<li>试着使用其他的Neural Network Architecture，如卷积网络等。</li>
+</ul>
+</li>
+</ul>
+<p>在早期，方差和偏差是相对的，一方减少势必会带来另一方增加，所以早起一般是通过投喂更多数据来实现一同减少的，但是在现在可以使用正则化这种工具来达到一同减小的目的。</p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/M_Ue8o9KC3/">
+            <span class="flex-auto">dl</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/OQRQ746zSv/">
+            <span class="flex-auto">ml</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="http://localhost:4000/post/xing-lie-shi-de-ji-he-yi-yi/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  行列式的几何意义
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="http://localhost:4000/post/DeepLearning-ai-Lesson1-Summary/">
+                <h3 class="post-title">
+                  DeepLearning.ai Lesson1 Summary
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://geektutu.github.io/hexo-theme-geektutu/js/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '95da5e6dfbe94e9621c5',
+    clientSecret: '6b6510006d4bd9b042323bc2c5b1374561942033',
+    repo: 'xav1er.github.io',
+    owner: 'xavier-niu',
+    admin: ['xavier-niu'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false,  // Facebook-like distraction free mode
+    language: 'en'
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="http://localhost:4000/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
