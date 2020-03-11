@@ -1,0 +1,365 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Xavier&#39;s Blog</title>
+<meta name="description" content="About code, about life, about everything." />
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1583921088476">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://www.nxw.name/styles/main.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129706677-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-129706677-2');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://www.nxw.name">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1583921088476" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            Contents
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#%E9%80%9A%E4%BF%97%E8%A7%A3%E9%87%8A">通俗解释</a></li>
+<li><a href="#%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2">线性变换</a></li>
+<li><a href="#%E7%9B%B8%E4%BC%BC%E7%9F%A9%E9%98%B5">相似矩阵</a></li>
+<li><a href="#refenrences">REFENRENCES</a></li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by Gridea & GitHub.</div>
+    <a class="rss" href="https://www.nxw.name/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">相似矩阵</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-03-30 / 3 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h1 id="通俗解释">通俗解释</h1>
+<p>今天《雷神3》上映了，我坐在第一排看电影：</p>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-03-30-094216.jpg" alt="" loading="lazy"></figure>
+<!--MORE-->
+<p>而你坐在最后一排看电影：</p>
+<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2018-03-30-094231.jpg" alt="" loading="lazy"></figure>
+<p>我们看的是同一部电影，但是我们各自眼中看到的电影却因为位置不同而有所不同（比如清晰度啊、角度啊），所以说，“第一排看到的电影”和“最后一排看到的电影”是“相似”的。</p>
+<h1 id="线性变换">线性变换</h1>
+<p>对于一个给定的点<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>=</mo><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">A = (a, b)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mclose">)</span></span></span></span>来说，当基于不同的基向量会得到不同的向量。所以我们可以通过左乘一个矩阵来实现两个基于不同基向量的线性变化。例如<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>y</mi><mo>⃗</mo></mover><mo>=</mo><mi mathvariant="bold">A</mi><mover accent="true"><mi>x</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec{y} = \pmb{A} \vec{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9084399999999999em;vertical-align:-0.19444em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.17994em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.714em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault">A</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault">A</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault">A</span></span></span></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">x</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span></span></span></span>中，我们可以认为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>x</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.714em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">x</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span></span></span></span>这个向量通过矩阵<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="bold">A</mi></mrow><annotation encoding="application/x-tex">\pmb{A}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault">A</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault">A</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault">A</span></span></span></span></span></span></span>映射到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>y</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec{y}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9084399999999999em;vertical-align:-0.19444em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.17994em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span></span></span></span>，其中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>x</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.714em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">x</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>y</mi><mo>⃗</mo></mover></mrow><annotation encoding="application/x-tex">\vec{y}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9084399999999999em;vertical-align:-0.19444em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.17994em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span></span></span></span>都是代表平面上所有的点（向量），我们可以认为<u>线性变换通过指定基向量下的矩阵<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="bold">A</mi></mrow><annotation encoding="application/x-tex">\pmb{A}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault">A</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault">A</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault">A</span></span></span></span></span></span></span>来表示</u>。</p>
+<h1 id="相似矩阵">相似矩阵</h1>
+<p>线性变换就是电影院中播放的电影，不同的基坐在不同的位置观看，同一部“电影”，不同基“看到”的就是不同的矩阵：同一个线性变换，不同基下的矩阵，成为相似矩阵。</p>
+<figure data-type="image" tabindex="3"><img src="http://res.niuxuewei.com/2018-03-30-111715.jpg" alt="" loading="lazy"></figure>
+<p>上图为相似矩阵的图示，具体步骤如下：</p>
+<ol>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mi mathvariant="normal">’</mi></mrow><annotation encoding="application/x-tex">\vec{v}’</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.714em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="mord">’</span></span></span></span>是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>V</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">V_{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>下的一个点；</li>
+<li><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mo mathvariant="normal">′</mo></msup></mrow><annotation encoding="application/x-tex">\vec{v}&#x27;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.751892em;vertical-align:0em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span>通过<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span>变为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>V</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">V_{1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>下的点，即<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="bold">P</mi><msup><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mo mathvariant="normal">′</mo></msup></mrow><annotation encoding="application/x-tex">\pmb{P} \vec{v}&#x27;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.751892em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span>；</li>
+<li>在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>V</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">V_{1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>下，通过<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="bold">A</mi></mrow><annotation encoding="application/x-tex">\pmb{A}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault">A</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault">A</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault">A</span></span></span></span></span></span></span>矩阵完成线性变换，即<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="bold">A</mi><mi mathvariant="bold">P</mi><msup><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mo mathvariant="normal">′</mo></msup></mrow><annotation encoding="application/x-tex">\pmb{A} \pmb{P} \vec{v}&#x27;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.751892em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault">A</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault">A</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault">A</span></span></span></span><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span>；</li>
+<li>通过<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi mathvariant="bold">P</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\pmb{P}^{-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9095602222222222em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9095602222222222em;"><span style="top:-3.1584522222222224em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span>变回<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>V</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">V_{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>下的点，即<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi mathvariant="bold">P</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mi mathvariant="bold">A</mi><msup><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mo mathvariant="normal">′</mo></msup></mrow><annotation encoding="application/x-tex">\pmb{P}^{-1} \pmb{A} \vec{v}&#x27;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9095602222222222em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9095602222222222em;"><span style="top:-3.1584522222222224em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault">A</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault">A</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault">A</span></span></span></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></li>
+</ol>
+<p>综上，我们可以有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi mathvariant="bold">P</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mi mathvariant="bold">A</mi><msup><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mo mathvariant="normal">′</mo></msup><mo>=</mo><mi mathvariant="bold">B</mi><msup><mover accent="true"><mi>v</mi><mo>⃗</mo></mover><mo mathvariant="normal">′</mo></msup></mrow><annotation encoding="application/x-tex">\pmb{P}^{-1} \pmb{A} \vec{v}&#x27; = \pmb{B} \vec{v}&#x27;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9095602222222222em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9095602222222222em;"><span style="top:-3.1584522222222224em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault">A</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault">A</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault">A</span></span></span></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.751892em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.20772em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width='0.471em' height='0.714em' style='width:0.471em' viewBox='0 0 471 714' preserveAspectRatio='xMinYMin'><path d='M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
+3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
+10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
+-1.333 1.333-3.167 3.5-5.5 6.5s-4 4.833-5 5.5c-1 .667-2.5 1.333-4.5 2s-4.333 1
+-7 1c-4.667 0-9.167-1.833-13.5-5.5S337 184 337 178c0-12.667 15.667-32.333 47-59
+H213l-171-1c-8.667-6-13-12.333-13-19 0-4.667 4.333-11.333 13-20h359
+c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.751892em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span>，可以化简为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="bold">B</mi><mo>=</mo><msup><mi mathvariant="bold">P</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mi mathvariant="bold">A</mi></mrow><annotation encoding="application/x-tex">\pmb{B} = \pmb{P}^{-1} \pmb{A}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.9095602222222222em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9095602222222222em;"><span style="top:-3.1584522222222224em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mord"><span class="mord"><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.68333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mord mathdefault">A</span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="rlap"><span class="strut" style="height:0.7055522222222222em;vertical-align:0em;"></span><span class="inner"><span class="mord"><span class="mspace" style="margin-right:0.022222222222222223em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7055522222222222em;"><span style="top:-3.022222222222222em;"><span class="pstrut" style="height:3em;"></span><span class="mord text"><span class="mord mathdefault">A</span></span></span></span></span></span></span></span><span class="fix"></span></span></span></span></span></span></span><span class="mord"><span class="mspace" style="margin-right:0.044444444444444446em;"></span><span class="mord mathdefault">A</span></span></span></span></span></span></span>。相似矩阵的目的也是为了找到更简单的坐标系，具体例子可以详见REFERENCES #1的对角矩阵。</p>
+<h1 id="refenrences">REFENRENCES</h1>
+<ul>
+<li><a href="https://www.zhihu.com/question/20501504/answer/174887899">#1 有没有人能用人类的语言告诉我，相似矩阵有什么用？</a></li>
+</ul>
+
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://www.nxw.name/post/shen-jing-wang-luo-zhong-shi-yong-zheng-ze-hua-jian-shao-fang-chai/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  神经网络中使用正则化减少方差
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://www.nxw.name/post/xing-lie-shi-de-ji-he-yi-yi/">
+                <h3 class="post-title">
+                  行列式的几何意义
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://geektutu.github.io/hexo-theme-geektutu/js/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '95da5e6dfbe94e9621c5',
+    clientSecret: '6b6510006d4bd9b042323bc2c5b1374561942033',
+    repo: 'xav1er.github.io',
+    owner: 'xavier-niu',
+    admin: ['xavier-niu'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false,  // Facebook-like distraction free mode
+    language: 'en'
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://www.nxw.name/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

@@ -1,0 +1,339 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Xavier&#39;s Blog</title>
+<meta name="description" content="About code, about life, about everything." />
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1583921088476">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://www.nxw.name/styles/main.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129706677-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-129706677-2');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://www.nxw.name">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1583921088476" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            Contents
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%A4%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">数据库两个基本概念</a>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93-block">数据库 (Block)</a></li>
+<li><a href="#rowid">RowId</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88">优化方案</a>
+<ul>
+<li><a href="#%E5%87%8F%E5%B0%91%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE">减少数据访问</a>
+<ul>
+<li><a href="#%E7%B4%A2%E5%BC%95-index">索引 (Index)</a>
+<ul>
+<li><a href="#%E7%B4%A2%E5%BC%95%E6%98%AF%E5%95%A5">索引是啥</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95">什么情况下使用索引？</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8D%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95">什么情况下不使用索引？</a></li>
+<li><a href="#%E5%9C%A8%E4%BB%80%E4%B9%88%E5%AD%97%E6%AE%B5%E4%B8%8A%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95">在什么字段上建立索引？</a></li>
+<li><a href="#%E7%B4%A2%E5%BC%95%E5%AF%B9dmlinsertupdatedelete%E9%99%84%E5%8A%A0%E7%9A%84%E5%BC%80%E9%94%80%E6%9C%89%E5%A4%9A%E5%B0%91">索引对DML(INSERT,UPDATE,DELETE)附加的开销有多少？</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%AA%E9%80%9A%E8%BF%87%E7%B4%A2%E5%BC%95%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE">只通过索引访问数据</a></li>
+<li><a href="#%E4%BC%98%E5%8C%96sql%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92">优化SQL执行计划</a></li>
+</ul>
+</li>
+<li><a href="#%E8%BF%94%E5%9B%9E%E6%9B%B4%E5%B0%91%E7%9A%84%E6%95%B0%E6%8D%AE">返回更少的数据</a>
+<ul>
+<li><a href="#sql%E5%88%86%E9%A1%B5">SQL分页</a></li>
+<li><a href="#%E5%8F%AA%E8%BF%94%E5%9B%9E%E9%9C%80%E8%A6%81%E7%9A%84%E5%AD%97%E6%AE%B5">只返回需要的字段</a></li>
+</ul>
+</li>
+<li><a href="#%E6%9D%82%E9%A1%B9">杂项</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by Gridea & GitHub.</div>
+    <a class="rss" href="https://www.nxw.name/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">数据库性能优化</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-01-09 / 5 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h1 id="数据库两个基本概念">数据库两个基本概念</h1>
+<h2 id="数据库-block">数据库 (Block)</h2>
+<p>数据块是数据库中数据在磁盘中存储的最小单位，也是一次IO访问的最小单位。一个数据块通常可以存储多条记录，数据块大小是DBA在创建数据库或表空间时指定。<strong>一个数据库可以包括多个数据文件，一个数据文件内又包含多个数据块。</strong></p>
+<h2 id="rowid">RowId</h2>
+<p>ROWID是每条记录在数据库中的<strong>唯一</strong>标识。</p>
+<h1 id="优化方案">优化方案</h1>
+<h2 id="减少数据访问">减少数据访问</h2>
+<h3 id="索引-index">索引 (Index)</h3>
+<p>索引表不是万能的，它的存在会大大增加表记录的DML(INSERT,UPDATE,DELETE)开销，正确的索引可以让性能提升100，1000倍以上，不合理的索引也可能会让性能下降100倍。</p>
+<h4 id="索引是啥">索引是啥</h4>
+<p>B-TREE索引也称为平衡树索引(Balance Tree)，它是一种按字段排好序的树形目录结构，<strong>主要用于提升查询性能和唯一约束支持</strong>。</p>
+<!--MORE-->
+<p><strong>叶子节点内容</strong> 索引字段内容+表记录ROWID</p>
+<p><strong>根节点，分支节点内容</strong> 当一个数据块中不能放下所有索引字段数据时，就会形成树形的根节点或分支节点，根节点与分支节点保存了索引树的顺序及各层级间的引用关系。</p>
+<p>如果把表的内容看做一本字典，则索引相当于字典的目录，具体如下图所示:<br>
+<img src="http://hi.csdn.net/attachment/201012/6/0_129163667068Da.gif" alt="" loading="lazy"></p>
+<p><strong>所以在一个表中可以建多个索引，就如一本字典可以建多个目录一样（按拼音、笔划、部首等等）；一个索引也可以由多个字段组成，称为组合索引，如上图就是一个按部首+笔划的组合目录</strong></p>
+<h4 id="什么情况下使用索引">什么情况下使用索引？</h4>
+<p>=, &gt;(=), &lt;(=), BETWEEN, IN, LIKE(后导模糊查询)和两个表通过索引字段关联</p>
+<h4 id="什么情况下不使用索引">什么情况下不使用索引？</h4>
+<p>不等于(&lt;&gt;, NOT IN, !=), 函数运算, LIKE(前导模糊查询), IS NULL, 隐式转换(相当于加了一层函数), 给索引查询的值应是已知数据(不能是未知字段值), 组合索引第一个字段不能使用索引的(如建立索引(id, name), 如果SQL使用WHERE NAME LIKE ?则不使用索引)</p>
+<h4 id="在什么字段上建立索引">在什么字段上建立索引？</h4>
+<ol>
+<li>字段出现在查询条件中，并且查询条件可以使用索引；</li>
+<li>语句执行频率高，一天会有几千次以上；</li>
+<li>通过字段条件可筛选的记录集很小，<strong>那数据筛选比例是多少才适合？</strong><br><br>
+小表：(记录数小于10000行的表)：筛选比例&lt;10%；<br><br>
+大表：(筛选返回记录数)&lt;(表总记录数*单条记录长度)/10000/16</li>
+</ol>
+<p>需要建立索引的字段：主键、外键和有标示意义的字段(如HASH_CODE, IDCARD等)</p>
+<p>需评估建立索引的字段：日期、年月、状态标志、类型、区域、操作人员、数值和长字符</p>
+<p>不适合建立索引的字段：描述备注和大字段</p>
+<h4 id="索引对dmlinsertupdatedelete附加的开销有多少">索引对DML(INSERT,UPDATE,DELETE)附加的开销有多少？</h4>
+<p><strong>(仅供参考）</strong></p>
+<p>索引对于Insert性能降低56%</p>
+<p>索引对于Update性能降低47%</p>
+<p>索引对于Delete性能降低29%</p>
+<p>因此对于写IO压力比较大的系统，表的索引需要仔细评估必要性，另外索引也会占用一定的存储空间。</p>
+<h3 id="只通过索引访问数据">只通过索引访问数据</h3>
+<p>有些时候，我们只是访问表中的<strong>几个字段</strong>，并且字段内容较少，我们可以为这几个字段单独<strong>建立一个组合索引</strong>，这样就可以直接只通过访问索引就能得到数据，一般索引占用的磁盘空间比表小很多，所以这种方式可以大大减少磁盘IO开销。</p>
+<p>例如：</p>
+<pre><code class="language-SQL">SELECT id, name FROM company WHERE type = 2;
+</code></pre>
+<p>如果这个SQL经常使用，我们可以在<strong>type,id,name</strong>上创建组合索引。还是拿字典举例：有一个需求，需要查询一本汉语字典中所有汉字的个数，如果我们的字典没有目录索引，那我们只能从字典内容里一个一个字计数，最后返回结果。如果我们有一个拼音目录，那就可以只访问拼音目录的汉字进行计数。如果一本字典有1000页，拼音目录有20页，那我们的数据访问成本相当于全表访问的50分之一。切记，性能优化是无止境的，当性能可以满足需求时即可，不要过度优化。在实际数据库中我们不可能把每个SQL请求的字段都建在索引里，所以这种只通过索引访问数据的方法一般只用于<strong>核心应用</strong>，也就是那种对核心表访问量最高且查询字段数据量很少的查询。</p>
+<h3 id="优化sql执行计划">优化SQL执行计划</h3>
+<p>略</p>
+<h2 id="返回更少的数据">返回更少的数据</h2>
+<h3 id="sql分页">SQL分页</h3>
+<p>略</p>
+<h3 id="只返回需要的字段">只返回需要的字段</h3>
+<p>好理解，不多说</p>
+<h2 id="杂项">杂项</h2>
+<ol>
+<li>尽量使用列明代替*</li>
+<li>尽量使用WHERE代替HAVING，如有GROUP BY则必须使用HAVING</li>
+<li>尽量使用多表查询代替子查询</li>
+</ol>
+
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://www.nxw.name/post/tong-guo-gong-han-mo-shi-chuang-jian-dan-li-yi-ji-gong-han-mo-shi-de-you-shi/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  通过工厂模式创建单例以及工厂模式的优势
+                </h3>
+              </a>
+            </div>
+          
+
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://geektutu.github.io/hexo-theme-geektutu/js/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '95da5e6dfbe94e9621c5',
+    clientSecret: '6b6510006d4bd9b042323bc2c5b1374561942033',
+    repo: 'xav1er.github.io',
+    owner: 'xavier-niu',
+    admin: ['xavier-niu'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false,  // Facebook-like distraction free mode
+    language: 'en'
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://www.nxw.name/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
