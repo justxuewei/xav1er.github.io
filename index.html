@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Xavier&#39;s Blog</title>
 <meta name="description" content="About code, about life, about everything." />
-<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1583923620472">
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1583923741474">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -32,7 +32,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://www.nxw.name">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1583923620472" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1583923741474" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
       </div>
@@ -265,6 +265,150 @@
 
       </div>
       <div class="text-gray-400 text-sm font-light">2018-05-25 / 14 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${10 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://www.nxw.name/post/DeepLearning-ai-Lesson2-Week2-Summary/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">DeepLearning.ai Lesson2 Week2 Summary</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <p>这周的内容是神经网络的性能优化，分别从mini-batch, exponentially weighted averages, momentum, RMSprop, Adam和learning rate decay上做了系统性的描述，这里面包含了非常多的超参数，那么让我们一起来回顾一下这周的内容吧。</p>
+
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-05-18 / 12 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${11 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://www.nxw.name/post/DeepLearning-ai-Lesson2-Week1-Summary/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">DeepLearning.ai Lesson2 Week1 Summary</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <p>吴恩达的DeepLearning.ai Lesson2主要是在Lesson1的基础上讲神经网络的参数调优，如何使NN变得更高效（正则化和初始参数），同时还介绍了如何debug神经网络。学完这些week1越来越感觉神经网络以及机器学习已经变成了一种玄学。接下来我总结一下这几周学到的玄学。本次实验(DeepLearning.ai Quiz)的完整代码(数据+代码)请<a href="https://gitee.com/mrn1u/deep-learning.ai/tree/master/l2_w1">点击这里</a>。</p>
+
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-04-30 / 17 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${12 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://www.nxw.name/post/Dropout正则化/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Dropout正则化</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <p>Dropout正则化(Dropout Regularization)是一个消除数据过拟合情况的工具，与L2正则化所最终的效果差不都，只不过dropout方式更暴力一些。总体来说<strong>dropout方式是随机减少每层的神经元来实现的</strong>。</p>
+
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-04-11 / 3 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${13 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://www.nxw.name/post/shen-jing-wang-luo-zhong-shi-yong-zheng-ze-hua-jian-shao-fang-chai/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">神经网络中使用正则化减少方差</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <p>在稍早前的文章中(<a href="http://www.niuxuewei.com/2018/03/27/Bias-Variance-%E5%81%8F%E5%B7%AE-%E6%96%B9%E5%B7%AE-DeepLearning-ai-Lesson2-2/">Bias/Variance(偏差/方差) - DeepLearning.ai Lesson2 #2</a>)有提到过，使用正则化(regularization)可以在不增加偏差的前提下减少方差，所以本文将会解释正则化的原理。</p>
+
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-04-07 / 5 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${14 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://www.nxw.name/post/xiang-si-ju-zhen/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">相似矩阵</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <h1 id="通俗解释">通俗解释</h1>
+<p>今天《雷神3》上映了，我坐在第一排看电影：</p>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-03-30-094216.jpg" alt="" loading="lazy"></figure>
+
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-03-30 / 3 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${15 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://www.nxw.name/post/xing-lie-shi-de-ji-he-yi-yi/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">行列式的几何意义</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <p>综述：矩阵变化的实质是基向量变化，行列式是线性变换的伸缩因子。</p>
+
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-03-30 / 4 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${16 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://www.nxw.name/post/Bias-Variance-偏差-方差-DeepLearning-ai-Lesson2-2/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Bias/Variance(偏差/方差) - DeepLearning.ai Lesson2 #2</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <h1 id="什么是偏差和方差">什么是偏差和方差</h1>
+<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-03-27-092600.jpg" alt="" loading="lazy"></figure>
+
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-03-27 / 3 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${17 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://www.nxw.name/post/DeepLearning-ai-Lesson1-Summary/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">DeepLearning.ai Lesson1 Summary</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <blockquote>
+<p>这篇文章是一次学习DeepLearning.ai的Lesson 1的一次总结，起因是在几个月没有继续学习深度学习有关内容后，之前的一些基础已经有些忘却了，所以通过这次总结快速唤醒之前的记忆，也为了防止下一次忘记某个知识点需要重新去视频中寻找。</p>
+</blockquote>
+
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-03-23 / 15 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${18 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://www.nxw.name/post/zhi-shi-tu-pu-knowledgegraph/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">知识图谱(KnowledgeGraph)</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <p>因为要进行通过知识图谱的假新闻检测，所以搭建知识图谱是我们构建的第一步，目前我们选用的数据源是DBpedia，它的实体和关系都是从维基百科中抽取的，所以有较高的可信度。本来想将DBpedia数据导入到Neo4j中，但是数据繁多就放弃了，初步设想是使用SPARQL来检索信息。所以这一切的一切都要先对语义网络中的RDF、RDFS和OWL有一个初步了解，同时也需要对语义网络、语义网、链路数据以及知识图谱有一定的了解。</p>
+
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-03-14 / 4 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${19 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://www.nxw.name/post/tong-guo-gong-han-mo-shi-chuang-jian-dan-li-yi-ji-gong-han-mo-shi-de-you-shi/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">通过工厂模式创建单例以及工厂模式的优势</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-02-22 / 2 min read</div>
     </div>
   </section>
 
