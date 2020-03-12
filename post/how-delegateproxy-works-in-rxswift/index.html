@@ -1,0 +1,694 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Xavier&#39;s Blog</title>
+<meta name="description" content="About code, about life, about everything." />
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1584019890404">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://www.nxw.name/styles/main.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129706677-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-129706677-2');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://www.nxw.name">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1584019890404" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            Contents
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#use-cases">Use Cases</a>
+<ul>
+<li><a href="#has-not-a-return-value">HAS NOT a Return Value</a></li>
+<li><a href="#has-a-return-value">HAS a Return Value</a></li>
+</ul>
+</li>
+<li><a href="#registering-a-proxy">Registering a Proxy</a></li>
+<li><a href="#creating-a-proxy">Creating a Proxy</a></li>
+<li><a href="#wrapping-to-observable">Wrapping to Observable</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by Gridea & GitHub.</div>
+    <a class="rss" href="https://www.nxw.name/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">How DelegateProxy works in RxSwift?</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-03-12 / 14 min read
+        </div>
+        
+        <div class="post-content yue">
+          <p>DelegateProxy is a core feature in Rxswift to wrap the return value from original delegate to observable sequence. So it's important to discover how it works in RxSwift. Under the hood, message forwarding, a feature in Objective-C, plays a role in forwarding message from proxy to real delegate. You should have some basic knowledges about Objective-C Runtime before you go deeper. You can learn that in this post (Chinese version): <a href="https://www.nxw.name/post/objective-c-runtime-xiang-jie/">Objective-C Runtime详解</a>.</p>
+<!-- more -->
+<h1 id="use-cases">Use Cases</h1>
+<p>There are two ways to apply DelegateProxy to your app in different scenarios:</p>
+<ul>
+<li>Delegate method has a return value.</li>
+<li>Delegate method hasn't a return value, in other words, the type of method is void.</li>
+</ul>
+<p>Here are some reasons about why we need differential measure to the two cases above, which I quoted from <em>RxSwift Reactive Programming with Swift</em>:</p>
+<ul>
+<li>Delegate methods with a return type are not meant for observation, but for customization of the behavior.</li>
+<li>Deﬁning an automatic default value which would work in any case is a non-trivial task.</li>
+</ul>
+<h2 id="has-not-a-return-value">HAS NOT a Return Value</h2>
+<p>We use <code>sentMessage(Selector)</code> or <code>methodInvoked(Selector)</code> to establish a relationship between a selector which represents the method in Delegate you want to invoke and a observable sequence. The difference between those methods is whether elements are sent before message forwarding or not. More details about that will be introduced in the later.</p>
+<pre><code class="language-swift">var didUpdateLocations: Observable&lt;[CLLocation]&gt; { 
+	return delegate
+		.methodInvoked(#selector(CLLocationManagerDelegate.locationManager(_:didUpdateLocations:)))
+		.map { parameters in
+			return parameters[1] as! [CLLocation]
+		} 
+}
+</code></pre>
+<h2 id="has-a-return-value">HAS a Return Value</h2>
+<p>As we discussed before, a method that has a return value is not easy to be wrapped to observable, therefore we need to forward the invocation to real delegate. Suppose you want to <code>MapViewDelegate</code> work with RxSwift, you have a file named <code>MKMapView+Rx.swift</code> for making <code>MapViewDelegate</code> reactive and a file named <code>ViewController.swift</code> which conforms to <code>MKMapViewDelegate</code> as usual.</p>
+<pre><code class="language-swift">// MKMapView+Rx.swift
+
+// install a forwarding delegate
+func setDelegate(_ delegate: MKMapViewDelegate) -&gt; Disposable {
+    return RxMKMapViewDelegateProxy.installForwardDelegate(
+    	delegate, 
+    	retainDelegate: false, 
+    	onProxyForObject: self.base
+    )
+ }
+
+// manipulate how map view displays when new data have been arrived
+var overlays: Binder&lt;[MKOverlay]&gt; {
+    return Binder(self.base) { (mapView: Base, overLays: [MKOverlay]) in
+      mapView.removeOverlays(mapView.overlays)
+      mapView.addOverlays(overLays)
+    }
+  }
+</code></pre>
+<p>Then, you can call this function to set up with the real delegate instance.</p>
+<pre><code class="language-swift">// ViewController.swift
+
+// register forwarding delegate
+mapView.rx.setDelegate(self).disposed(by: bag)
+
+// regular protocol implementation
+extension ViewController: MKMapViewDelegate {
+  public func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -&gt; MKOverlayRenderer {
+    guard let overlay = overlay as? ApiController.Weather.Overlay else {
+      return MKOverlayRenderer()
+    }
+    let overlayView = ApiController.Weather.OverlayView(overlay: overlay, overlayIcon: overlay.icon)
+    return overlayView
+  }
+}
+</code></pre>
+<p>You may confuse after viewing this code. Don't worry! You can understand them better after you learned how forwarding delegate works.</p>
+<h1 id="registering-a-proxy">Registering a Proxy</h1>
+<p>According to the source code, we can find all methods related to register is in <code>DelegateProxyType.swift</code>. Let me show you how we register a proxy in an extension of ParentObject first.</p>
+<pre><code class="language-swift">// RxScrollViewDelegateProxy.swift
+public static func registerKnownImplementations() {
+    self.register { RxScrollViewDelegateProxy(scrollView: $0) }
+    self.register { RxTableViewDelegateProxy(tableView: $0) }
+    self.register { RxCollectionViewDelegateProxy(collectionView: $0) }
+    self.register { RxTextViewDelegateProxy(textView: $0) }
+}
+</code></pre>
+<p>We can find those methods in source code.</p>
+<p>Protocol: DelegateProxyType</p>
+<pre><code class="language-swift">// abstract static method
+static func registerKnownImplementations()
+
+// `DelegateProxy.identifer` is, in fact, an identifier of Delegate.
+public static var identifier: UnsafeRawPointer {
+    let delegateIdentifier = ObjectIdentifier(Delegate.self)
+    let integerIdentifier = Int(bitPattern: delegateIdentifier)
+    return UnsafeRawPointer(bitPattern: integerIdentifier)!
+}
+
+// static method
+public static func register&lt;Parent&gt;(make: @escaping (Parent) -&gt; Self) {
+    self.factory.extend(make: make)
+}
+
+// self.factory
+private static var factory: DelegateProxyFactory {
+    DelegateProxyFactory.sharedFactory(for: self)
+}
+</code></pre>
+<p>Class: DelegateProxyFactory</p>
+<pre><code class="language-swift">private class DelegateProxyFactory {
+  private static var _sharedFactories: [UnsafeRawPointer: DelegateProxyFactory] = [:]
+
+    fileprivate static func sharedFactory&lt;DelegateProxy: DelegateProxyType&gt;(for proxyType: DelegateProxy.Type) -&gt; DelegateProxyFactory {
+        MainScheduler.ensureRunningOnMainThread()
+        let identifier = DelegateProxy.identifier
+        if let factory = _sharedFactories[identifier] {
+            return factory
+        }
+        let factory = DelegateProxyFactory(for: proxyType)
+        _sharedFactories[identifier] = factory
+        DelegateProxy.registerKnownImplementations()
+        return factory
+    }
+
+    private var _factories: [ObjectIdentifier: (AnyObject) -&gt; AnyObject]
+    private var _identifier: UnsafeRawPointer
+  
+    // ...
+
+    fileprivate func extend&lt;DelegateProxy: DelegateProxyType, ParentObject&gt;(make: @escaping (ParentObject) -&gt; DelegateProxy) {
+        MainScheduler.ensureRunningOnMainThread()
+        precondition(_identifier == DelegateProxy.identifier, &quot;Delegate proxy has inconsistent identifier&quot;)
+        guard _factories[ObjectIdentifier(ParentObject.self)] == nil else {
+            rxFatalError(&quot;The factory of \(ParentObject.self) is duplicated. DelegateProxy is not allowed of duplicated base object type.&quot;)
+        }
+        _factories[ObjectIdentifier(ParentObject.self)] = { make(castOrFatalError($0)) }
+    }
+  
+  // ...
+}
+</code></pre>
+<p>Notes</p>
+<ul>
+<li>
+<p>Mapping relations between <code>Delegate</code> and an instance of <code>DelegateProxyFactory</code> are saved in <code>_sharedFactories</code>, and mapping relations between <code>ParentObject</code> and <code>Proxy</code> for each <code>Delegate</code> are saved in <code>_factories</code>, an instance variable in <code>DelegateProxyFactory</code>.</p>
+</li>
+<li>
+<p>Method saving the relations mentioned above is <code>sharedFactory(for: DelegateProxy.Type) -&gt; DelegateProxyFactory</code> and <code>extend(make: @escaping (ParentObject) -&gt; DelegateProxy)</code>. It's easy to understand what happens if you neglect the code for log.</p>
+</li>
+</ul>
+<p>Here is a flowchart to show you the process about registration.</p>
+<pre><code class="language-flow">st=&gt;start: Start
+e=&gt;end: End
+initFormat=&gt;operation: init self.factory
+performShareFactory=&gt;operation: sharedFactory(for:)
+hasFactoryInstance=&gt;condition: has factory 
+instance?
+returnFactory=&gt;operation: return factory
+regKnownImp=&gt;operation: registerKnownImplementation()
+register=&gt;operation: register()
+extend=&gt;operation: extend()
+saveRelation=&gt;operation: save mapper to factory
+(parentObj &gt; proxy) 
+
+
+st-&gt;initFormat(right)-&gt;performShareFactory
+performShareFactory-&gt;hasFactoryInstance
+hasFactoryInstance(yes)-&gt;returnFactory
+hasFactoryInstance(no)-&gt;regKnownImp(right)-&gt;register(right)-&gt;extend-&gt;saveRelation
+saveRelation(left)-&gt;returnFactory-&gt;e
+</code></pre>
+<h1 id="creating-a-proxy">Creating a Proxy</h1>
+<p>As usual, we extend a class to create a proxy and use it as Delegate. To create a proxy, we perform <code>proxy(object: ParentObject)</code> to get an instance of <code>DelegateProxy</code> from the factory of DelegateProxy.</p>
+<pre><code class="language-swift">public extension Reactive where Base: CLLocationManager {
+    var delegate: DelegateProxy&lt;CLLocationManager, CLLocationManagerDelegate&gt; {
+        return RxCLLocationManagerDelegateProxy.proxy(for: base)
+    }
+}
+</code></pre>
+<p>Although creating a proxy could be done in less than three lines of code, RxSwift really does a lot for implementing those functions. The following codes scattered all over the place show you all related stuffs to this process.</p>
+<p>Protocol: DelegateProxyType.swift</p>
+<pre><code class="language-swift">extension DelegateProxyType {
+    // ...
+    public static func proxy(for object: ParentObject) -&gt; Self {
+        MainScheduler.ensureRunningOnMainThread()
+
+        let maybeProxy = assignedProxy(for: object)
+
+        let proxy: AnyObject
+        if let existingProxy = maybeProxy {
+            proxy = existingProxy
+        } else {
+            proxy = castOrFatalError(createProxy(for: object))
+            assignProxy(proxy, toObject: object)
+            assert(assignedProxy(for: object) === proxy)
+        }
+        let currentDelegate = _currentDelegate(for: object)
+        let delegateProxy: Self = castOrFatalError(proxy)
+
+        if currentDelegate !== delegateProxy {
+          	// save the forwarded delegate in `__forwardToDelegate` defined 
+          	// in `_RXDelegateProxy.m`
+            delegateProxy._setForwardToDelegate(currentDelegate, retainDelegate: false)
+            assert(delegateProxy._forwardToDelegate() === currentDelegate)
+            // set current proxy as delegate of object 
+            _setCurrentDelegate(proxy, to: object)
+            assert(_currentDelegate(for: object) === proxy)
+            assert(delegateProxy._forwardToDelegate() === currentDelegate)
+        }
+
+        return delegateProxy
+    }
+  	// ...
+}
+
+extension DelegateProxyType {
+    static func _currentDelegate(for object: ParentObject) -&gt; AnyObject? {
+        currentDelegate(for: object).map { $0 as AnyObject }
+    }
+    
+    static func _setCurrentDelegate(_ delegate: AnyObject?, to object: ParentObject) {
+        setCurrentDelegate(castOptionalOrFatalError(delegate), to: object)
+    }
+    
+    func _forwardToDelegate() -&gt; AnyObject? {
+        self.forwardToDelegate().map { $0 as AnyObject }
+    }
+    
+    func _setForwardToDelegate(_ forwardToDelegate: AnyObject?, retainDelegate: Bool) {
+      	// setForwardToDelegate is defined in DelegateProxy.swift
+        self.setForwardToDelegate(castOptionalOrFatalError(forwardToDelegate), retainDelegate: retainDelegate)
+    }
+}
+
+extension DelegateProxyType where ParentObject: HasDelegate, Self.Delegate == ParentObject.Delegate {
+    public static func currentDelegate(for object: ParentObject) -&gt; Delegate? {
+        object.delegate
+    }
+    public static func setCurrentDelegate(_ delegate: Delegate?, to object: ParentObject) {
+        object.delegate = delegate
+    }
+}
+
+extension DelegateProxyType {
+ 	 // ...
+    public static func createProxy(for object: AnyObject) -&gt; Self {
+        castOrFatalError(factory.createProxy(for: object))
+    }
+  	// ...
+}
+
+private class DelegateProxyFactory {
+  	// ...
+    fileprivate func createProxy(for object: AnyObject) -&gt; AnyObject {
+        MainScheduler.ensureRunningOnMainThread()
+        var maybeMirror: Mirror? = Mirror(reflecting: object)
+        while let mirror = maybeMirror {
+            if let factory = _factories[ObjectIdentifier(mirror.subjectType)] {
+                return factory(object)
+            }
+            maybeMirror = mirror.superclassMirror
+        }
+        rxFatalError(&quot;DelegateProxy has no factory of \(object). Implement DelegateProxy subclass for \(object) first.&quot;)
+    }
+}
+</code></pre>
+<p>Class: DelegateProxy.swift</p>
+<pre><code class="language-swift">open class DelegateProxy&lt;P: AnyObject, D&gt;: _RXDelegateProxy {
+  	// ...
+  	private var _sentMessageForSelector = [Selector: MessageDispatcher]()
+    private var _methodInvokedForSelector = [Selector: MessageDispatcher]()
+  
+    open func setForwardToDelegate(_ delegate: Delegate?, retainDelegate: Bool) {
+        #if DEBUG // 4.0 all configurations
+            MainScheduler.ensureRunningOnMainThread()
+        #endif
+      	// _setForwardToDelegate is defined in _RXDelegateProxy.m
+        _setForwardToDelegate(delegate, retainDelegate: retainDelegate)
+
+        let sentSelectors: [Selector] = _sentMessageForSelector.values.filter { $0.hasObservers }.map { $0.selector }
+        let invokedSelectors: [Selector] = _methodInvokedForSelector.values.filter { $0.hasObservers }.map { $0.selector }
+        let allUsedSelectors = sentSelectors + invokedSelectors
+
+        for selector in Set(allUsedSelectors) {
+            checkSelectorIsObservable(selector)
+        }
+        reset()
+    }
+  
+  	fileprivate func reset() {
+        guard let parentObject = _parentObject else { return }
+
+      	// definiation in init(): self._currentDelegateFor = delegateProxy._currentDelegate
+        let maybeCurrentDelegate = _currentDelegateFor(parentObject)
+
+        if maybeCurrentDelegate === self {
+          	// definiation in init(): self._setCurrentDelegateTo = delegateProxy._setCurrentDelegate
+            _setCurrentDelegateTo(nil, parentObject)
+            _setCurrentDelegateTo(castOrFatalError(self), parentObject)
+        }
+    }
+  	// ...
+}
+</code></pre>
+<p>Class: _RXDelegateProxy.m</p>
+<pre><code class="language-objc">id __weak __forwardToDelegate;
+
+-(void)_setForwardToDelegate:(id __nullable)forwardToDelegate retainDelegate:(BOOL)retainDelegate {
+    __forwardToDelegate = forwardToDelegate;
+    if (retainDelegate) {
+        self.strongForwardDelegate = forwardToDelegate;
+    }
+    else {
+        self.strongForwardDelegate = nil;
+    }
+}
+</code></pre>
+<p>Notes:</p>
+<ul>
+<li><code>checkSelectorIsObservable(selector:)</code> does nothing, but just outputs some warning message.</li>
+</ul>
+<p>The flowchart of proxy creation is</p>
+<pre><code class="language-flow">st=&gt;start: call RXxxxDelegateProxy.proxy(for:)
+e=&gt;end: Return Proxy
+mayProxy=&gt;condition: mayProxy?
+proxy=&gt;inputoutput: proxy
+callCreateProxy=&gt;operation: call createProxy(for:)
+get proxy from factory
+CDChanged=&gt;condition: CurrentDelegate 
+changed?
+call_setForwardToDelegate=&gt;operation: call _setForwardToDelegate(_:retainDelegate:)
+to save forwarded delegate
+call_setCurrentDelegate=&gt;operation: call _setCurrentDelegate(_:to:)
+to set proxy as delegate of object
+
+st(right)-&gt;mayProxy
+mayProxy(yes, bottom)-&gt;proxy
+mayProxy(no, right)-&gt;callCreateProxy-&gt;proxy
+proxy-&gt;CDChanged
+CDChanged(no, bottom)-&gt;e
+CDChanged(yes, right)-&gt;call_setForwardToDelegate-&gt;call_setCurrentDelegate(left)-&gt;e
+</code></pre>
+<h1 id="wrapping-to-observable">Wrapping to Observable</h1>
+<p>Class <code>MessageDispatcher</code> has a <code>dispatcher</code>, an instance of <code>PublishSubject</code>, and <code>result</code>, an observable of <code>dispatcher</code>, which you can subscribe it to get events of delegate.</p>
+<pre><code class="language-swift">private final class MessageDispatcher {
+    private let dispatcher: PublishSubject&lt;[Any]&gt;
+    private let result: Observable&lt;[Any]&gt;
+  	// ...
+    init&lt;P, D&gt;(selector: Selector, delegateProxy _delegateProxy: DelegateProxy&lt;P, D&gt;) {
+        // ...
+        result = dispatcher
+            .do(onSubscribed: { weakDelegateProxy?.checkSelectorIsObservable(selector); weakDelegateProxy?.reset() }, onDispose: { weakDelegateProxy?.reset() })
+            .share()
+            .subscribeOn(mainScheduler)
+    }
+    
+    // ...
+}
+</code></pre>
+<p>DelegateProxy has <code>_sentMessageForSelector</code> and <code>_methodInvokedForSelector</code> to map a selector corresponding to a method of delegate to an instance of <code>MessageDispatcher</code>.</p>
+<pre><code class="language-swift">private var _sentMessageForSelector = [Selector: MessageDispatcher]()
+private var _methodInvokedForSelector = [Selector: MessageDispatcher]()
+</code></pre>
+<p>You now can emit an event by <code>_sentMessage(_:withArguments:)</code> and <code>_methodInvoked(_:withArguments:)</code>.</p>
+<pre><code class="language-swift">open override func _sentMessage(_ selector: Selector, withArguments arguments: [Any]) {
+    _sentMessageForSelector[selector]?.on(.next(arguments))
+}
+
+open override func _methodInvoked(_ selector: Selector, withArguments arguments: [Any]) {
+    _methodInvokedForSelector[selector]?.on(.next(arguments))
+}
+</code></pre>
+<p><code>methodInvoked(_:)</code> and <code>sentMessage(_:)</code> saves the mapper into the dictionary and returns <code>result</code>, an member variable in <code>MessageDispather</code> we discussed above.</p>
+<pre><code class="language-swift">open func sentMessage(_ selector: Selector) -&gt; Observable&lt;[Any]&gt; {
+    MainScheduler.ensureRunningOnMainThread()
+
+    let subject = _sentMessageForSelector[selector]
+
+    if let subject = subject {
+        return subject.asObservable()
+    } else {
+        let subject = MessageDispatcher(selector: selector, delegateProxy: self)
+        _sentMessageForSelector[selector] = subject
+        return subject.asObservable()
+    }
+}
+
+open func methodInvoked(_ selector: Selector) -&gt; Observable&lt;[Any]&gt; {
+    MainScheduler.ensureRunningOnMainThread()
+
+    let subject = _methodInvokedForSelector[selector]
+
+    if let subject = subject {
+        return subject.asObservable()
+    } else {
+        let subject = MessageDispatcher(selector: selector, delegateProxy: self)
+        _methodInvokedForSelector[selector] = subject
+        return subject.asObservable()
+    }
+}
+</code></pre>
+<p><code>DelegateProxy</code> inherits from <code>_RXDelegateProxy</code>, which contains codes about message forwarding to ensure the message could be forwarded to original delegate, written by Objective-C. When someone calls a function of original delegate on proxy <code>forwardInvocation:</code> will be performed, because proxy can't respond to the selector.</p>
+<pre><code class="language-objc">-(void)forwardInvocation:(NSInvocation *)anInvocation {
+    BOOL isVoid = RX_is_method_signature_void(anInvocation.methodSignature);
+    NSArray *arguments = nil;
+
+    if (isVoid) {
+        arguments = RX_extract_arguments(anInvocation);
+        [self _sentMessage:anInvocation.selector withArguments:arguments];
+    }
+
+    if (self._forwardToDelegate &amp;&amp; [self._forwardToDelegate respondsToSelector:anInvocation.selector]) {
+        [anInvocation invokeWithTarget:self._forwardToDelegate];
+    }
+
+    if (isVoid) {
+        [self _methodInvoked:anInvocation.selector withArguments:arguments];
+    }
+}
+</code></pre>
+<p>Notes:</p>
+<ul>
+<li><code>_sentMessage:withArguments:</code> and <code>_methodInvoked:withArguments:</code> will be invoked if the return type of method is void.</li>
+<li><code>_sentMessage:withArguments:</code> is performed before the message forwards to delegate, and <code>_methodInvoked:withArguments:</code> after that.</li>
+</ul>
+<p>Why void methods are differentiated from others? Comments from RXSwift give answer:</p>
+<blockquote>
+<p>Only methods that have <code>void</code> return value can be observed using this method because those methods are used as a notification mechanism. It doesn't matter if they are optional or not. Observing is performed by installing a hidden associated <code>PublishSubject</code> that is used to dispatch messages to observers.</p>
+<p>Delegate methods that have non <code>void</code> return value can't be observed directly using this method because:</p>
+<ul>
+<li>those methods are not intended to be used as a notification mechanism, but as a behavior customization mechanism</li>
+<li>there is no sensible automatic way to determine a default return value</li>
+</ul>
+</blockquote>
+<p>You can overwrite the method of delegate to let proxy response to, here is an example:</p>
+<pre><code class="language-swift">public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    if let subject = _contentOffsetBehaviorSubject {
+        subject.on(.next(scrollView.contentOffset))
+    }
+    if let subject = _contentOffsetPublishSubject {
+        subject.on(.next(()))
+    }
+    // DO NOT forget to forward to delegate
+    self._forwardToDelegate?.scrollViewDidScroll?(scrollView)
+}
+</code></pre>
+<h1 id="conclusion">Conclusion</h1>
+<p>Discovering how RxSwift works is an nice exprience for me. I learned how to wrap a regular method to observable stream, and many underlying knowledges about iOS and programming language, such as Objective-C Runtime. Source code, in fact, is not too difficult to read if you determined to do it. You will understand what mechanisms are behind Apis and work with them more elegantly once mastered each part of source code.</p>
+
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://www.nxw.name/post/objective-c-runtime-xiang-jie/">
+                <h3 class="post-title">
+                  Objective-C Runtime详解
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://geektutu.github.io/hexo-theme-geektutu/js/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '95da5e6dfbe94e9621c5',
+    clientSecret: '6b6510006d4bd9b042323bc2c5b1374561942033',
+    repo: 'xav1er.github.io',
+    owner: 'xavier-niu',
+    admin: ['xavier-niu'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false,  // Facebook-like distraction free mode
+    language: 'en'
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://www.nxw.name/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
