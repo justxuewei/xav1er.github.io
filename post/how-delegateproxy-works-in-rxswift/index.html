@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Xavier&#39;s Blog</title>
 <meta name="description" content="About code, about life, about everything." />
-<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1584019890404">
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1584067664781">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -32,7 +32,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://www.nxw.name">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1584019890404" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1584067664781" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
       </div>
@@ -101,7 +101,7 @@
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
         <h1 class="text-3xl font-bold lg:mt-16">How DelegateProxy works in RxSwift?</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2020-03-12 / 14 min read
+          2020-03-12 / 15 min read
         </div>
         
         <div class="post-content yue">
@@ -169,14 +169,6 @@ extension ViewController: MKMapViewDelegate {
 <p>You may confuse after viewing this code. Don't worry! You can understand them better after you learned how forwarding delegate works.</p>
 <h1 id="registering-a-proxy">Registering a Proxy</h1>
 <p>According to the source code, we can find all methods related to register is in <code>DelegateProxyType.swift</code>. Let me show you how we register a proxy in an extension of ParentObject first.</p>
-<pre><code class="language-swift">// RxScrollViewDelegateProxy.swift
-public static func registerKnownImplementations() {
-    self.register { RxScrollViewDelegateProxy(scrollView: $0) }
-    self.register { RxTableViewDelegateProxy(tableView: $0) }
-    self.register { RxCollectionViewDelegateProxy(collectionView: $0) }
-    self.register { RxTextViewDelegateProxy(textView: $0) }
-}
-</code></pre>
 <p>We can find those methods in source code.</p>
 <p>Protocol: DelegateProxyType</p>
 <pre><code class="language-swift">// abstract static method
@@ -241,6 +233,33 @@ private static var factory: DelegateProxyFactory {
 <p>Method saving the relations mentioned above is <code>sharedFactory(for: DelegateProxy.Type) -&gt; DelegateProxyFactory</code> and <code>extend(make: @escaping (ParentObject) -&gt; DelegateProxy)</code>. It's easy to understand what happens if you neglect the code for log.</p>
 </li>
 </ul>
+<p>You override <code>registerKnownImplementations()</code> in the root of proxy and register all proxies corresponding to views that are inherited from root, since <code>createProxy(_:)</code> in the factory creates proxy is based on what type of object you pass is and root proxy shares the same variable, e.g. <code>xxx.rx.delegate</code>, with their children.</p>
+<p>For example, we know that the hierarchical relation in UITableView is: UITableView &gt; UIScrollView &gt; UIView.</p>
+<pre><code class="language-swift">// RxScrollViewDelegateProxy.swift
+public static func registerKnownImplementations() {
+    self.register { RxScrollViewDelegateProxy(scrollView: $0) }
+    self.register { RxTableViewDelegateProxy(tableView: $0) }
+    self.register { RxCollectionViewDelegateProxy(collectionView: $0) }
+    self.register { RxTextViewDelegateProxy(textView: $0) }
+}
+</code></pre>
+<p>In this case, UIScrollView is root, of course, its corresponding proxy, RxScrollViewDelegateProxy, is root as well. Therefore, in <code>registerKnownImplementations()</code> it registers all proxies of children, including <code>RxTableViewDelegateProxy</code>. And now you glance through the source code of <code>UIScrollView+Rx.swift</code> and <code>UITableView+Rx.swift</code>.</p>
+<pre><code class="language-swift">// UIScrollView+Rx.swift
+public var delegate: DelegateProxy&lt;UIScrollView, UIScrollViewDelegate&gt; {
+    return RxScrollViewDelegateProxy.proxy(for: base)
+}
+</code></pre>
+<p>You can also find there is no definition about delegate in <code>UITableView+Rx.swift</code>, in some methods, however, they use <code>self.delegate</code> to call methods in Delegate.</p>
+<pre><code class="language-swift">// UITableView+Rx.swift
+public var itemSelected: ControlEvent&lt;IndexPath&gt; {
+    let source = delegate.methodInvoked(#selector(UITableViewDelegate.tableView(_:didSelectRowAt:)))
+        .map { a in
+            try castOrThrow(IndexPath.self, a[1])
+        }
+    return ControlEvent(events: source)
+}
+</code></pre>
+<p>The reason is that <code>RxScrollViewDelegateProxy.proxy(for:)</code> calls <code>createProxy(_:)</code> finally. <code>createProxy(_:)</code>, however, creates proxy depends on what type of object you passed in. For example,  you call <code>delegate</code> in <code>UITableView+Rx.swift</code>, <code>base</code> passing to <code>RxScrollViewDelegateProxy.proxy</code> is an instance of <code>UITableView</code>, then the return type of proxy from <code>createProxy(_:)</code> is <code>RxTableViewDelegateProxy</code>.</p>
 <p>Here is a flowchart to show you the process about registration.</p>
 <pre><code class="language-flow">st=&gt;start: Start
 e=&gt;end: End
