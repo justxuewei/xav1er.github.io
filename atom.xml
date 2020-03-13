@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2020-03-13T02:47:47.142Z</updated>
+    <updated>2020-03-13T02:50:23.960Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
@@ -162,7 +162,7 @@ public var delegate: DelegateProxy&lt;UIScrollView, UIScrollViewDelegate&gt; {
     return RxScrollViewDelegateProxy.proxy(for: base)
 }
 </code></pre>
-<p>You can also find there is no definition about delegate in <code>UITableView+Rx.swift</code>, in some methods, however, they use <code>self.delegate</code> to call methods in Delegate.</p>
+<p>Although there is no definition about delegate in <code>UITableView+Rx.swift</code>, in some methods they use <code>self.delegate</code> to call methods in Delegate.</p>
 <pre><code class="language-swift">// UITableView+Rx.swift
 public var itemSelected: ControlEvent&lt;IndexPath&gt; {
     let source = delegate.methodInvoked(#selector(UITableViewDelegate.tableView(_:didSelectRowAt:)))
