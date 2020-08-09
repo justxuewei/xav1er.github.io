@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2020-06-01T12:22:29.671Z</updated>
+    <updated>2020-08-09T10:00:30.841Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
@@ -2172,6 +2172,7 @@ git config --global http.proxy socks5://127.0.0.1:1080
 <li>Oct 30, 2019: update for macOS 10.15.1</li>
 <li>Dec 19, 2019: [WARNING] updating to 10.15.2 should be carefully, a process named &quot;com.apple.parsec-fbf.flush&quot; which is running and keeping active in background until power off can lead your Hackintosh can't sleep properly. To get more info and a temporary solution, you may refer to <a href="https://www.tonymacx86.com/threads/process-com-apple-parsec-fbf-flush-on-catalina-10-15-2-prevents-system-from-sleeping-automatically.288951/">this post on tonymacx86</a>.</li>
 <li>Jan 1, 2020: replace BCM94352Z with BCM94360CS2, a network card is natively supported by Apple, hence, all info related to wifi and bluetooth is removed.</li>
+<li><strong>Aug 9, 2020: This post is deprecated, because I have changed from Clover to OpenCore, which is a better choice for Hackintosh for the moment. So any topics about Clover will not be updated, instead, if you have any problems with OpenCore, I think I may help you to figure out.</strong></li>
 </ul>
 <h1 id="hardware-summary">Hardware  Summary</h1>
 <ul>
