@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Xavier&#39;s Blog</title>
 <meta name="description" content="About code, about life, about everything." />
-<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1598950497398">
+<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1598971732327">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -32,7 +32,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://www.nxw.name">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1598950497398" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1598971732327" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
       </div>
@@ -105,12 +105,12 @@
           <img class="post-feature-image rounded-lg mx-auto my-4" src="https://tva1.sinaimg.cn/large/007S8ZIlly1gib8ttw8edj30i808cmz9.jpg" alt="">
         
         <div class="post-content yue">
-          <p>I surprisedly notice that OpenCore UEFI option has gone away after &quot;reset NVRAM&quot; option was selected. To solve that, you should prepare an empty USB formatted in FAT32.</p>
+          <p>I surprisedly noticed that OpenCore UEFI option has gone away after &quot;reset NVRAM&quot; option was selected. To solve that, you should prepare an empty USB formatted in FAT32.</p>
 <!-- more -->
 <h1 id="access-to-uefi-shell">Access to UEFI Shell</h1>
 <ol>
-<li>Create a dictionary on the USB Device: <code>/EFI/BOOT</code>.</li>
-<li>Copy the file <code>shell.efi</code> which could be downloaded from <a href="https://github.com/xavier-niu/pub/blob/master/hackintosh/shell.efi">this</a> to the directiory created above.</li>
+<li>Create a directory on the USB Device: <code>/EFI/BOOT</code>.</li>
+<li>Copy the file <code>shell.efi</code> which could be downloaded from <a href="https://github.com/xavier-niu/pub/blob/master/hackintosh/shell.efi">this</a> to the directory created above.</li>
 <li>Rename <code>shell.efi</code> to <code>BOOTx64.efi</code>.</li>
 <li>Reboot your device and choose the UEFI Shell from boot options of BIOS.</li>
 </ol>
