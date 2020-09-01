@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2020-09-01T08:47:21.343Z</updated>
+    <updated>2020-09-01T08:55:00.693Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
@@ -28,9 +28,10 @@
 <li>Reboot your device and choose the UEFI Shell from boot options of BIOS.</li>
 </ol>
 <h1 id="add-a-new-boot-record">Add A New Boot Record</h1>
+<p>All following commands should be typed into UEFI Shell which we mentioned above.</p>
 <ol>
 <li>Run <code>bcfg boot dump</code>, <strong>Boot ID</strong> is an arbitrary number as long as it is not conflicted with existed one.</li>
-<li>Run <code>map</code>, then find the disk at which Hackintosh was installed. Please be aware that <strong>DISK ID</strong> of the disk has a prefix with <code>FS</code>.</li>
+<li>Run <code>map</code>, then find the disk at which Hackintosh was installed. Please be aware that <strong>DISK ID</strong> has a prefix with <code>FS</code>.</li>
 <li>Run <code>bcfg boot add &lt;BOOT ID&gt; &lt;DISK ID&gt;:\EFI\BOOT\BOOTx64.efi OpenCore</code>. Please replace the BOOT ID &amp; DISK ID with yours.</li>
 </ol>
 ]]></content>
