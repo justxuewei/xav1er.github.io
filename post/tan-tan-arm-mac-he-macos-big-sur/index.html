@@ -42,7 +42,10 @@
             Contents
           </p>
           <div class="toc-container hidden lg:block">
-            
+            <ul class="markdownIt-TOC">
+<li><a href="#%E8%BD%AF%E4%BB%B6-macos-110">软件: macOS 11.0</a></li>
+</ul>
+
           </div>
         </div>
       
@@ -93,15 +96,17 @@
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">OMD开始进入快速开发期</h1>
+        <h1 class="text-3xl font-bold lg:mt-16">谈谈ARM mac和macOS Big Sur</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2020-08-09 / 1 min read
+          2020-11-18 / 2 min read
         </div>
         
         <div class="post-content yue">
-          <p>吐槽一下苹果文档，就是一个字：烂。对于macOS开发者极不友好，在0202年的今天依然保留着很多远古时期的产物，比如NSCell，对于NSCell和NSControl的作用关系的文档存在于Archived Documents（最近一次更新在2008年），而且只是泛泛而谈，很多细节展现的并不完美，即便是在新文档中很多方法甚至连说明都没有，anyway这方面的开发只能慢慢来了。希望SwiftUI完善一段时间后，可以有不错的文档和对macOS完善的支持。</p>
+          <p>从Apple释出Big Sur升级后，当天下午就将OpenCore升级至0.6.3，匆匆备份后，直接更新了Big Sur。目前使用了一个星期，到目前为止绝大部分都非常满意，甚至在别人的视频中看到旧版本macOS后，突然一种年代感和生疏感油然而生，大概我就是一个喜新厌旧的人吧:) 最近Apple在搞事情的方向上越走越远，先后发布了macOS Big Sur以及MacBook/Mac mini based on ARM，生态融合的最终目标已经成为了苹果公开的秘密了。</p>
 <!-- more -->
-<p>在OH! My Dictionary的开发中，我希望逐渐尝试一些的新的技术，比如RxSwift，但是将会严重的拖慢我的速度，但是好在现在对Cocoa Programming逐渐熟悉起来了，下一步应该就是着重对MVVC模式以及RxSwift的研究，祝我好运！</p>
+<h1 id="软件-macos-110">软件: macOS 11.0</h1>
+<p>作为新纪元的开端，苹果把macOS的版本号从10.x抬升至11.x，当然对于x86来说实际的版本号还是10.16。界面为了在大生态中更加和谐，也提升了扁平化的比例，icon采用与iPhone/iPad一样的圆角矩形等等。对于我来说，我是一个扁平化UI的狂热爱好者，对于11.0的大部分改进我持无限赞同意见，但是在某些地方的设计上，比如系统偏好设置内的一些图标上会让我产生一丝不解，就像是强硬的塞进了与扁平化丝毫不相关的拟物化，显得有一些维和，希望苹果后续可以重绘这些图标。</p>
+<p>除此之外，设计语言的更换对于我的新项目，几乎可以说是毁灭性打击。对于我来说，icon、界面的重绘将会严重拖慢开发进度。但是还能怎么办呢，只能选择原谅。苹果对于文档的建设真的也不是特别友好，几乎对所有新特性以及从旧设备中更新的方法只是在WWDC视频中简单的提了一嘴，没有一个文字版的guideline，更别提哪怕一点点的example code，而且macOS开发本身关注度就不高，在互联网上很难查到有关新版本的适配问题。</p>
 
         </div>
 
@@ -110,21 +115,12 @@
 
         <div class="flex justify-between py-8">
           
-            <div class="prev-post">
-              <a href="http://localhost:4000/post/opencore-uefi-disappers-from-boot-options-after-cleaned-nvram/">
-                <h3 class="post-title">
-                  <i class="ri-arrow-left-line"></i>
-                  OpenCore UEFI Disappers from Boot Options after Reset NVRAM
-                </h3>
-              </a>
-            </div>
-          
 
           
             <div class="next-post">
-              <a href="http://localhost:4000/post/how-delegateproxy-works-in-rxswift/">
+              <a href="http://localhost:4000/post/opencore-uefi-disappers-from-boot-options-after-cleaned-nvram/">
                 <h3 class="post-title">
-                  How DelegateProxy works in RxSwift?
+                  OpenCore UEFI Disappers from Boot Options after Reset NVRAM
                   <i class="ri-arrow-right-line"></i>
                 </h3>
               </a>

@@ -4,13 +4,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Xavier&#39;s Blog</title>
 <meta name="description" content="About code, about life, about everything." />
-<link rel="shortcut icon" href="https://www.nxw.name/favicon.ico?v=1598971732327">
+<link rel="shortcut icon" href="http://localhost:4000/favicon.ico?v=1611221822321">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
-<link rel="stylesheet" href="https://www.nxw.name/styles/main.css">
+<link rel="stylesheet" href="http://localhost:4000/styles/main.css">
 
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129706677-2"></script>
@@ -31,8 +31,8 @@
     <div class="sidebar-content">
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
-        <a href="https://www.nxw.name">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://www.nxw.name/images/avatar.png?v=1598971732327" alt="">
+        <a href="http://localhost:4000">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="http://localhost:4000/images/avatar.png?v=1611221822321" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xavier&#39;s Blog</h1>
       </div>
@@ -51,7 +51,7 @@
 </li>
 <li><a href="#registering-a-proxy">Registering a Proxy</a></li>
 <li><a href="#creating-a-proxy">Creating a Proxy</a></li>
-<li><a href="#wrapping-to-observable">Wrapping to Observable</a></li>
+<li><a href="#wrapping-delegate-methods-to-observable">Wrapping Delegate Methods to Observable</a></li>
 <li><a href="#conclusion">Conclusion</a></li>
 </ul>
 
@@ -99,7 +99,7 @@
   </div>
   <div class="site-footer">
     <div class="py-4 text-gray-700">Powered by Gridea & GitHub.</div>
-    <a class="rss" href="https://www.nxw.name/atom.xml" target="_blank">RSS</a>
+    <a class="rss" href="http://localhost:4000/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
 <div class="mask" onclick="closeMenu()">
@@ -107,7 +107,7 @@
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
         <h1 class="text-3xl font-bold lg:mt-16">How DelegateProxy works in RxSwift?</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2020-03-12 / 15 min read
+          2020-03-12 / 17 min read
         </div>
         
         <div class="post-content yue">
@@ -126,7 +126,10 @@
 </ul>
 <h2 id="has-not-a-return-value">HAS NOT a Return Value</h2>
 <p>We use <code>sentMessage(Selector)</code> or <code>methodInvoked(Selector)</code> to establish a relationship between a selector which represents the method in Delegate you want to invoke and a observable sequence. The difference between those methods is whether elements are sent before message forwarding or not. More details about that will be introduced in the later.</p>
-<pre><code class="language-swift">var didUpdateLocations: Observable&lt;[CLLocation]&gt; { 
+<pre><code class="language-swift">// MKMapView+Rx.swift
+// `delegate` is an instance of DelegateProxy
+
+var didUpdateLocations: Observable&lt;[CLLocation]&gt; { 
 	return delegate
 		.methodInvoked(#selector(CLLocationManagerDelegate.locationManager(_:didUpdateLocations:)))
 		.map { parameters in
@@ -137,6 +140,7 @@
 <h2 id="has-a-return-value">HAS a Return Value</h2>
 <p>As we discussed before, a method that has a return value is not easy to be wrapped to observable, therefore we need to forward the invocation to real delegate. Suppose you want to <code>MapViewDelegate</code> work with RxSwift, you have a file named <code>MKMapView+Rx.swift</code> for making <code>MapViewDelegate</code> reactive and a file named <code>ViewController.swift</code> which conforms to <code>MKMapViewDelegate</code> as usual.</p>
 <pre><code class="language-swift">// MKMapView+Rx.swift
+// `delegate` is an instance of DelegateProxy
 
 // install a forwarding delegate
 func setDelegate(_ delegate: MKMapViewDelegate) -&gt; Disposable {
@@ -146,23 +150,19 @@ func setDelegate(_ delegate: MKMapViewDelegate) -&gt; Disposable {
     	onProxyForObject: self.base
     )
  }
-
-// manipulate how map view displays when new data have been arrived
-var overlays: Binder&lt;[MKOverlay]&gt; {
-    return Binder(self.base) { (mapView: Base, overLays: [MKOverlay]) in
-      mapView.removeOverlays(mapView.overlays)
-      mapView.addOverlays(overLays)
-    }
-  }
 </code></pre>
 <p>Then, you can call this function to set up with the real delegate instance.</p>
 <pre><code class="language-swift">// ViewController.swift
 
-// register forwarding delegate
-mapView.rx.setDelegate(self).disposed(by: bag)
+class ViewController {
+  // ...
+  // register forwarding delegate
+  mapView.rx.setDelegate(self).disposed(by: bag)
+  //...
+}
 
-// regular protocol implementation
 extension ViewController: MKMapViewDelegate {
+  // ...
   public func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -&gt; MKOverlayRenderer {
     guard let overlay = overlay as? ApiController.Weather.Overlay else {
       return MKOverlayRenderer()
@@ -170,35 +170,40 @@ extension ViewController: MKMapViewDelegate {
     let overlayView = ApiController.Weather.OverlayView(overlay: overlay, overlayIcon: overlay.icon)
     return overlayView
   }
+  // ...
 }
 </code></pre>
 <p>You may confuse after viewing this code. Don't worry! You can understand them better after you learned how forwarding delegate works.</p>
 <h1 id="registering-a-proxy">Registering a Proxy</h1>
+<p>// TODO: Why we should register a proxy?</p>
 <p>According to the source code, we can find all methods related to register is in <code>DelegateProxyType.swift</code>. Let me show you how we register a proxy in an extension of ParentObject first.</p>
-<p>We can find those methods in source code.</p>
-<p>Protocol: DelegateProxyType</p>
-<pre><code class="language-swift">// abstract static method
-static func registerKnownImplementations()
+<pre><code class="language-swift">// Rx/RxCocoa/Common/DelegateProxyType.swift
 
-// `DelegateProxy.identifer` is, in fact, an identifier of Delegate.
-public static var identifier: UnsafeRawPointer {
-    let delegateIdentifier = ObjectIdentifier(Delegate.self)
-    let integerIdentifier = Int(bitPattern: delegateIdentifier)
-    return UnsafeRawPointer(bitPattern: integerIdentifier)!
+public protocol DelegateProxyType: class {
+  // ...
+  // abstract static method
+	static func registerKnownImplementations()
+	// `DelegateProxy.identifer` is, in fact, an identifier of Delegate.
+	public static var identifier: UnsafeRawPointer { get }
+  // ...
 }
 
-// static method
-public static func register&lt;Parent&gt;(make: @escaping (Parent) -&gt; Self) {
+extension DelegateProxyType {
+  // Commentted by Xavier: please refer to DelegateProxyFactory.extend(make:)
+	public static func register&lt;Parent&gt;(make: @escaping (Parent) -&gt; Self) {
     self.factory.extend(make: make)
+	}
+  // ...
 }
 
-// self.factory
-private static var factory: DelegateProxyFactory {
+extension DelegateProxyType {
+	private static var factory: DelegateProxyFactory {
     DelegateProxyFactory.sharedFactory(for: self)
+	}
+  // ...
 }
-</code></pre>
-<p>Class: DelegateProxyFactory</p>
-<pre><code class="language-swift">private class DelegateProxyFactory {
+
+private class DelegateProxyFactory {
   private static var _sharedFactories: [UnsafeRawPointer: DelegateProxyFactory] = [:]
 
     fileprivate static func sharedFactory&lt;DelegateProxy: DelegateProxyType&gt;(for proxyType: DelegateProxy.Type) -&gt; DelegateProxyFactory {
@@ -217,7 +222,7 @@ private static var factory: DelegateProxyFactory {
     private var _identifier: UnsafeRawPointer
   
     // ...
-
+  	// Commentted by Xaiver: please refer to DelegateProxyType.register(make:)
     fileprivate func extend&lt;DelegateProxy: DelegateProxyType, ParentObject&gt;(make: @escaping (ParentObject) -&gt; DelegateProxy) {
         MainScheduler.ensureRunningOnMainThread()
         precondition(_identifier == DelegateProxy.identifier, &quot;Delegate proxy has inconsistent identifier&quot;)
@@ -226,20 +231,19 @@ private static var factory: DelegateProxyFactory {
         }
         _factories[ObjectIdentifier(ParentObject.self)] = { make(castOrFatalError($0)) }
     }
-  
   // ...
 }
 </code></pre>
 <p>Notes</p>
 <ul>
 <li>
-<p>Mapping relations between <code>Delegate</code> and an instance of <code>DelegateProxyFactory</code> are saved in <code>_sharedFactories</code>, and mapping relations between <code>ParentObject</code> and <code>Proxy</code> for each <code>Delegate</code> are saved in <code>_factories</code>, an instance variable in <code>DelegateProxyFactory</code>.</p>
+<p>Relations that map a  <code>Delegate</code> to an instance of <code>DelegateProxyFactory</code> are saved in <code>_sharedFactories</code>, and relations that map a <code>ParentObject</code> to <code>Proxy</code> for each <code>Delegate</code> are saved in <code>_factories</code>, an instance variable in <code>DelegateProxyFactory</code>.</p>
 </li>
 <li>
 <p>Method saving the relations mentioned above is <code>sharedFactory(for: DelegateProxy.Type) -&gt; DelegateProxyFactory</code> and <code>extend(make: @escaping (ParentObject) -&gt; DelegateProxy)</code>. It's easy to understand what happens if you neglect the code for log.</p>
 </li>
 </ul>
-<p>You override <code>registerKnownImplementations()</code> in the root of proxy and register all proxies corresponding to views that are inherited from root, since <code>createProxy(_:)</code> in the factory creates proxy is based on what type of object you pass is and root proxy shares the same variable, e.g. <code>xxx.rx.delegate</code>, with their children.</p>
+<p>You override <code>registerKnownImplementations()</code> in the root of proxy and register all proxies corresponding to views that are inherited from root, since <code>createProxy(_:)</code> in the factory creates proxy is based on what type of object you pass and root proxy shares the same variable, e.g. <code>xxx.rx.delegate</code>, with their children.</p>
 <p>For example, we know that the hierarchical relation in UITableView is: UITableView &gt; UIScrollView &gt; UIView.</p>
 <pre><code class="language-swift">// RxScrollViewDelegateProxy.swift
 public static func registerKnownImplementations() {
@@ -255,7 +259,7 @@ public var delegate: DelegateProxy&lt;UIScrollView, UIScrollViewDelegate&gt; {
     return RxScrollViewDelegateProxy.proxy(for: base)
 }
 </code></pre>
-<p>Although there is no definition about delegate in <code>UITableView+Rx.swift</code>, in some methods they use <code>self.delegate</code> to call methods in Delegate.</p>
+<p>Although there is no definition about delegate in <code>UITableView+Rx.swift</code>, user could use <code>self.delegate</code> to call methods in methods of delegate.</p>
 <pre><code class="language-swift">// UITableView+Rx.swift
 public var itemSelected: ControlEvent&lt;IndexPath&gt; {
     let source = delegate.methodInvoked(#selector(UITableViewDelegate.tableView(_:didSelectRowAt:)))
@@ -265,7 +269,7 @@ public var itemSelected: ControlEvent&lt;IndexPath&gt; {
     return ControlEvent(events: source)
 }
 </code></pre>
-<p>The reason is that <code>RxScrollViewDelegateProxy.proxy(for:)</code> calls <code>createProxy(_:)</code> finally. <code>createProxy(_:)</code>, however, creates proxy depends on what type of object you passed in. For example,  you call <code>delegate</code> in <code>UITableView+Rx.swift</code>, <code>base</code> passing to <code>RxScrollViewDelegateProxy.proxy</code> is an instance of <code>UITableView</code>, then the return type of proxy from <code>createProxy(_:)</code> is <code>RxTableViewDelegateProxy</code>.</p>
+<p>The reason is that <code>RxScrollViewDelegateProxy.proxy(for:)</code> calls <code>createProxy(_:)</code> defined in <code>DelegateProxyFactory</code> finally. <code>createProxy(_:)</code>, however, creates proxy depends on what type of object you passed in. For example,  you call <code>delegate</code> in <code>UITableView+Rx.swift</code>, <code>base</code> passing to <code>RxScrollViewDelegateProxy.proxy</code> is an instance of <code>UITableView</code>, then the return type of proxy from <code>createProxy(_:)</code> is <code>RxTableViewDelegateProxy</code>.</p>
 <p>Here is a flowchart to show you the process about registration.</p>
 <pre><code class="language-flow">st=&gt;start: Start
 e=&gt;end: End
@@ -458,9 +462,37 @@ proxy-&gt;CDChanged
 CDChanged(no, bottom)-&gt;e
 CDChanged(yes, right)-&gt;call_setForwardToDelegate-&gt;call_setCurrentDelegate(left)-&gt;e
 </code></pre>
-<h1 id="wrapping-to-observable">Wrapping to Observable</h1>
-<p>Class <code>MessageDispatcher</code> has a <code>dispatcher</code>, an instance of <code>PublishSubject</code>, and <code>result</code>, an observable of <code>dispatcher</code>, which you can subscribe it to get events of delegate.</p>
-<pre><code class="language-swift">private final class MessageDispatcher {
+<h1 id="wrapping-delegate-methods-to-observable">Wrapping Delegate Methods to Observable</h1>
+<p>At the beginning, let us recap how does delegate work. A class, we refer to as <code>ClassA</code>, sends message via delegate, we call it <code>DelegateA</code>, to another class, <code>ClassB</code>, who conforms to the delegate protocol. The delegate functions are implemented in <code>ClassB</code> and they will be triggered by <code>ClassA</code>. So, why the message can be forwarded by <code>DelegateProxy</code>?</p>
+<p>When you setup a proxy, you should implement two functions:</p>
+<pre><code class="language-swift">class RxClassADelegateProxy: DelegateProxy&lt;ClassA, DelegateA&gt;, DelegateProxyType, DelegateA {
+  // ...
+  static func currentDelegate(for object: ClassA) -&gt; DelegateA? {
+    return object.delegate
+  }
+  static func setCurrentDelegate(_ delegate: DelegateA?, to object: ClassA) {
+    object.delegate = delegate
+  }
+}
+</code></pre>
+<p>In the init function, <code>setCurrentDelegate(_:to:)</code> is saved as <code>__setCurrentDelegateTo</code>:</p>
+<pre><code class="language-swift">public init&lt;Proxy: DelegateProxyType&gt;(parentObject: ParentObject, delegateProxy: Proxy.Type)
+            where Proxy: DelegateProxy&lt;ParentObject, Delegate&gt;, Proxy.ParentObject == ParentObject, Proxy.Delegate == Delegate {
+              self._parentObject = parentObject
+              self._currentDelegateFor = delegateProxy._currentDelegate
+              self._setCurrentDelegateTo = delegateProxy._setCurrentDelegate
+              
+              MainScheduler.ensureRunningOnMainThread()
+              #if TRACE_RESOURCES
+                _ = Resources.incrementTotal()
+            	#endif
+            	super.init()
+}
+</code></pre>
+<p>If a delegate method is subscribed, a new instance of <code>MessageDispather</code> is created. <code>_setCurrentDelegateTo</code> which set <code>ProxyDelegate</code> as delegate of <code>parentObject</code> will be invoked as well.</p>
+<pre><code class="language-swift">// Rx/RxCocoa/DelegateProxy.swift
+
+private final class MessageDispatcher {
     private let dispatcher: PublishSubject&lt;[Any]&gt;
     private let result: Observable&lt;[Any]&gt;
   	// ...
@@ -471,16 +503,63 @@ CDChanged(yes, right)-&gt;call_setForwardToDelegate-&gt;call_setCurrentDelegate(
             .share()
             .subscribeOn(mainScheduler)
     }
-    
     // ...
 }
 </code></pre>
-<p>DelegateProxy has <code>_sentMessageForSelector</code> and <code>_methodInvokedForSelector</code> to map a selector corresponding to a method of delegate to an instance of <code>MessageDispatcher</code>.</p>
-<pre><code class="language-swift">private var _sentMessageForSelector = [Selector: MessageDispatcher]()
-private var _methodInvokedForSelector = [Selector: MessageDispatcher]()
+<p>Class <code>MessageDispatcher</code> has a <code>dispatcher</code>, an instance of <code>PublishSubject</code>, and <code>result</code>, an observable of <code>dispatcher</code>, which you can subscribe it to get events of delegate.</p>
+<pre><code class="language-swift">// Rx/RxCocoa/DelegateProxy.swift
+
+open class DelegateProxy&lt;P: AnyObject, D&gt;: _RXDelegateProxy {
+  // ...
+  fileprivate func reset() {
+    guard let parentObject = self._parentObject else { return }
+
+    let maybeCurrentDelegate = self._currentDelegateFor(parentObject)
+
+    if maybeCurrentDelegate === self {
+      self._setCurrentDelegateTo(nil, parentObject)
+      self._setCurrentDelegateTo(castOrFatalError(self), parentObject)
+    }
+  }
+  // ...
+}
 </code></pre>
-<p>You now can emit an event by <code>_sentMessage(_:withArguments:)</code> and <code>_methodInvoked(_:withArguments:)</code>.</p>
-<pre><code class="language-swift">open override func _sentMessage(_ selector: Selector, withArguments arguments: [Any]) {
+<p>For now, our delegate proxy can receive the message send to the real delegate. But, methods in real delegate are not defined in delegate proxy. So, all messages will be sent to <code>forwardInvocation(_:)</code> defined in <code>_RXDelegateProxy.m</code>. If you don't have idea on what I am talking about, please refer to Objective-C runtime.</p>
+<pre><code class="language-objective-c">-(void)forwardInvocation:(NSInvocation *)anInvocation {
+    BOOL isVoid = RX_is_method_signature_void(anInvocation.methodSignature);
+    NSArray *arguments = nil;
+
+    if (isVoid) {
+        arguments = RX_extract_arguments(anInvocation);
+        [self _sentMessage:anInvocation.selector withArguments:arguments];
+    }
+  	// call method that implement in the real delegate, see `Has a Return Value`
+    if (self._forwardToDelegate &amp;&amp; [self._forwardToDelegate respondsToSelector:anInvocation.selector]) {
+        [anInvocation invokeWithTarget:self._forwardToDelegate];
+    }
+
+    if (isVoid) {
+        [self _methodInvoked:anInvocation.selector withArguments:arguments];
+    }
+}
+</code></pre>
+<p>Notes:</p>
+<ul>
+<li><code>_sentMessage:withArguments:</code> and <code>_methodInvoked:withArguments:</code> will be invoked if the return type of method is void.</li>
+<li><code>_sentMessage:withArguments:</code> is performed before the message forwards to delegate, and <code>_methodInvoked:withArguments:</code> after that.</li>
+</ul>
+<p>Why void methods are differentiated from others? Comments from RxSwift give answer:</p>
+<blockquote>
+<p>Only methods that have <code>void</code> return value can be observed using this method because those methods are used as a notification mechanism. It doesn't matter if they are optional or not. Observing is performed by installing a hidden associated <code>PublishSubject</code> that is used to dispatch messages to observers.</p>
+<p>Delegate methods that have non <code>void</code> return value can't be observed directly using this method because:</p>
+<ul>
+<li>those methods are not intended to be used as a notification mechanism, but as a behavior customization mechanism</li>
+<li>there is no sensible automatic way to determine a default return value</li>
+</ul>
+</blockquote>
+<p>As we described below, delegate proxy has the ability to forward delegate method. The next question is how to convert a delegate method to observable. The key is <code>_sentMessage</code> &amp; <code>_methodInvoked</code>. Then emit a next element to <code>dispatcher</code> defined in <code>MessageDispatcher</code> when it was called.</p>
+<pre><code class="language-swift">// Very Important!!!! These methods ensure that developer could subscribe delegate method in xxx+Rx.swift by sendMessage or methodInvoked.
+open override func _sentMessage(_ selector: Selector, withArguments arguments: [Any]) {
     _sentMessageForSelector[selector]?.on(.next(arguments))
 }
 
@@ -488,7 +567,7 @@ open override func _methodInvoked(_ selector: Selector, withArguments arguments:
     _methodInvokedForSelector[selector]?.on(.next(arguments))
 }
 </code></pre>
-<p><code>methodInvoked(_:)</code> and <code>sentMessage(_:)</code> saves the mapper into the dictionary and returns <code>result</code>, an member variable in <code>MessageDispather</code> we discussed above.</p>
+<p>But how <code>MessageDispatcher</code> is initialized? You may find the answer in <code>sentMessage(_:)</code> &amp; <code>methodInvoked(_:)</code>.</p>
 <pre><code class="language-swift">open func sentMessage(_ selector: Selector) -&gt; Observable&lt;[Any]&gt; {
     MainScheduler.ensureRunningOnMainThread()
 
@@ -515,65 +594,40 @@ open func methodInvoked(_ selector: Selector) -&gt; Observable&lt;[Any]&gt; {
         _methodInvokedForSelector[selector] = subject
         return subject.asObservable()
     }
-}
 </code></pre>
-<p><code>DelegateProxy</code> inherits from <code>_RXDelegateProxy</code>, which contains codes about message forwarding to ensure the message could be forwarded to original delegate, written by Objective-C. When someone calls a function of original delegate on proxy <code>forwardInvocation:</code> will be performed, because proxy can't respond to the selector.</p>
-<pre><code class="language-objc">-(void)forwardInvocation:(NSInvocation *)anInvocation {
-    BOOL isVoid = RX_is_method_signature_void(anInvocation.methodSignature);
-    NSArray *arguments = nil;
-
-    if (isVoid) {
-        arguments = RX_extract_arguments(anInvocation);
-        [self _sentMessage:anInvocation.selector withArguments:arguments];
-    }
-
-    if (self._forwardToDelegate &amp;&amp; [self._forwardToDelegate respondsToSelector:anInvocation.selector]) {
-        [anInvocation invokeWithTarget:self._forwardToDelegate];
-    }
-
-    if (isVoid) {
-        [self _methodInvoked:anInvocation.selector withArguments:arguments];
-    }
-}
+<p><code>_sentMessageForSelector</code> and <code>_methodInvokedForSelector</code> is a dictionary to map a selector for delegate to an instance of <code>MessageDispatcher</code>, and they will create one if the <code>MessageDispatcher</code> is not existed.</p>
+<pre><code class="language-swift">private var _sentMessageForSelector = [Selector: MessageDispatcher]()
+private var _methodInvokedForSelector = [Selector: MessageDispatcher]()
 </code></pre>
-<p>Notes:</p>
-<ul>
-<li><code>_sentMessage:withArguments:</code> and <code>_methodInvoked:withArguments:</code> will be invoked if the return type of method is void.</li>
-<li><code>_sentMessage:withArguments:</code> is performed before the message forwards to delegate, and <code>_methodInvoked:withArguments:</code> after that.</li>
-</ul>
-<p>Why void methods are differentiated from others? Comments from RXSwift give answer:</p>
-<blockquote>
-<p>Only methods that have <code>void</code> return value can be observed using this method because those methods are used as a notification mechanism. It doesn't matter if they are optional or not. Observing is performed by installing a hidden associated <code>PublishSubject</code> that is used to dispatch messages to observers.</p>
-<p>Delegate methods that have non <code>void</code> return value can't be observed directly using this method because:</p>
-<ul>
-<li>those methods are not intended to be used as a notification mechanism, but as a behavior customization mechanism</li>
-<li>there is no sensible automatic way to determine a default return value</li>
-</ul>
-</blockquote>
-<p>You can overwrite the method of delegate to let proxy response to, here is an example:</p>
-<pre><code class="language-swift">public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    if let subject = _contentOffsetBehaviorSubject {
-        subject.on(.next(scrollView.contentOffset))
-    }
-    if let subject = _contentOffsetPublishSubject {
-        subject.on(.next(()))
-    }
-    // DO NOT forget to forward to delegate
-    self._forwardToDelegate?.scrollViewDidScroll?(scrollView)
-}
-</code></pre>
+<p><code>methodInvoked(_:)</code> and <code>sentMessage(_:)</code> returns <code>result</code>, an member variable defined in <code>MessageDispather</code> we discussed above. And now, a delegate method was converted to observable.</p>
 <h1 id="conclusion">Conclusion</h1>
 <p>Discovering how RxSwift works is an nice exprience for me. I learned how to wrap a regular method to observable stream, and many underlying knowledges about iOS and programming language, such as Objective-C Runtime. Source code, in fact, is not too difficult to read if you determined to do it. You will understand what mechanisms are behind Apis and work with them more elegantly once mastered each part of source code.</p>
 
         </div>
 
         
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/cZkH_tIZX/">
+            <span class="flex-auto">rxswift</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/unNxhuwrlO/">
+            <span class="flex-auto">iOS</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/4eHHXxUU0/">
+            <span class="flex-auto">swift</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="http://localhost:4000/tag/C2Fgvc8o4_/">
+            <span class="flex-auto">macOS</span>
+          </a>
+        
 
 
         <div class="flex justify-between py-8">
           
             <div class="prev-post">
-              <a href="https://www.nxw.name/post/omd-kai-shi-jin-ru-kuai-su-kai-fa-qi/">
+              <a href="http://localhost:4000/post/omd-kai-shi-jin-ru-kuai-su-kai-fa-qi/">
                 <h3 class="post-title">
                   <i class="ri-arrow-left-line"></i>
                   OMD开始进入快速开发期
@@ -584,7 +638,7 @@ open func methodInvoked(_ selector: Selector) -&gt; Observable&lt;[Any]&gt; {
 
           
             <div class="next-post">
-              <a href="https://www.nxw.name/post/objective-c-runtime-xiang-jie/">
+              <a href="http://localhost:4000/post/objective-c-runtime-xiang-jie/">
                 <h3 class="post-title">
                   Objective-C Runtime详解
                   <i class="ri-arrow-right-line"></i>
@@ -626,7 +680,7 @@ open func methodInvoked(_ selector: Selector) -&gt; Observable&lt;[Any]&gt; {
       </div>
     </div>
 
-    <script src="https://www.nxw.name/media/prism.js"></script>  
+    <script src="http://localhost:4000/media/prism.js"></script>  
 <script>
 
 Prism.highlightAll()

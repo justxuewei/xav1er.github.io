@@ -39,9 +39,41 @@
       
         <div class="animated fadeInLeft" style="animation-delay: 0.4s">
           <p class="my-4 text-gray-600 font-light hidden lg:block">
-            Contents
+            About code, about life, about everything.
           </p>
-          <div class="toc-container hidden lg:block">
+          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
+            
+              
+                <a href="https://github.com/xavier-niu" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                  <i class="ri-github-line"></i>
+                </a>
+              
+            
+              
+                <a href="https://twitter.com/xavierniu" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                  <i class="ri-twitter-line"></i>
+                </a>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <a href="https://t.me/xavierniu" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                  <i class="ri-telegram-line"></i>
+                </a>
+              
+            
+              
+            
+              
+            
+              
+            
+              
             
           </div>
         </div>
@@ -92,74 +124,29 @@
 </div>
 <div class="mask" onclick="closeMenu()">
 </div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">OMD开始进入快速开发期</h1>
-        <div class="text-sm text-gray-700 lg:my-8">
-          2020-08-09 / 1 min read
-        </div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
+        <h2 class="text-lg text-gray-700 mb-8">
+          <i class="ri-bookmark-line"></i> rxswift
+        </h2>
         
-        <div class="post-content yue">
-          <p>吐槽一下苹果文档，就是一个字：烂。对于macOS开发者极不友好，在0202年的今天依然保留着很多远古时期的产物，比如NSCell，对于NSCell和NSControl的作用关系的文档存在于Archived Documents（最近一次更新在2008年），而且只是泛泛而谈，很多细节展现的并不完美，即便是在新文档中很多方法甚至连说明都没有，anyway这方面的开发只能慢慢来了。希望SwiftUI完善一段时间后，可以有不错的文档和对macOS完善的支持。</p>
-<!-- more -->
-<p>在OH! My Dictionary的开发中，我希望逐渐尝试一些的新的技术，比如RxSwift，但是将会严重的拖慢我的速度，但是好在现在对Cocoa Programming逐渐熟悉起来了，下一步应该就是着重对MVVC模式以及RxSwift的研究，祝我好运！</p>
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${0 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="http://localhost:4000/post/how-delegateproxy-works-in-rxswift/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">How DelegateProxy works in RxSwift?</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <p>DelegateProxy is a core feature in Rxswift to wrap the return value from original delegate to observable sequence. So it's important to discover how it works in RxSwift. Under the hood, message forwarding, a feature in Objective-C, plays a role in forwarding message from proxy to real delegate. You should have some basic knowledges about Objective-C Runtime before you go deeper. You can learn that in this post (Chinese version): <a href="https://www.nxw.name/post/objective-c-runtime-xiang-jie/">Objective-C Runtime详解</a>.</p>
 
-        </div>
+      </div>
+      <div class="text-gray-400 text-sm font-light">2020-03-12 / 17 min read</div>
+    </div>
+  </section>
 
-        
-
-
-        <div class="flex justify-between py-8">
-          
-            <div class="prev-post">
-              <a href="http://localhost:4000/post/opencore-uefi-disappers-from-boot-options-after-cleaned-nvram/">
-                <h3 class="post-title">
-                  <i class="ri-arrow-left-line"></i>
-                  OpenCore UEFI Disappers from Boot Options after Reset NVRAM
-                </h3>
-              </a>
-            </div>
-          
-
-          
-            <div class="next-post">
-              <a href="http://localhost:4000/post/how-delegateproxy-works-in-rxswift/">
-                <h3 class="post-title">
-                  How DelegateProxy works in RxSwift?
-                  <i class="ri-arrow-right-line"></i>
-                </h3>
-              </a>
-            </div>
-          
-        </div>
-
-        
-          
-            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://geektutu.github.io/hexo-theme-geektutu/js/gitalk.min.js"></script>
-
-<div id="gitalk-container"></div>
-
-<script>
-
-  var gitalk = new Gitalk({
-    clientID: '95da5e6dfbe94e9621c5',
-    clientSecret: '6b6510006d4bd9b042323bc2c5b1374561942033',
-    repo: 'xav1er.github.io',
-    owner: 'xavier-niu',
-    admin: ['xavier-niu'],
-    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-    distractionFreeMode: false,  // Facebook-like distraction free mode
-    language: 'en'
-  })
-
-  gitalk.render('gitalk-container')
-
-</script>
-
-          
-
-          
-        
+        <div class="pagination-container animated fadeIn">
+  
+  
+</div>
 
       </div>
     </div>
