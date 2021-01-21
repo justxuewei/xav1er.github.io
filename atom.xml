@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://localhost:4000</id>
+    <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2021-01-21T09:37:08.408Z</updated>
+    <updated>2021-01-21T09:55:36.664Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://localhost:4000"/>
-    <link rel="self" href="http://localhost:4000/atom.xml"/>
+    <link rel="alternate" href="https://www.nxw.name"/>
+    <link rel="self" href="https://www.nxw.name/atom.xml"/>
     <subtitle>About code, about life, about everything.</subtitle>
-    <logo>http://localhost:4000/images/avatar.png</logo>
-    <icon>http://localhost:4000/favicon.ico</icon>
+    <logo>https://www.nxw.name/images/avatar.png</logo>
+    <icon>https://www.nxw.name/favicon.ico</icon>
     <rights>All rights reserved 2021, Xavier&apos;s Blog</rights>
     <entry>
         <title type="html"><![CDATA[谈谈ARM mac和macOS Big Sur]]></title>
-        <id>http://localhost:4000/post/tan-tan-arm-mac-he-macos-big-sur/</id>
-        <link href="http://localhost:4000/post/tan-tan-arm-mac-he-macos-big-sur/">
+        <id>https://www.nxw.name/post/tan-tan-arm-mac-he-macos-big-sur/</id>
+        <link href="https://www.nxw.name/post/tan-tan-arm-mac-he-macos-big-sur/">
         </link>
         <updated>2020-11-18T08:58:45.000Z</updated>
         <summary type="html"><![CDATA[<p>从Apple释出Big Sur升级后，当天下午就将OpenCore升级至0.6.3，匆匆备份后，直接更新了Big Sur。目前使用了一个星期，到目前为止绝大部分都非常满意，甚至在别人的视频中看到旧版本macOS后，突然一种年代感和生疏感油然而生，大概我就是一个喜新厌旧的人吧:) 最近Apple在搞事情的方向上越走越远，先后发布了macOS Big Sur以及MacBook/Mac mini based on ARM，生态融合的最终目标已经成为了苹果公开的秘密了。</p>
@@ -21,14 +21,19 @@
         <content type="html"><![CDATA[<p>从Apple释出Big Sur升级后，当天下午就将OpenCore升级至0.6.3，匆匆备份后，直接更新了Big Sur。目前使用了一个星期，到目前为止绝大部分都非常满意，甚至在别人的视频中看到旧版本macOS后，突然一种年代感和生疏感油然而生，大概我就是一个喜新厌旧的人吧:) 最近Apple在搞事情的方向上越走越远，先后发布了macOS Big Sur以及MacBook/Mac mini based on ARM，生态融合的最终目标已经成为了苹果公开的秘密了。</p>
 <!-- more -->
 <h1 id="软件-macos-110">软件: macOS 11.0</h1>
-<p>作为新纪元的开端，苹果把macOS的版本号从10.x抬升至11.x，当然对于x86来说实际的版本号还是10.16。界面为了在大生态中更加和谐，也提升了扁平化的比例，icon采用与iPhone/iPad一样的圆角矩形等等。对于我来说，我是一个扁平化UI的狂热爱好者，对于11.0的大部分改进我持无限赞同意见，但是在某些地方的设计上，比如系统偏好设置内的一些图标上会让我产生一丝不解，就像是强硬的塞进了与扁平化丝毫不相关的拟物化，显得有一些维和，希望苹果后续可以重绘这些图标。</p>
-<p>除此之外，设计语言的更换对于我的新项目，几乎可以说是毁灭性打击。对于我来说，icon、界面的重绘将会严重拖慢开发进度。但是还能怎么办呢，只能选择原谅。苹果对于文档的建设真的也不是特别友好，几乎对所有新特性以及从旧设备中更新的方法只是在WWDC视频中简单的提了一嘴，没有一个文字版的guideline，更别提哪怕一点点的example code，而且macOS开发本身关注度就不高，在互联网上很难查到有关新版本的适配问题。</p>
+<p>作为新纪元的开端，苹果把macOS的版本号从10.x抬升至11.x，当然对于x86来说实际的版本号还是10.16。界面为了在大生态中更加和谐，也提升了扁平化的比例，icon采用与iPhone/iPad一样的圆角矩形等等。我是一个扁平化UI的狂热爱好者，对于11.0的大部分改进我持无限赞同意见，但是在某些地方的设计上，比如系统偏好设置内的一些图标上会让我产生一丝不解，就像是强硬的塞进了与扁平化丝毫不相关的拟物化，显得有一些违和，希望苹果后续可以重绘这些图标。</p>
+<p>除此之外，设计语言的更换对于我的新项目，几乎可以说是毁灭性打击。对于我来说，icon、界面的重绘将会严重拖慢开发进度。但是还能怎么办呢，只能选择原谅。苹果对于文档的建设真的也不是特别友好，几乎对所有新特性以及从旧设备中更新的方法只是在WWDC视频中简单的提了一嘴，没有一个文字版的guideline，更别提哪怕一点点的example code，而且macOS开发本身关注度就不高且API更新频繁，能搜到的解决方法都像是上个世纪的方案了。</p>
+<p>有点跑题，这次UI的更新可以称得上是质的飞跃了，我非常喜欢。</p>
+<h1 id="硬件-mac-based-on-arm">硬件: Mac based on ARM</h1>
+<p>在M1芯片的加持下，铺天盖地的性能测试和续航测试无不说明着“无敌是多么的寂寞”。除此之外，ARM版Mac还带来了一个额外特性，即开发者只需要动动小手勾选上允许在Mac上运行，无需一行代码适配就可以无缝运行在ARM版Mac上，这对应用不丰富的Mac生态无疑是重大利好。但是我对这个功能却不是太乐观，因为本质上电脑和手机的操作方式有着先天差异，iOS程序的设计和优化都是基于小屏幕和触摸的，其中包含着大量的手势，最直观的就是右滑返回，用户体验在电脑上真的非常差。不过如果有可能的话，iPad如果可以用上macOS那么我对于上面的话直接撤回，到时候可就是真·便携生产力设备了。</p>
+<p>同时，在软件适配上可以明确的感受到苹果号召力之强大。短短1、2个月的时间，Docker、Java、Jetbrains、Python、Office套装等等，这些软件的背后是社区也好、公司也罢都在积极地适配原生的ARM系统，估计在不久的将来大部分软件可以不借助Rosetta 2的转译而直接运行与ARM系统。</p>
+<p>目前来说，对于M1芯片更多的还是享受ARM架构带来的功耗红利和5mn工艺带来的性能红利，剩下的就只能等待Apple的进一步对生态进行整合了。</p>
 ]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[OpenCore UEFI Disappers from Boot Options after Reset NVRAM]]></title>
-        <id>http://localhost:4000/post/opencore-uefi-disappers-from-boot-options-after-cleaned-nvram/</id>
-        <link href="http://localhost:4000/post/opencore-uefi-disappers-from-boot-options-after-cleaned-nvram/">
+        <id>https://www.nxw.name/post/opencore-uefi-disappers-from-boot-options-after-cleaned-nvram/</id>
+        <link href="https://www.nxw.name/post/opencore-uefi-disappers-from-boot-options-after-cleaned-nvram/">
         </link>
         <updated>2020-09-01T08:06:49.000Z</updated>
         <summary type="html"><![CDATA[<p>I surprisedly noticed that OpenCore UEFI option has gone away after &quot;reset NVRAM&quot; option was selected. To solve that, you should prepare an empty USB formatted in FAT32.</p>
@@ -53,8 +58,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[OMD开始进入快速开发期]]></title>
-        <id>http://localhost:4000/post/omd-kai-shi-jin-ru-kuai-su-kai-fa-qi/</id>
-        <link href="http://localhost:4000/post/omd-kai-shi-jin-ru-kuai-su-kai-fa-qi/">
+        <id>https://www.nxw.name/post/omd-kai-shi-jin-ru-kuai-su-kai-fa-qi/</id>
+        <link href="https://www.nxw.name/post/omd-kai-shi-jin-ru-kuai-su-kai-fa-qi/">
         </link>
         <updated>2020-08-09T10:01:06.000Z</updated>
         <summary type="html"><![CDATA[<p>吐槽一下苹果文档，就是一个字：烂。对于macOS开发者极不友好，在0202年的今天依然保留着很多远古时期的产物，比如NSCell，对于NSCell和NSControl的作用关系的文档存在于Archived Documents（最近一次更新在2008年），而且只是泛泛而谈，很多细节展现的并不完美，即便是在新文档中很多方法甚至连说明都没有，anyway这方面的开发只能慢慢来了。希望SwiftUI完善一段时间后，可以有不错的文档和对macOS完善的支持。</p>
@@ -66,8 +71,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[How DelegateProxy works in RxSwift?]]></title>
-        <id>http://localhost:4000/post/how-delegateproxy-works-in-rxswift/</id>
-        <link href="http://localhost:4000/post/how-delegateproxy-works-in-rxswift/">
+        <id>https://www.nxw.name/post/how-delegateproxy-works-in-rxswift/</id>
+        <link href="https://www.nxw.name/post/how-delegateproxy-works-in-rxswift/">
         </link>
         <updated>2020-03-12T13:30:54.000Z</updated>
         <summary type="html"><![CDATA[<p>DelegateProxy is a core feature in Rxswift to wrap the return value from original delegate to observable sequence. So it's important to discover how it works in RxSwift. Under the hood, message forwarding, a feature in Objective-C, plays a role in forwarding message from proxy to real delegate. You should have some basic knowledges about Objective-C Runtime before you go deeper. You can learn that in this post (Chinese version): <a href="https://www.nxw.name/post/objective-c-runtime-xiang-jie/">Objective-C Runtime详解</a>.</p>
@@ -567,8 +572,8 @@ private var _methodInvokedForSelector = [Selector: MessageDispatcher]()
     </entry>
     <entry>
         <title type="html"><![CDATA[Objective-C Runtime详解]]></title>
-        <id>http://localhost:4000/post/objective-c-runtime-xiang-jie/</id>
-        <link href="http://localhost:4000/post/objective-c-runtime-xiang-jie/">
+        <id>https://www.nxw.name/post/objective-c-runtime-xiang-jie/</id>
+        <link href="https://www.nxw.name/post/objective-c-runtime-xiang-jie/">
         </link>
         <updated>2020-03-06T06:57:54.000Z</updated>
         <summary type="html"><![CDATA[<blockquote>
@@ -1811,8 +1816,8 @@ int main(int argc, const char * argv[]) {
     </entry>
     <entry>
         <title type="html"><![CDATA[Docker Usage]]></title>
-        <id>http://localhost:4000/post/docker-usage/</id>
-        <link href="http://localhost:4000/post/docker-usage/">
+        <id>https://www.nxw.name/post/docker-usage/</id>
+        <link href="https://www.nxw.name/post/docker-usage/">
         </link>
         <updated>2020-02-28T09:58:48.000Z</updated>
         <summary type="html"><![CDATA[<p>Docker is a set of platform as a service products that uses OS-level virtualization to deliver software in packages called containers.</p>
@@ -1877,8 +1882,8 @@ jobs:
     </entry>
     <entry>
         <title type="html"><![CDATA[Swift Usage]]></title>
-        <id>http://localhost:4000/post/swift-usage/</id>
-        <link href="http://localhost:4000/post/swift-usage/">
+        <id>https://www.nxw.name/post/swift-usage/</id>
+        <link href="https://www.nxw.name/post/swift-usage/">
         </link>
         <updated>2020-01-03T08:48:49.000Z</updated>
         <summary type="html"><![CDATA[<p>This article is for recording the resources which I collected together about how to gracefully use swift, an language released by Apple in 2014. Hopefully this post will help you.</p>
@@ -1943,8 +1948,8 @@ jobs:
     </entry>
     <entry>
         <title type="html"><![CDATA[Page 365 of 365: 我的2019]]></title>
-        <id>http://localhost:4000/post/page-365-of-365-wo-de-2019/</id>
-        <link href="http://localhost:4000/post/page-365-of-365-wo-de-2019/">
+        <id>https://www.nxw.name/post/page-365-of-365-wo-de-2019/</id>
+        <link href="https://www.nxw.name/post/page-365-of-365-wo-de-2019/">
         </link>
         <updated>2020-01-01T15:50:41.000Z</updated>
         <summary type="html"><![CDATA[<p>就在昨天，趁我睡着的时候彻底和2019年道了别，在2020的开头也是时候回顾我的2019年了。对于这一年，算是真正的经历了几件大事，也慢慢开始触及我原来从来没有也未曾感兴趣的领域，甚至开始思考一些人生之类看似虚无缥缈的问题。这似乎就是别人所谓的成长，在我看来无非是对未来不确定因素的恐慌，一切似乎看得清又看不清。</p>
@@ -1978,8 +1983,8 @@ jobs:
     </entry>
     <entry>
         <title type="html"><![CDATA[Git Usage]]></title>
-        <id>http://localhost:4000/post/git-usage/</id>
-        <link href="http://localhost:4000/post/git-usage/">
+        <id>https://www.nxw.name/post/git-usage/</id>
+        <link href="https://www.nxw.name/post/git-usage/">
         </link>
         <updated>2019-11-16T02:08:42.000Z</updated>
         <summary type="html"><![CDATA[<p>Git is an awesome tool for version control. I used to some convenient GUI applications to manage git repository, and  ignored how it works and how to do it by command line. So in this article I will record some useful git commands that I used in development.</p>
@@ -2247,8 +2252,8 @@ git config --global http.proxy socks5://127.0.0.1:1080
     </entry>
     <entry>
         <title type="html"><![CDATA[[Success] Hackintosh on Gigabyte Z370N WiFi with i5-8500]]></title>
-        <id>http://localhost:4000/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500/</id>
-        <link href="http://localhost:4000/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500/">
+        <id>https://www.nxw.name/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500/</id>
+        <link href="https://www.nxw.name/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500/">
         </link>
         <updated>2019-10-18T15:20:14.000Z</updated>
         <summary type="html"><![CDATA[<p>I'm new to Hackintosh. When installed it on my comp, I almost got stuck at anywhere except post-installation.</p>
