@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.nxw.name</id>
     <title>Xavier&apos;s Blog</title>
-    <updated>2021-01-21T09:55:36.664Z</updated>
+    <updated>2021-01-22T19:08:17.075Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.nxw.name"/>
     <link rel="self" href="https://www.nxw.name/atom.xml"/>
@@ -10,6 +10,21 @@
     <logo>https://www.nxw.name/images/avatar.png</logo>
     <icon>https://www.nxw.name/favicon.ico</icon>
     <rights>All rights reserved 2021, Xavier&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[在2021回看2020]]></title>
+        <id>https://www.nxw.name/post/zai-2021-nian-hui-gu-2020/</id>
+        <link href="https://www.nxw.name/post/zai-2021-nian-hui-gu-2020/">
+        </link>
+        <updated>2021-01-22T10:03:41.000Z</updated>
+        <content type="html"><![CDATA[<p>2020是魔幻的一年，大大小小发生了很多事情。主旋律是新冠疫情，在疫情的冲击下，全中国人民破天荒的放了半年的假，而对于我则是在考研复试似进似不进的边缘多徘徊了两个月。</p>
+<p>2020年伊始，微博热搜出现了钟南山院士呼吁大家戴口罩的时候，疫情才真切的让人们有所感知，但是那时候有谁能意识到这次甚至比2003年的非典影响力更大呢。接着就是父亲身体传来了不好的消息，而疫情正处于严重的阶段，医院实施严格的单人陪护政策，所以我妈妈一直在医院里忙前忙后，就留我一个人在家里担心着疫情，担心着爸爸的身体，担心着我的成绩。就这么着，2020年在担心中开始了。</p>
+<p>疫情差不多在4月得到了有效控制，憋在家里4个月的我们终于可以在采取严格的防护措施后出门活动了。那几天小区门口都安装有大喇叭，一遍又一遍的重复提醒这外来人员要到社区登记，那机械的声音就像是世界末日一样。慢慢的复工复产开始了，我也解决了2020年的第一件大事——学车。过程还算顺利，从科二到科四一气呵成，算是在中旬迎来了第一个好消息。</p>
+<p>考研复试却是因为疫情一拖再拖，从原定计划4月一直拖到6月。对于分数碾压复试线的人来说可能不算什么，但是对于我来说这两个月就很煎熬。不过，以超越分数线2分的成绩压线进入复试，最终成功上岸，算是了结了两年的考研时光。回头想想也不算很苦，甚至有一点乐在其中，这两年的时间真的学习到了很多，以后无论是做什么我相信都大有裨益吧。但是随之带来的是20多斤的肥肉，截止到今天为止他们还是没有从我的生活中离开。</p>
+<p>疫情终于得到了有效控制，9月如期开学了，我也踏上了通往北京的高铁，一切又归零从头开始了。在看过无数有关于北邮本部宿舍之烂的吐槽帖子，导致我一开始就已经做好了艰苦奋斗的决心了，但是真的去了发现我们这宿舍竟然是整个校园中档次（可能是）最高的。由于在没来之前的期望足够低了，这样一来竟然还多了份惊喜。阔别了两年终于又重返校园，感觉真好。北京这个地方真的很大，我经常和舍友们趁着周末出去走走，却也没逛北京城的几个地方。虽然北京有点土（相比于上海这些大城市），不过北京的空气是真不错，可算看见挺多的蓝天白云了。</p>
+<p>我的App，没想到写了一年还没写完。当然这里面有一些不可抗力，比如大版本的更新导致很多细节需要重构。其实最重要的还是对新技术的运用，有几次我差点放弃使用新的东西，原因是他们的帮助不大，还特别占用时间。但是思来想去还是坚持了下来，一来这个东西没有特别急切，二来就是广泛的接触新东西可以带来更宽广的视野。截止到今天，整个软件已初有模样，待我再继续添砖加瓦希望早日能派上用场。还有就是今年要有计划的刷一些Leetcode题目了，一方面是为以后的工作准备，另一方面也是拓展个人的思维方向。</p>
+<p>2020年是不平静的一年，不过黄昏已至，相信2021年一切都会越来越好。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[谈谈ARM mac和macOS Big Sur]]></title>
         <id>https://www.nxw.name/post/tan-tan-arm-mac-he-macos-big-sur/</id>
@@ -2248,105 +2263,6 @@ git config --global http.proxy socks5://127.0.0.1:1080
 <li>March 17, 2019: <code>add</code> move files ehen checkout a new branch without commit or merge</li>
 <li>April 4, 2019: <code>add</code> use git over a proxy</li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[Success] Hackintosh on Gigabyte Z370N WiFi with i5-8500]]></title>
-        <id>https://www.nxw.name/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500/</id>
-        <link href="https://www.nxw.name/post/success-hackintosh-on-gigabyte-z370n-wifi-with-i5-8500/">
-        </link>
-        <updated>2019-10-18T15:20:14.000Z</updated>
-        <summary type="html"><![CDATA[<p>I'm new to Hackintosh. When installed it on my comp, I almost got stuck at anywhere except post-installation.</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>I'm new to Hackintosh. When installed it on my comp, I almost got stuck at anywhere except post-installation.</p>
-<!--MORE-->
-<p>Firstly, if you hang on &quot;Installing Bootloader&quot; with Unibeast 9.0.0, please try to reinstall your macOS, which you use Unibeast, after backup with Time Machine. Besides, I suggest when you want to build yourself at very first time <strong>DO NOT</strong> buy XFX video card, which I took about 1 week to handle an error &quot;attempting system restart&quot;, although it appears at Tony's buyer guide.</p>
-<p>Update Log:</p>
-<ul>
-<li>Oct 15, 2019: support macOS Catalina</li>
-<li>Oct 16, 2019: update stuffs related to bluetooth for macOS Catalina</li>
-<li>Oct 17, 2019: fix system panic after sleeping after updated to 10.15(19A602)</li>
-<li>Oct 30, 2019: update for macOS 10.15.1</li>
-<li>Dec 19, 2019: [WARNING] updating to 10.15.2 should be carefully, a process named &quot;com.apple.parsec-fbf.flush&quot; which is running and keeping active in background until power off can lead your Hackintosh can't sleep properly. To get more info and a temporary solution, you may refer to <a href="https://www.tonymacx86.com/threads/process-com-apple-parsec-fbf-flush-on-catalina-10-15-2-prevents-system-from-sleeping-automatically.288951/">this post on tonymacx86</a>.</li>
-<li>Jan 1, 2020: replace BCM94352Z with BCM94360CS2, a network card is natively supported by Apple, hence, all info related to wifi and bluetooth is removed.</li>
-<li><strong>Aug 9, 2020: This post is deprecated, because I have changed from Clover to OpenCore, which is a better choice for Hackintosh for the moment. So any topics about Clover will not be updated, instead, if you have any problems with OpenCore, I think I may help you to figure out.</strong></li>
-</ul>
-<h1 id="hardware-summary">Hardware  Summary</h1>
-<ul>
-<li>MoBo: Gigabyte Z370N WiFi (M-ITX)</li>
-<li>CPU: Intel Core i5-8500</li>
-<li>Memory: Corsair Vengerance LPX DDR4 16G 3000MHz x2</li>
-<li>Graphics Card: Sapphire RX 580 Pulse 8GB</li>
-<li>Drives: Samsung EVO850 500G</li>
-<li>Wireless Network Card: BCM94360CS2 (NGFF + M.2)</li>
-<li>PSUs: CoolerMaster MWE GOLD 650W</li>
-<li>CPU Cooler: CoolMaster T400i</li>
-<li>Case: Antec Cube - Designed By Razer</li>
-</ul>
-<figure data-type="image" tabindex="1"><img src="http://res.niuxuewei.com/2018-12-29-IMG_1249.jpg" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="2"><img src="http://res.niuxuewei.com/2018-12-29-085816.png" alt="" loading="lazy"></figure>
-<h1 id="bios-options">BIOS Options</h1>
-<p>As for BIOS options, I fellow with @CaseySJ's guide at <a href="https://www.tonymacx86.com/threads/success-ongoing-status-of-designare-z390-with-i7-9700k.266065/page-29#post-1880116">here</a>. There are huge differences (at least in the name of options) between the motherboards, you should refer to other tutorials if your motherboard not from Gigabyte.</p>
-<ul>
-<li>M.I.T &gt; Extreme Memory Profile (X.M.P.) &gt; Profile 1 <s>(The problem of usb devices unexpected disconnection after sleeping may take place if opt-in Profile 1, in turn you can have higher memory frequency that  could pass over 2133MHz.)</s></li>
-<li>BIOS &gt; Windows 8/10 Features &gt; Windows 8/10 (cuz there is not the option of &quot;Other OS&quot;)</li>
-<li>BIOS &gt; CSM Support &gt; Disabled</li>
-<li>BIOS &gt; Secure Boot &gt; Disabled</li>
-<li>Peripherals &gt; Intel Platform Trust Technology (PTT)  &gt; Disabled</li>
-<li>Peripherals &gt; USB Configuration &gt; Legacy USB Support &gt; Enabled</li>
-<li>Peripherals &gt; USB Configuration &gt; XHCI Hand-off &gt; Enabled</li>
-<li>Peripherals &gt; Network Stack Configuration &gt; Network Stack &gt; Disabled</li>
-<li>Chipset &gt; Vt-d &gt; Disabled</li>
-<li>Chipset &gt; Internal Graphics &gt; Enabled</li>
-<li>Chipset &gt; DVMT Pre-Alloc &gt; 64M</li>
-<li>Chipset &gt; DVMT Total Gfx Mem &gt; 256M</li>
-<li>Chipset &gt; Above 4G Decoding &gt; Enabled</li>
-</ul>
-<h1 id="post-installation">Post-Installation</h1>
-<p>The method of kext installation and rebuilding kext cache: Copy the kexts you want to install into the folder (like /Library/Extensions, aka /L/E, or other locations). Then, download the <strong>Kext Utility</strong> that help you rebuild the kext cache and others from <a href="http://cvad-mac.narod.ru/index/0-4">here</a>.</p>
-<p>I did following thing at the stage of post-installation:</p>
-<ul>
-<li>
-<p>Multibeast: Install clover on the SSD of Hackintosh.</p>
-</li>
-<li>
-<p>Config.plist: I applied this <a href="http://res.niuxuewei.com/config.plist">config</a> provided by @CaseySJ and works fine on my hackintosh.</p>
-</li>
-<li>
-<p>USB 3.0: Download <a href="http://res.niuxuewei.com/SSDT-UIAC-GA-Z370N-WIFI.aml">SSDT</a> and copy it into <code>/EFI/ACPI/patched/</code></p>
-</li>
-<li>
-<p>Kexts installed on my Hackintosh:</p>
-<ul>
-<li>AppleALC.kext (Audio)</li>
-<li>FakeSMC.kext</li>
-<li>Lilu.kext</li>
-<li>USBInjectAll.kext (USB)</li>
-<li>XHCI-unsupported.kext (USB)</li>
-<li>WhateverGreen.kext (AMD Graphics Card) <em>(EDIT@Oct 30, 2019: For AMD users, please update WhateverGreen.kext to 1.3.4 or newer to support macOS 10.15.1, otherwise, blackscreen would happen when booting.)</em></li>
-<li>IntelMausiEthernet.kext (Ethernet) <em>(EDIT@Oct 17, 2019: the old version may arise system panic after sleeping. To resolve it, you should clone project of the latest from <a href="https://github.com/Mieze/IntelMausiEthernet">this repo</a> and build it by yourself with Xcode, in the end copy &amp; paste it into <code>/L/E</code> folder.)</em></li>
-</ul>
-</li>
-<li>
-<p>Enable HiDPI for 2K resolution display: see <a href="https://github.com/xzhih/one-key-hidpi">this repo</a></p>
-</li>
-<li>
-<p>Previews, a built-in app on macOS, cannot previews jpg files by pressing space functionally: As mentioned in Github of NoVPAjpeg, the latest Lilu could fix it with additional boot arguments.</p>
-</li>
-</ul>
-<h1 id="summary">Summary</h1>
-<p>What works:</p>
-<ul>
-<li>audio</li>
-<li>graphics card</li>
-<li>shutdown / restart / sleep</li>
-<li>WiFi</li>
-<li>bluetooth</li>
-<li>airdrop</li>
-<li>handoff</li>
-<li>unlock with Apple Watch</li>
-</ul>
-<p>That's all. Thanks for everyone who helped me build my first Hackintosh at Tonymacx86, especially for @CaseySJ's generous and patient help. I am writing this post for  those who has similar config and installs Hackintosh in their first attempt, hopefully it can help you.</p>
 ]]></content>
     </entry>
 </feed>
